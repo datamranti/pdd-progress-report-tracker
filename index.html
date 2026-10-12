@@ -1247,12 +1247,28 @@ function parsePercentageVal(val) {
 function formatMonthText(val) {
   if (!val || val === '-') return '-';
   var str = String(val).trim();
+
+  // 1. If it's already formatted like "October 2026", return as is
   if (/^[A-Za-z]+\s+\d{4}$/.test(str)) return str;
+
+  // 2. Fix for "YYYY-MM" strings (e.g., "2026-10")
+  if (/^\d{4}-\d{2}$/.test(str)) {
+    var parts = str.split('-');
+    var year = parts[0];
+    var monthIndex = parseInt(parts[1], 10) - 1;
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    if (months[monthIndex]) {
+      return months[monthIndex] + " " + year;
+    }
+  }
+
+  // 3. Fallback for ISO date strings using UTC methods to prevent timezone shifting
   var d = new Date(str);
   if (!isNaN(d.getTime())) {
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     return months[d.getUTCMonth()] + " " + d.getUTCFullYear();
   }
+
   return str;
 }
 
