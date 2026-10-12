@@ -1985,13 +1985,21 @@ function openDocumentModal(url) {
   const modal = document.getElementById('docModalBackdrop');
   const body = document.getElementById('docModalBody');
 
+  // Convert Google Drive view links to /preview links for embedded iframes
+  let previewUrl = url;
+  if (url.includes('drive.google.com') && !url.endsWith('/preview')) {
+    previewUrl = url.replace(/\/view(\?.*)?$/, '/preview');
+  }
+
   if (url.match(/\.(jpeg|jpg|gif|png)$/i) || url.startsWith('data:image')) {
     body.innerHTML = `<img src="${url}" alt="Attachment Preview">`;
   } else {
     body.innerHTML = `
       <div style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-        <iframe src="${url}" style="width: 100%; height: 100%;"></iframe>
-        <p style="margin-top: 10px; font-size: 11px;"><a href="${url}" target="_blank" style="color: var(--blue); font-weight: 600;">Open Document in New Tab ↗</a></p>
+        <iframe src="${previewUrl}" style="width: 100%; height: 100%; border: none;"></iframe>
+        <p style="margin-top: 10px; font-size: 11px;">
+          <a href="${url}" target="_blank" style="color: var(--blue); font-weight: 600;">Open Document in New Tab ↗</a>
+        </p>
       </div>
     `;
   }
