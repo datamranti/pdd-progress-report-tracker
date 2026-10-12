@@ -827,175 +827,241 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     </div>
   </div>
 
-  <!-- PAGE 4: CONTRACTOR / DEVELOPER PAGE (WITH MANDATORY RED ASTERISKS & OPTIONAL FILE FIELD) -->
+  <!-- PAGE 4: CONTRACTOR / DEVELOPER PAGE (WITH PIN SECURITY AUTHENTICATION) -->
   <div id="page4" class="app-page">
     <div class="eyebrow">PAGE 4 · CONTRACTOR / DEVELOPER PORTAL</div>
     <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Contractor/Developer Page</h2>
 
     <section class="entry-card">
-      <div class="form-group" style="margin-bottom: 12px; max-width: 320px;">
-        <label for="formTypeSelect">Select Entry Mode <span class="req-star">*</span></label>
-        <select id="formTypeSelect" onchange="toggleEntryMode()">
-          <option value="PROGRESS">Project Progress Update</option>
-          <option value="DETAILS">Project Details & Schedule Setup</option>
-        </select>
+      <!-- STEP 1: PROJECT SELECTION GRID -->
+      <div id="contractorProjectSelector">
+        <div class="eyebrow" style="margin-bottom: 6px;">STEP 1: SELECT YOUR ASSIGNED PROJECT</div>
+        <p style="font-size: 11px; color: var(--muted); margin-bottom: 16px;">
+          Select your assigned project card below and enter your access PIN to authenticate.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 20px;">
+          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-001', 'Infrastructure P1')">
+            <strong style="display:block; font-size: 12px;">PRJ-001</strong>
+            <span style="font-size: 10px; color: var(--muted);">Infrastructure P1</span>
+          </button>
+          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-002', 'Infrastructure P2A')">
+            <strong style="display:block; font-size: 12px;">PRJ-002</strong>
+            <span style="font-size: 10px; color: var(--muted);">Infrastructure P2A</span>
+          </button>
+          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-003', 'Slope Remedial')">
+            <strong style="display:block; font-size: 12px;">PRJ-003</strong>
+            <span style="font-size: 10px; color: var(--muted);">Slope Remedial</span>
+          </button>
+          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-004', 'Area 57')">
+            <strong style="display:block; font-size: 12px;">PRJ-004</strong>
+            <span style="font-size: 10px; color: var(--muted);">Area 57</span>
+          </button>
+          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-005', 'AI Customer Support Bot')">
+            <strong style="display:block; font-size: 12px;">PRJ-005</strong>
+            <span style="font-size: 10px; color: var(--muted);">AI Customer Support Bot</span>
+          </button>
+          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-006', 'Data Lakehouse & BI Hub')">
+            <strong style="display:block; font-size: 12px;">PRJ-006</strong>
+            <span style="font-size: 10px; color: var(--muted);">Data Lakehouse & BI Hub</span>
+          </button>
+          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-007', 'Supply Chain Automation')">
+            <strong style="display:block; font-size: 12px;">PRJ-007</strong>
+            <span style="font-size: 10px; color: var(--muted);">Supply Chain Automation</span>
+          </button>
+          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-008', 'Cyber Security Zero-Trust')">
+            <strong style="display:block; font-size: 12px;">PRJ-008</strong>
+            <span style="font-size: 10px; color: var(--muted);">Cyber Security Zero-Trust</span>
+          </button>
+        </div>
       </div>
 
-      <div class="red-instruction-box">
-        <strong>Important Instructions:</strong> Project Name, Scope Code, Scope Category, and Trade are pre-loaded from existing records. To add new items, use <em>Project Details and Schedule Setup</em> mode.<br>
-        Check history before entering metrics. Planned progress must increase over time, and actual progress must be equal to or higher than the previous record (<strong>CUMULATIVE progress</strong>).
+      <!-- STEP 2: PIN VERIFICATION -->
+      <div id="contractorPinVerification" style="display: none; max-width: 400px; margin: 20px 0;">
+        <div class="eyebrow" id="selectedProjectLabel">AUTHENTICATION REQUIRED</div>
+        <h3 style="margin: 4px 0 12px; font-size: 15px;">Enter Access PIN</h3>
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label for="contractorPinInput">Project Access PIN <span class="req-star">*</span></label>
+          <input type="password" id="contractorPinInput" maxlength="4" placeholder="Enter 4-digit PIN" style="letter-spacing: 0.2em; font-size: 16px; font-weight: 700;">
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="btn-action" onclick="verifyContractorPin()">Unlock Portal</button>
+          <button type="button" class="btn-nav" onclick="resetContractorSelection()">Cancel</button>
+        </div>
       </div>
 
-      <!-- FORM A: PROJECT PROGRESS UPDATE -->
-      <form id="formProgressUpdate" onsubmit="handleProgressSubmit(event)">
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="pPrj">Project Name <span class="req-star">*</span></label>
-            <select id="pPrj" required onchange="onProjectSelectChangeProgress()">
-              <option value="PRJ-001">Infrastructure P1 (PRJ-001)</option>
-              <option value="PRJ-002">Infrastructure P2A (PRJ-002)</option>
-              <option value="PRJ-003">Slope Remedial (PRJ-003)</option>
-              <option value="PRJ-004">Area 57 (PRJ-004)</option>
-              <option value="PRJ-005">AI Customer Support Bot (PRJ-005)</option>
-              <option value="PRJ-006">Data Lakehouse & BI Hub (PRJ-006)</option>
-              <option value="PRJ-007">Supply Chain Automation (PRJ-007)</option>
-              <option value="PRJ-008">Cyber Security Zero-Trust (PRJ-008)</option>
-            </select>
+      <!-- STEP 3: UNLOCKED ENTRY FORM AREA -->
+      <div id="contractorUnlockedArea" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: #eef3ff; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px;">
+          <div>
+            <span class="badge badge-ahead">AUTHENTICATED</span>
+            <strong id="authenticatedProjectTitle" style="margin-left: 8px; font-size: 12px;"></strong>
           </div>
-
-          <div class="form-group">
-            <label for="pScopeCode">Scope Code <span class="req-star">*</span></label>
-            <select id="pScopeCode" required onchange="onScopeCodeSelectChange()"><option value="">Loading metadata...</option></select>
-          </div>
-
-          <div class="form-group">
-            <label for="pScopeCat">Scope Category <span class="req-star">*</span></label>
-            <select id="pScopeCat" required onchange="filterHistoryByFormSelection()"><option value="">Loading metadata...</option></select>
-          </div>
-
-          <div class="form-group">
-            <label for="pTrade">Trade <span class="req-star">*</span></label>
-            <select id="pTrade" required onchange="filterHistoryByFormSelection()"><option value="">Loading metadata...</option></select>
-          </div>
-
-          <div class="form-group">
-            <label for="pCadence">Reporting Cadence <span class="req-star">*</span></label>
-            <select id="pCadence" onchange="handleCadenceChangeProgress()">
-              <option value="Daily">Daily Update</option>
-              <option value="Biweekly" selected>Biweekly Report</option>
-              <option value="Monthly">Monthly Summary</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="pMonth">Reporting Month <span class="req-star">*</span></label>
-            <select id="pMonth" required>
-              <option value="2026-10" selected>October 2026</option>
-              <option value="2026-11">November 2026</option>
-            </select>
-          </div>
-
-          <div class="form-group" id="segmentContainer">
-            <label for="pSegment">Segment Period <span class="req-star">*</span></label>
-            <select id="pSegment" required>
-              <option value="Week 2 (1st - 14th)" selected>Week 2 (1st - 14th)</option>
-              <option value="Week 4 (15th - End)">Week 4 (15th - End)</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="pPlanned">Planned Progress (%) <span class="req-star">*</span></label>
-            <input type="number" id="pPlanned" step="0.01" min="0" max="100" placeholder="e.g. 58.62 (refer past data)" required>
-          </div>
-
-          <div class="form-group">
-            <label for="pActual">Actual Progress (%) <span class="req-star">*</span></label>
-            <input type="number" id="pActual" step="0.01" min="0" max="100" placeholder="e.g. 59.73 (refer past data)" required>
-          </div>
-
-          <div class="form-group">
-            <label for="pOverallStatus">Overall Project Status <span class="req-star">*</span></label>
-            <select id="pOverallStatus" required>
-              <option value="Ahead">Ahead</option>
-              <option value="On Track" selected>On Track</option>
-              <option value="Delayed">Delayed</option>
-              <option value="Planned">Planned</option>
-            </select>
-          </div>
-
-          <!-- OPTIONAL SUPPORTING DOCUMENT FIELD (NO RED ASTERISK) -->
-          <div class="form-group">
-            <label for="pDocFile">Supporting Document (Optional PDF / Photo)</label>
-            <input type="file" id="pDocFile" accept="image/*,.pdf" capture="environment">
-          </div>
-
-          <div class="form-group" style="grid-column: 1 / -1;">
-            <label for="pRemarks">Progress Remarks <span class="req-star">*</span></label>
-            <textarea id="pRemarks" rows="2" placeholder="Record achievements, site delays, or cutover milestones..." required></textarea>
-          </div>
+          <button type="button" class="btn-nav" style="font-size: 10px;" onclick="resetContractorSelection()">Switch Project 🔒</button>
         </div>
 
-        <div class="disclaimer-box">
-          <strong>Disclaimer:</strong> I hereby declare that the progress metrics submitted above are accurate and true. Any false statement will be questioned and subject to formal audit.
+        <div class="form-group" style="margin-bottom: 12px; max-width: 320px;">
+          <label for="formTypeSelect">Select Entry Mode <span class="req-star">*</span></label>
+          <select id="formTypeSelect" onchange="toggleEntryMode()">
+            <option value="PROGRESS">Project Progress Update</option>
+            <option value="DETAILS">Project Details & Schedule Setup</option>
+          </select>
         </div>
 
-        <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
-          <button type="submit" class="btn-action">Submit Progress Report</button>
-        </div>
-      </form>
-
-      <!-- FORM B: PROJECT DETAILS & SCHEDULE SETUP -->
-      <form id="formScheduleSetup" onsubmit="handleMetadataSubmit(event)" style="display: none;">
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="sPrj">Project Name <span class="req-star">*</span></label>
-            <select id="sPrj" required>
-              <option value="PRJ-001">Infrastructure P1 (PRJ-001)</option>
-              <option value="PRJ-002">Infrastructure P2A (PRJ-002)</option>
-              <option value="PRJ-003">Slope Remedial (PRJ-003)</option>
-              <option value="PRJ-004">Area 57 (PRJ-004)</option>
-              <option value="PRJ-005">AI Customer Support Bot (PRJ-005)</option>
-              <option value="PRJ-006">Data Lakehouse & BI Hub (PRJ-006)</option>
-              <option value="PRJ-007">Supply Chain Automation (PRJ-007)</option>
-              <option value="PRJ-008">Cyber Security Zero-Trust (PRJ-008)</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="sScopeCode">Scope Code <span class="req-star">*</span></label>
-            <input type="text" id="sScopeCode" placeholder="e.g. SCP-01" required>
-          </div>
-
-          <div class="form-group">
-            <label for="sScopeCat">Scope Category <span class="req-star">*</span></label>
-            <input type="text" id="sScopeCat" placeholder="e.g. Earthworks & Clearance" required>
-          </div>
-
-          <div class="form-group">
-            <label for="sTrade">Trade <span class="req-star">*</span></label>
-            <input type="text" id="sTrade" placeholder="e.g. Site Office / Facilities" required>
-          </div>
-
-          <div class="form-group">
-            <label for="sDuration">Duration <span class="req-star">*</span></label>
-            <input type="text" id="sDuration" placeholder="e.g. 8 days, 2 weeks, 1 month" required>
-          </div>
-
-          <div class="form-group">
-            <label for="sStartDate">Start Date <span class="req-star">*</span></label>
-            <input type="date" id="sStartDate" required>
-          </div>
-
-          <div class="form-group">
-            <label for="sFinishDate">Finish Date <span class="req-star">*</span></label>
-            <input type="date" id="sFinishDate" required>
-          </div>
+        <div class="red-instruction-box">
+          <strong>Important Instructions:</strong> Metrics are locked to your authenticated project. Check history before entering metrics (<strong>CUMULATIVE progress</strong>).
         </div>
 
-        <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
-          <button type="submit" class="btn-action">Save Schedule Setup</button>
-        </div>
-      </form>
+        <!-- FORM A: PROJECT PROGRESS UPDATE -->
+        <form id="formProgressUpdate" onsubmit="handleProgressSubmit(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="pPrj">Project Name <span class="req-star">*</span></label>
+              <select id="pPrj" required disabled style="background: #f1f3f8;">
+                <option value="PRJ-001">Infrastructure P1 (PRJ-001)</option>
+                <option value="PRJ-002">Infrastructure P2A (PRJ-002)</option>
+                <option value="PRJ-003">Slope Remedial (PRJ-003)</option>
+                <option value="PRJ-004">Area 57 (PRJ-004)</option>
+                <option value="PRJ-005">AI Customer Support Bot (PRJ-005)</option>
+                <option value="PRJ-006">Data Lakehouse & BI Hub (PRJ-006)</option>
+                <option value="PRJ-007">Supply Chain Automation (PRJ-007)</option>
+                <option value="PRJ-008">Cyber Security Zero-Trust (PRJ-008)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="pScopeCode">Scope Code <span class="req-star">*</span></label>
+              <select id="pScopeCode" required onchange="onScopeCodeSelectChange()"><option value="">Loading metadata...</option></select>
+            </div>
+
+            <div class="form-group">
+              <label for="pScopeCat">Scope Category <span class="req-star">*</span></label>
+              <select id="pScopeCat" required onchange="filterHistoryByFormSelection()"><option value="">Loading metadata...</option></select>
+            </div>
+
+            <div class="form-group">
+              <label for="pTrade">Trade <span class="req-star">*</span></label>
+              <select id="pTrade" required onchange="filterHistoryByFormSelection()"><option value="">Loading metadata...</option></select>
+            </div>
+
+            <div class="form-group">
+              <label for="pCadence">Reporting Cadence <span class="req-star">*</span></label>
+              <select id="pCadence" onchange="handleCadenceChangeProgress()">
+                <option value="Daily">Daily Update</option>
+                <option value="Biweekly" selected>Biweekly Report</option>
+                <option value="Monthly">Monthly Summary</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="pMonth">Reporting Month <span class="req-star">*</span></label>
+              <select id="pMonth" required>
+                <option value="2026-10" selected>October 2026</option>
+                <option value="2026-11">November 2026</option>
+              </select>
+            </div>
+
+            <div class="form-group" id="segmentContainer">
+              <label for="pSegment">Segment Period <span class="req-star">*</span></label>
+              <select id="pSegment" required>
+                <option value="Week 2 (1st - 14th)" selected>Week 2 (1st - 14th)</option>
+                <option value="Week 4 (15th - End)">Week 4 (15th - End)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="pPlanned">Planned Progress (%) <span class="req-star">*</span></label>
+              <input type="number" id="pPlanned" step="0.01" min="0" max="100" placeholder="e.g. 58.62 (refer past data)" required>
+            </div>
+
+            <div class="form-group">
+              <label for="pActual">Actual Progress (%) <span class="req-star">*</span></label>
+              <input type="number" id="pActual" step="0.01" min="0" max="100" placeholder="e.g. 59.73 (refer past data)" required>
+            </div>
+
+            <div class="form-group">
+              <label for="pOverallStatus">Overall Project Status <span class="req-star">*</span></label>
+              <select id="pOverallStatus" required>
+                <option value="Ahead">Ahead</option>
+                <option value="On Track" selected>On Track</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Planned">Planned</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="pDocFile">Supporting Document (Optional PDF / Photo)</label>
+              <input type="file" id="pDocFile" accept="image/*,.pdf" capture="environment">
+            </div>
+
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label for="pRemarks">Progress Remarks <span class="req-star">*</span></label>
+              <textarea id="pRemarks" rows="2" placeholder="Record achievements, site delays, or cutover milestones..." required></textarea>
+            </div>
+          </div>
+
+          <div class="disclaimer-box">
+            <strong>Disclaimer:</strong> I hereby declare that the progress metrics submitted above are accurate and true.
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
+            <button type="submit" class="btn-action">Submit Progress Report</button>
+          </div>
+        </form>
+
+        <!-- FORM B: SCHEDULE SETUP -->
+        <form id="formScheduleSetup" onsubmit="handleMetadataSubmit(event)" style="display: none;">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="sPrj">Project Name <span class="req-star">*</span></label>
+              <select id="sPrj" required disabled style="background: #f1f3f8;">
+                <option value="PRJ-001">Infrastructure P1 (PRJ-001)</option>
+                <option value="PRJ-002">Infrastructure P2A (PRJ-002)</option>
+                <option value="PRJ-003">Slope Remedial (PRJ-003)</option>
+                <option value="PRJ-004">Area 57 (PRJ-004)</option>
+                <option value="PRJ-005">AI Customer Support Bot (PRJ-005)</option>
+                <option value="PRJ-006">Data Lakehouse & BI Hub (PRJ-006)</option>
+                <option value="PRJ-007">Supply Chain Automation (PRJ-007)</option>
+                <option value="PRJ-008">Cyber Security Zero-Trust (PRJ-008)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="sScopeCode">Scope Code <span class="req-star">*</span></label>
+              <input type="text" id="sScopeCode" placeholder="e.g. SCP-01" required>
+            </div>
+
+            <div class="form-group">
+              <label for="sScopeCat">Scope Category <span class="req-star">*</span></label>
+              <input type="text" id="sScopeCat" placeholder="e.g. Earthworks & Clearance" required>
+            </div>
+
+            <div class="form-group">
+              <label for="sTrade">Trade <span class="req-star">*</span></label>
+              <input type="text" id="sTrade" placeholder="e.g. Site Office / Facilities" required>
+            </div>
+
+            <div class="form-group">
+              <label for="sDuration">Duration <span class="req-star">*</span></label>
+              <input type="text" id="sDuration" placeholder="e.g. 8 days" required>
+            </div>
+
+            <div class="form-group">
+              <label for="sStartDate">Start Date <span class="req-star">*</span></label>
+              <input type="date" id="sStartDate" required>
+            </div>
+
+            <div class="form-group">
+              <label for="sFinishDate">Finish Date <span class="req-star">*</span></label>
+              <input type="date" id="sFinishDate" required>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
+            <button type="submit" class="btn-action">Save Schedule Setup</button>
+          </div>
+        </form>
+      </div>
     </section>
 
     <div class="eyebrow" style="margin-top: 24px;">SCHEDULE SETUP METADATA REFERENCE</div>
@@ -1062,6 +1128,21 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 <script>
 // Paste Google Apps Script Web App URL below:
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw5j9l3RdTwLjC5aomE2oIlE0L3N2HUUcPnPzSU1fN7jurdV5_P341Z8J16L-JJdE3JUw/exec";
+
+// PROJECT SECURITY PIN CONFIGURATION
+const PROJECT_PINS = {
+  "PRJ-001": "5751",
+  "PRJ-002": "3442",
+  "PRJ-003": "7562",
+  "PRJ-004": "8712",
+  "PRJ-005": "3599",
+  "PRJ-006": "1741",
+  "PRJ-007": "3562",
+  "PRJ-008": "7153"
+};
+
+let activeSelectedProjectCode = "";
+let activeSelectedProjectName = "";
 
 let baselineOverallData = [
   { id: "PRJ-001", name: "Infrastructure P1", cat: "CAPEX", budget: 75000000.00, cost: 68500000.00, paid: 38000000.00, claim: 4200000.00, balance: 6500000.00, status: "In Progress", health: "Ahead" },
@@ -1229,6 +1310,44 @@ let activeScorecardData = [];
 let consultantScorecardFullList = [];
 let contractorScorecardFullList = [];
 
+function selectContractorProject(code, name) {
+  activeSelectedProjectCode = code;
+  activeSelectedProjectName = name;
+
+  document.getElementById('selectedProjectLabel').innerText = "AUTHENTICATION REQUIRED: " + code;
+  document.getElementById('contractorProjectSelector').style.display = 'none';
+  document.getElementById('contractorPinVerification').style.display = 'block';
+  document.getElementById('contractorPinInput').value = '';
+  document.getElementById('contractorPinInput').focus();
+}
+
+function verifyContractorPin() {
+  const enteredPin = document.getElementById('contractorPinInput').value.trim();
+  const correctPin = PROJECT_PINS[activeSelectedProjectCode];
+
+  if (enteredPin === correctPin) {
+    document.getElementById('contractorPinVerification').style.display = 'none';
+    document.getElementById('contractorUnlockedArea').style.display = 'block';
+    document.getElementById('authenticatedProjectTitle').innerText = activeSelectedProjectCode + " - " + activeSelectedProjectName;
+
+    document.getElementById('pPrj').value = activeSelectedProjectCode;
+    document.getElementById('sPrj').value = activeSelectedProjectCode;
+
+    fetchProjectMetadataAndHistory();
+  } else {
+    alert("Incorrect Security PIN for " + activeSelectedProjectCode + "! Access Denied.");
+    document.getElementById('contractorPinInput').value = '';
+  }
+}
+
+function resetContractorSelection() {
+  activeSelectedProjectCode = "";
+  activeSelectedProjectName = "";
+  document.getElementById('contractorUnlockedArea').style.display = 'none';
+  document.getElementById('contractorPinVerification').style.display = 'none';
+  document.getElementById('contractorProjectSelector').style.display = 'block';
+}
+
 function parsePercentageVal(val) {
   if (val === null || val === undefined || val === '') return 0.0;
   if (typeof val === 'number') {
@@ -1248,10 +1367,8 @@ function formatMonthText(val) {
   if (!val || val === '-') return '-';
   var str = String(val).trim();
 
-  // 1. If it's already "October 2026", return directly
   if (/^[A-Za-z]+\s+\d{4}$/.test(str)) return str;
 
-  // 2. If it's "YYYY-MM" (e.g. "2026-10")
   if (/^\d{4}-\d{2}$/.test(str)) {
     var parts = str.split('-');
     var monthIndex = parseInt(parts[1], 10) - 1;
@@ -1259,13 +1376,9 @@ function formatMonthText(val) {
     return months[monthIndex] + " " + parts[0];
   }
 
-  // 3. If Google Sheets returned an ISO date string (e.g. "2026-09-30T16:00:00.000Z")
-  // Or standard date object string
   var d = new Date(str);
   if (!isNaN(d.getTime())) {
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    
-    // Add 12 hours offset before reading month/year to prevent UTC timezone backward roll
     var adjustedDate = new Date(d.getTime() + (12 * 60 * 60 * 1000));
     return months[adjustedDate.getUTCMonth()] + " " + adjustedDate.getUTCFullYear();
   }
@@ -1277,19 +1390,15 @@ function formatDateShort(val) {
   if (!val || val === '-') return '-';
   var str = String(val).trim();
 
-  // If it's a segment description string (e.g., "Week 2 (1st - 14th)"), return as is
   if (str.indexOf('Week') !== -1 || str.indexOf('By Month') !== -1) return str;
 
-  // Handles YYYY-MM-DD input directly without timezone shifting
   if (/^\d{4}-\d{2}-\d{2}$/.test(str)) {
     var parts = str.split('-');
     return parseInt(parts[2], 10) + "/" + parseInt(parts[1], 10) + "/" + parts[0];
   }
 
-  // Fallback for Date objects returned by Google Sheets ISO strings
   var d = new Date(str);
   if (!isNaN(d.getTime())) {
-    // Add 12 hours buffer to stay within the intended local date
     var adjusted = new Date(d.getTime() + (12 * 60 * 60 * 1000));
     return adjusted.getUTCDate() + "/" + (adjusted.getUTCMonth() + 1) + "/" + adjusted.getUTCFullYear();
   }
@@ -1356,7 +1465,9 @@ function switchPage(pageId) {
   if (pageId === 'page3Consultant') loadConsultantPageData();
   if (pageId === 'pageScorecard') loadScorecardPageData();
   if (pageId === 'page3Authority') loadAuthorityPageData();
-  if (pageId === 'page4') fetchProjectMetadataAndHistory();
+  if (pageId === 'page4') {
+    if (activeSelectedProjectCode) fetchProjectMetadataAndHistory();
+  }
 }
 
 function loadPage2Data() {
@@ -1860,7 +1971,7 @@ function handleCadenceChangeProgress() {
 }
 
 function fetchProjectMetadataAndHistory() {
-  const prjId = document.getElementById('pPrj').value;
+  const prjId = document.getElementById('pPrj').value || activeSelectedProjectCode;
 
   if (GOOGLE_SCRIPT_URL) {
     fetch(GOOGLE_SCRIPT_URL + "?action=getMetadata&projectId=" + prjId)
@@ -2014,7 +2125,6 @@ function openDocumentModal(url) {
   const modal = document.getElementById('docModalBackdrop');
   const body = document.getElementById('docModalBody');
 
-  // Convert Google Drive view links to /preview links for embedded iframes
   let previewUrl = url;
   if (url.includes('drive.google.com') && !url.endsWith('/preview')) {
     previewUrl = url.replace(/\/view(\?.*)?$/, '/preview');
@@ -2042,7 +2152,7 @@ function closeDocumentModal(e) {
 
 function handleProgressSubmit(e) {
   e.preventDefault();
-  const prjId = document.getElementById('pPrj').value;
+  const prjId = document.getElementById('pPrj').value || activeSelectedProjectCode;
   const prjObj = baselineOverallData.find(o => o.id === prjId);
   const prjName = prjObj ? prjObj.name : prjId;
 
@@ -2100,7 +2210,7 @@ function handleProgressSubmit(e) {
 
 function handleMetadataSubmit(e) {
   e.preventDefault();
-  const prjId = document.getElementById('sPrj').value;
+  const prjId = document.getElementById('sPrj').value || activeSelectedProjectCode;
   const prjObj = baselineOverallData.find(o => o.id === prjId);
 
   const payload = {
