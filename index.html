@@ -1276,10 +1276,22 @@ function formatMonthText(val) {
 function formatDateShort(val) {
   if (!val || val === '-') return '-';
   var str = String(val).trim();
+
+  // If it's a segment description string (e.g., "Week 2 (1st - 14th)"), return as is
   if (str.indexOf('Week') !== -1 || str.indexOf('By Month') !== -1) return str;
+
+  // Handles YYYY-MM-DD input directly without timezone shifting
+  if (/^\d{4}-\d{2}-\d{2}$/.test(str)) {
+    var parts = str.split('-');
+    return parseInt(parts[2], 10) + "/" + parseInt(parts[1], 10) + "/" + parts[0];
+  }
+
+  // Fallback for Date objects returned by Google Sheets ISO strings
   var d = new Date(str);
   if (!isNaN(d.getTime())) {
-    return d.getUTCDate() + "/" + (d.getUTCMonth() + 1) + "/" + d.getUTCFullYear();
+    // Add 12 hours buffer to stay within the intended local date
+    var adjusted = new Date(d.getTime() + (12 * 60 * 60 * 1000));
+    return adjusted.getUTCDate() + "/" + (adjusted.getUTCMonth() + 1) + "/" + adjusted.getUTCFullYear();
   }
   return str;
 }
