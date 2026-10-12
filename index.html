@@ -1248,25 +1248,26 @@ function formatMonthText(val) {
   if (!val || val === '-') return '-';
   var str = String(val).trim();
 
-  // 1. If it's already formatted like "October 2026", return as is
+  // 1. If it's already "October 2026", return directly
   if (/^[A-Za-z]+\s+\d{4}$/.test(str)) return str;
 
-  // 2. Fix for "YYYY-MM" strings (e.g., "2026-10")
+  // 2. If it's "YYYY-MM" (e.g. "2026-10")
   if (/^\d{4}-\d{2}$/.test(str)) {
     var parts = str.split('-');
-    var year = parts[0];
     var monthIndex = parseInt(parts[1], 10) - 1;
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    if (months[monthIndex]) {
-      return months[monthIndex] + " " + year;
-    }
+    return months[monthIndex] + " " + parts[0];
   }
 
-  // 3. Fallback for ISO date strings using UTC methods to prevent timezone shifting
+  // 3. If Google Sheets returned an ISO date string (e.g. "2026-09-30T16:00:00.000Z")
+  // Or standard date object string
   var d = new Date(str);
   if (!isNaN(d.getTime())) {
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    return months[d.getUTCMonth()] + " " + d.getUTCFullYear();
+    
+    // Add 12 hours offset before reading month/year to prevent UTC timezone backward roll
+    var adjustedDate = new Date(d.getTime() + (12 * 60 * 60 * 1000));
+    return months[adjustedDate.getUTCMonth()] + " " + adjustedDate.getUTCFullYear();
   }
 
   return str;
