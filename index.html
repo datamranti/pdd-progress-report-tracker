@@ -211,7 +211,7 @@ button, input, select, textarea { font: inherit; }
 
 /* Tables */
 .table-wrap { overflow-x: auto; background: white; border: 1px solid var(--line); border-radius: 6px; margin-top: 16px; }
-table { width: 100%; border-collapse: collapse; min-width: 980px; }
+table { width: 100%; border-collapse: collapse; min-width: 1050px; }
 th {
   text-align: left;
   font-size: 9px;
@@ -230,6 +230,26 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 .badge-ontrack { background: #eefbff; color: var(--blue); }
 .badge-planned { background: #f1f3f8; color: var(--gray); }
 .badge-delayed { background: #ffebeb; color: var(--red); }
+
+/* Mandatory Red Asterisk */
+.req-star { color: var(--red); font-weight: 700; margin-left: 2px; }
+
+/* View Attachment Button */
+.btn-doc {
+  background: #f0f4ff;
+  border: 1px solid #a3b8ff;
+  color: var(--blue);
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.btn-doc:hover { background: var(--blue); color: white; }
 
 /* Forms & Cards */
 .entry-card {
@@ -317,6 +337,52 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
   border-color: var(--blue);
 }
 
+/* Floating Attachment Modal Overlay */
+.doc-modal-backdrop {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(17, 24, 39, 0.6);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.doc-modal-card {
+  background: white;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+.doc-modal-head {
+  padding: 14px 20px;
+  background: var(--softb);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.doc-modal-body {
+  flex: 1;
+  background: #f8f9fc;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+.doc-modal-body iframe, .doc-modal-body img {
+  width: 100%;
+  height: 100%;
+  border: none;
+  object-fit: contain;
+}
+
 @media (max-width: 768px) {
   .page { padding: 16px 18px 48px; }
   .chart-header { flex-direction: column; align-items: flex-start; }
@@ -346,7 +412,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 
   <div class="rule" id="appRule" style="display: none;"></div>
 
-  <!-- PAGE 1: LOGIN (SWITCHED POSITIONS: PDD AUTHORITY VIEW BEFORE CONSULTANT VIEW) -->
+  <!-- PAGE 1: LOGIN -->
   <div id="page1" class="app-page active">
     <div class="login-container">
       <img src="MRANTI 30Y Icon.png" class="login-logo" alt="MRANTI Icon" onerror="this.src='https://cdn.prod.website-files.com/6719e3902a71ea8154ba371d/6996a2c470a01e3f32ffa080_M30.png'">
@@ -479,7 +545,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
         </div>
       </div>
 
-      <!-- PROJECT & YEAR FILTERS FOR SCORECARD TABLES IN HIGHER MGMT VIEW -->
+      <!-- PROJECT & YEAR FILTERS FOR SCORECARD TABLES -->
       <div style="display: flex; gap: 12px; max-width: 580px; margin-bottom: 20px; flex-wrap: wrap;">
         <div style="flex: 1; min-width: 240px;">
           <label for="mgmtScorecardPrjFilter" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">Filter Scorecard by Project:</label>
@@ -550,7 +616,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     </div>
   </div>
 
-  <!-- CONSULTANT PROGRESS REPORT VERIFICATION PAGE -->
+  <!-- CONSULTANT PROGRESS REPORT VERIFICATION PAGE (WITH ATTACHMENT COLUMN) -->
   <div id="page3Consultant" class="app-page">
     <div class="eyebrow">PAGE 3 · CONSULTANT PORTAL</div>
     <h2 style="margin: 6px 0 8px; font-size: 22px; font-weight: 600;">Consultant Progress Report Verification Page</h2>
@@ -586,6 +652,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
             <th>Actual %</th>
             <th>Variation</th>
             <th>Remarks</th>
+            <th>Attachment</th>
             <th>Verification Action</th>
           </tr>
         </thead>
@@ -594,7 +661,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     </div>
   </div>
 
-  <!-- CONSULTANT & CONTRACTOR SCORECARD PORTAL (PDD AUTHORITY EXCLUSIVE) -->
+  <!-- CONSULTANT & CONTRACTOR SCORECARD PORTAL -->
   <div id="pageScorecard" class="app-page">
     <div class="eyebrow">PDD AUTHORITY PORTAL</div>
     <h2 style="margin: 6px 0 8px; font-size: 22px; font-weight: 600;">Consultant & Contractor Scorecard</h2>
@@ -602,7 +669,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       Provide monthly ratings from 1.0 to 10.0 for each aspect. Unstarted months with all 0s are excluded from portfolio averages.
     </p>
 
-    <!-- Scorecard Type Switcher Buttons -->
     <div class="tab-switcher">
       <button class="btn-tab active" id="btnScorecardConsultant" onclick="setScorecardType('Consultant')">Consultant Scorecard</button>
       <button class="btn-tab" id="btnScorecardContractor" onclick="setScorecardType('Contractor')">Contractor Scorecard</button>
@@ -637,7 +703,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
             </select>
           </div>
 
-          <!-- UPDATED PLACEHOLDERS TO SCORE 1-10 INSTEAD OF 0 -->
           <div class="form-group">
             <label for="scoreProgress">Progress (Score 1-10)</label>
             <input type="number" id="scoreProgress" min="1" max="10" step="0.1" placeholder="Score 1-10" required oninput="calcAverageScorecard()">
@@ -685,7 +750,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       </form>
     </section>
 
-    <!-- FILTER AND TABLE FOR PDD AUTHORITY SCORECARD VIEW (WITH PROJECT & YEAR FILTERS) -->
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-top: 24px; gap: 12px;">
       <div class="eyebrow" id="scorecardTableLabel">CURRENT CONSULTANT SCORECARD DATA</div>
       <div style="display: flex; gap: 10px; width: 100%; max-width: 440px;">
@@ -733,7 +797,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     </div>
   </div>
 
-  <!-- PDD AUTHORITY PROGRESS APPROVAL PORTAL -->
+  <!-- PDD AUTHORITY PROGRESS APPROVAL PORTAL (WITH ATTACHMENT COLUMN) -->
   <div id="page3Authority" class="app-page">
     <div class="eyebrow">PAGE 3 · PDD AUTHORITY PORTAL</div>
     <h2 style="margin: 6px 0 8px; font-size: 22px; font-weight: 600;">PDD Authority Progress Approval Portal</h2>
@@ -754,6 +818,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
             <th>Actual %</th>
             <th>Variation</th>
             <th>Remarks</th>
+            <th>Attachment</th>
             <th>Approval Action</th>
           </tr>
         </thead>
@@ -762,14 +827,14 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     </div>
   </div>
 
-  <!-- PAGE 4: CONTRACTOR / DEVELOPER PAGE -->
+  <!-- PAGE 4: CONTRACTOR / DEVELOPER PAGE (WITH MANDATORY RED ASTERISKS & OPTIONAL FILE FIELD) -->
   <div id="page4" class="app-page">
     <div class="eyebrow">PAGE 4 · CONTRACTOR / DEVELOPER PORTAL</div>
     <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Contractor/Developer Page</h2>
 
     <section class="entry-card">
       <div class="form-group" style="margin-bottom: 12px; max-width: 320px;">
-        <label for="formTypeSelect">Select Entry Mode</label>
+        <label for="formTypeSelect">Select Entry Mode <span class="req-star">*</span></label>
         <select id="formTypeSelect" onchange="toggleEntryMode()">
           <option value="PROGRESS">Project Progress Update</option>
           <option value="DETAILS">Project Details & Schedule Setup</option>
@@ -785,7 +850,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       <form id="formProgressUpdate" onsubmit="handleProgressSubmit(event)">
         <div class="form-grid">
           <div class="form-group">
-            <label for="pPrj">Project Name</label>
+            <label for="pPrj">Project Name <span class="req-star">*</span></label>
             <select id="pPrj" required onchange="onProjectSelectChangeProgress()">
               <option value="PRJ-001">Infrastructure P1 (PRJ-001)</option>
               <option value="PRJ-002">Infrastructure P2A (PRJ-002)</option>
@@ -799,22 +864,22 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
           </div>
 
           <div class="form-group">
-            <label for="pScopeCode">Scope Code</label>
+            <label for="pScopeCode">Scope Code <span class="req-star">*</span></label>
             <select id="pScopeCode" required onchange="onScopeCodeSelectChange()"><option value="">Loading metadata...</option></select>
           </div>
 
           <div class="form-group">
-            <label for="pScopeCat">Scope Category</label>
+            <label for="pScopeCat">Scope Category <span class="req-star">*</span></label>
             <select id="pScopeCat" required onchange="filterHistoryByFormSelection()"><option value="">Loading metadata...</option></select>
           </div>
 
           <div class="form-group">
-            <label for="pTrade">Trade</label>
+            <label for="pTrade">Trade <span class="req-star">*</span></label>
             <select id="pTrade" required onchange="filterHistoryByFormSelection()"><option value="">Loading metadata...</option></select>
           </div>
 
           <div class="form-group">
-            <label for="pCadence">Reporting Cadence</label>
+            <label for="pCadence">Reporting Cadence <span class="req-star">*</span></label>
             <select id="pCadence" onchange="handleCadenceChangeProgress()">
               <option value="Daily">Daily Update</option>
               <option value="Biweekly" selected>Biweekly Report</option>
@@ -823,34 +888,34 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
           </div>
 
           <div class="form-group">
-            <label for="pMonth">Reporting Month</label>
-            <select id="pMonth">
+            <label for="pMonth">Reporting Month <span class="req-star">*</span></label>
+            <select id="pMonth" required>
               <option value="2026-10" selected>October 2026</option>
               <option value="2026-11">November 2026</option>
             </select>
           </div>
 
           <div class="form-group" id="segmentContainer">
-            <label for="pSegment">Segment Period</label>
-            <select id="pSegment">
+            <label for="pSegment">Segment Period <span class="req-star">*</span></label>
+            <select id="pSegment" required>
               <option value="Week 2 (1st - 14th)" selected>Week 2 (1st - 14th)</option>
               <option value="Week 4 (15th - End)">Week 4 (15th - End)</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label for="pPlanned">Planned Progress (%)</label>
+            <label for="pPlanned">Planned Progress (%) <span class="req-star">*</span></label>
             <input type="number" id="pPlanned" step="0.01" min="0" max="100" placeholder="e.g. 58.62 (refer past data)" required>
           </div>
 
           <div class="form-group">
-            <label for="pActual">Actual Progress (%)</label>
+            <label for="pActual">Actual Progress (%) <span class="req-star">*</span></label>
             <input type="number" id="pActual" step="0.01" min="0" max="100" placeholder="e.g. 59.73 (refer past data)" required>
           </div>
 
           <div class="form-group">
-            <label for="pOverallStatus">Overall Project Status</label>
-            <select id="pOverallStatus">
+            <label for="pOverallStatus">Overall Project Status <span class="req-star">*</span></label>
+            <select id="pOverallStatus" required>
               <option value="Ahead">Ahead</option>
               <option value="On Track" selected>On Track</option>
               <option value="Delayed">Delayed</option>
@@ -858,8 +923,14 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
             </select>
           </div>
 
+          <!-- OPTIONAL SUPPORTING DOCUMENT FIELD (NO RED ASTERISK) -->
+          <div class="form-group">
+            <label for="pDocFile">Supporting Document (Optional PDF / Photo)</label>
+            <input type="file" id="pDocFile" accept="image/*,.pdf" capture="environment">
+          </div>
+
           <div class="form-group" style="grid-column: 1 / -1;">
-            <label for="pRemarks">Progress Remarks</label>
+            <label for="pRemarks">Progress Remarks <span class="req-star">*</span></label>
             <textarea id="pRemarks" rows="2" placeholder="Record achievements, site delays, or cutover milestones..." required></textarea>
           </div>
         </div>
@@ -877,7 +948,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       <form id="formScheduleSetup" onsubmit="handleMetadataSubmit(event)" style="display: none;">
         <div class="form-grid">
           <div class="form-group">
-            <label for="sPrj">Project Name</label>
+            <label for="sPrj">Project Name <span class="req-star">*</span></label>
             <select id="sPrj" required>
               <option value="PRJ-001">Infrastructure P1 (PRJ-001)</option>
               <option value="PRJ-002">Infrastructure P2A (PRJ-002)</option>
@@ -891,32 +962,32 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
           </div>
 
           <div class="form-group">
-            <label for="sScopeCode">Scope Code</label>
+            <label for="sScopeCode">Scope Code <span class="req-star">*</span></label>
             <input type="text" id="sScopeCode" placeholder="e.g. SCP-01" required>
           </div>
 
           <div class="form-group">
-            <label for="sScopeCat">Scope Category</label>
+            <label for="sScopeCat">Scope Category <span class="req-star">*</span></label>
             <input type="text" id="sScopeCat" placeholder="e.g. Earthworks & Clearance" required>
           </div>
 
           <div class="form-group">
-            <label for="sTrade">Trade</label>
+            <label for="sTrade">Trade <span class="req-star">*</span></label>
             <input type="text" id="sTrade" placeholder="e.g. Site Office / Facilities" required>
           </div>
 
           <div class="form-group">
-            <label for="sDuration">Duration</label>
+            <label for="sDuration">Duration <span class="req-star">*</span></label>
             <input type="text" id="sDuration" placeholder="e.g. 8 days, 2 weeks, 1 month" required>
           </div>
 
           <div class="form-group">
-            <label for="sStartDate">Start Date</label>
+            <label for="sStartDate">Start Date <span class="req-star">*</span></label>
             <input type="date" id="sStartDate" required>
           </div>
 
           <div class="form-group">
-            <label for="sFinishDate">Finish Date</label>
+            <label for="sFinishDate">Finish Date <span class="req-star">*</span></label>
             <input type="date" id="sFinishDate" required>
           </div>
         </div>
@@ -946,6 +1017,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       </table>
     </div>
 
+    <!-- LIVE SHEET HISTORY RECORDS (WITH ATTACHMENT COLUMN) -->
     <div class="eyebrow">LIVE SHEET HISTORY RECORDS (REAL-TIME FILTERED)</div>
     <div class="table-wrap">
       <table>
@@ -962,6 +1034,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
             <th>Actual %</th>
             <th>Variation</th>
             <th>Remarks</th>
+            <th>Attachment</th>
             <th>Verified</th>
             <th>Approved</th>
           </tr>
@@ -973,9 +1046,22 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 
 </div>
 
+<!-- FLOATING ATTACHMENT MODAL OVERLAY -->
+<div class="doc-modal-backdrop" id="docModalBackdrop" onclick="closeDocumentModal(event)">
+  <div class="doc-modal-card" onclick="event.stopPropagation()">
+    <div class="doc-modal-head">
+      <div style="font-weight: 700; font-size: 13px;" id="docModalTitle">Supporting Document Preview</div>
+      <button class="btn-doc" onclick="closeDocumentModal()">Close ✕</button>
+    </div>
+    <div class="doc-modal-body" id="docModalBody">
+      <!-- Image/PDF preview dynamically injected here -->
+    </div>
+  </div>
+</div>
+
 <script>
 // Paste Google Apps Script Web App URL below:
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyC-Ww79XmnxHhRXGIanDl7zZkvZ7oP05Lb1ufKIWnSxZTqY-IXGRWuVpfhC0Tdh4Fg/exec";
+const GOOGLE_SCRIPT_URL = "";
 
 let baselineOverallData = [
   { id: "PRJ-001", name: "Infrastructure P1", cat: "CAPEX", budget: 75000000.00, cost: 68500000.00, paid: 38000000.00, claim: 4200000.00, balance: 6500000.00, status: "In Progress", health: "Ahead" },
@@ -1189,7 +1275,6 @@ function loginAs(role) {
   document.getElementById('appHeader').style.display = 'flex';
   document.getElementById('appRule').style.display = 'block';
 
-  // Navigation visibility matrix
   if (role === 'HigherManagement') {
     document.getElementById('navDashboard').style.display = 'inline-block';
     document.getElementById('navApproval').style.display = 'none';
@@ -1354,7 +1439,6 @@ function loadScorecardPageData() {
   }
 }
 
-// FILTER BY PROJECT AND YEAR IN PDD AUTHORITY SCORECARD PORTAL
 function filterAuthorityScorecardTable() {
   const filterPrj = document.getElementById('pddAuthorityPrjFilter').value;
   const filterYear = document.getElementById('pddAuthorityYearFilter').value;
@@ -1435,7 +1519,6 @@ function renderScorecardTable(targetTbodyId, data) {
   }).join('');
 }
 
-// HIGHER MANAGEMENT SCORECARD SUMMARY & KPI CARDS (FILTER BY PROJECT AND YEAR)
 function loadHigherMgmtScorecards() {
   const filterPrj = document.getElementById('mgmtScorecardPrjFilter').value;
   const filterYear = document.getElementById('mgmtScorecardYearFilter').value;
@@ -1485,7 +1568,6 @@ function loadHigherMgmtScorecards() {
 }
 
 function calculateScorecardKPICards() {
-  // Consultant Average (Excl. 0s)
   var cValidCount = 0;
   var cSumAvg = 0;
   consultantScorecardFullList.forEach(d => {
@@ -1505,7 +1587,6 @@ function calculateScorecardKPICards() {
   var cFinalAvg = cValidCount > 0 ? (cSumAvg / cValidCount).toFixed(2) : '0.00';
   document.getElementById('kpiConsultantAvg').innerText = cFinalAvg + " / 10";
 
-  // Contractor Average (Excl. 0s)
   var kValidCount = 0;
   var kSumAvg = 0;
   contractorScorecardFullList.forEach(d => {
@@ -1536,7 +1617,6 @@ function handleScorecardSubmit(e) {
   const res = parseFloat(document.getElementById('scoreResponsiveness').value);
   const rec = parseFloat(document.getElementById('scoreRecovery').value);
 
-  // Strict Rating Range Check (1.0 to 10.0)
   if ([p, q, h, r, res, rec].some(val => isNaN(val) || val < 1.0 || val > 10.0)) {
     alert("Invalid score entry! Ratings must be between 1.0 and 10.0.");
     return;
@@ -1597,7 +1677,7 @@ function renderConsultantTable() {
   }
 
   if (!filtered || filtered.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: var(--muted);">No pending progress reports requiring verification.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; color: var(--muted);">No pending progress reports requiring verification.</td></tr>';
     return;
   }
 
@@ -1606,6 +1686,12 @@ function renderConsultantTable() {
     var actNum = parsePercentageVal(h['Actual']);
     var varNum = (actNum - planNum).toFixed(2);
     var varStr = (varNum >= 0 ? '+' : '') + varNum + '%';
+
+    var docCell = '-';
+    var docUrl = h['Supporting Document'] || h['Supporting Doc'] || h['Attachment'];
+    if (docUrl && docUrl !== '-' && docUrl !== '') {
+      docCell = `<button class="btn-doc" onclick="openDocumentModal('${docUrl}')">📎 View File</button>`;
+    }
 
     return `
       <tr>
@@ -1617,7 +1703,8 @@ function renderConsultantTable() {
         <td>${planNum.toFixed(2)}%</td>
         <td><strong>${actNum.toFixed(2)}%</strong></td>
         <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${varStr}</td>
-        <td style="max-width: 220px;">${h['Remarks'] || '-'}</td>
+        <td style="max-width: 180px;">${h['Remarks'] || '-'}</td>
+        <td>${docCell}</td>
         <td><button class="btn-action btn-verify" onclick="verifyRecord('${h.sheetName}', ${h.rowNumber})">Verify</button></td>
       </tr>
     `;
@@ -1657,7 +1744,7 @@ function renderAuthorityTable(data) {
   const tbody = document.getElementById('authorityTableBody');
 
   if (!data || data.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: var(--muted);">No verified progress reports awaiting PDD Authority approval.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; color: var(--muted);">No verified progress reports awaiting PDD Authority approval.</td></tr>';
     return;
   }
 
@@ -1666,6 +1753,12 @@ function renderAuthorityTable(data) {
     var actNum = parsePercentageVal(h['Actual']);
     var varNum = (actNum - planNum).toFixed(2);
     var varStr = (varNum >= 0 ? '+' : '') + varNum + '%';
+
+    var docCell = '-';
+    var docUrl = h['Supporting Document'] || h['Supporting Doc'] || h['Attachment'];
+    if (docUrl && docUrl !== '-' && docUrl !== '') {
+      docCell = `<button class="btn-doc" onclick="openDocumentModal('${docUrl}')">📎 View File</button>`;
+    }
 
     return `
       <tr>
@@ -1677,7 +1770,8 @@ function renderAuthorityTable(data) {
         <td>${planNum.toFixed(2)}%</td>
         <td><strong>${actNum.toFixed(2)}%</strong></td>
         <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${varStr}</td>
-        <td style="max-width: 220px;">${h['Remarks'] || '-'}</td>
+        <td style="max-width: 180px;">${h['Remarks'] || '-'}</td>
+        <td>${docCell}</td>
         <td><button class="btn-action btn-approve" onclick="approveRecord('${h.sheetName}', ${h.rowNumber})">Approve</button></td>
       </tr>
     `;
@@ -1717,12 +1811,12 @@ function handleCadenceChangeProgress() {
 
   if (cadence === 'Daily') {
     container.innerHTML = `
-      <label for="pSegment">Select Exact Date</label>
+      <label for="pSegment">Select Exact Date <span class="req-star">*</span></label>
       <input type="date" id="pSegment" required>
     `;
   } else if (cadence === 'Biweekly') {
     container.innerHTML = `
-      <label for="pSegment">Segment Period</label>
+      <label for="pSegment">Segment Period <span class="req-star">*</span></label>
       <select id="pSegment" required>
         <option value="Week 2 (1st - 14th)" selected>Week 2 (1st - 14th)</option>
         <option value="Week 4 (15th - End)">Week 4 (15th - End)</option>
@@ -1730,7 +1824,7 @@ function handleCadenceChangeProgress() {
     `;
   } else {
     container.innerHTML = `
-      <label for="pSegment">Segment Period</label>
+      <label for="pSegment">Segment Period <span class="req-star">*</span></label>
       <input type="text" id="pSegment" value="By Month" readonly style="background: #f1f3f8;">
     `;
   }
@@ -1846,7 +1940,7 @@ function renderHistoryTable(data) {
   const tbody = document.getElementById('historyTableBody');
 
   if (!data || data.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="13" style="text-align: center; color: var(--muted);">No history records found for selected project and trade.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="14" style="text-align: center; color: var(--muted);">No history records found for selected project and trade.</td></tr>';
     return;
   }
 
@@ -1858,6 +1952,12 @@ function renderHistoryTable(data) {
 
     var verVal = h['Verification'] || h['Verification Status'] || 'NO';
     var appVal = h['Approval'] || 'NO';
+
+    var docCell = '-';
+    var docUrl = h['Supporting Document'] || h['Supporting Doc'] || h['Attachment'];
+    if (docUrl && docUrl !== '-' && docUrl !== '') {
+      docCell = `<button class="btn-doc" onclick="openDocumentModal('${docUrl}')">📎 View File</button>`;
+    }
 
     return `
       <tr>
@@ -1872,11 +1972,35 @@ function renderHistoryTable(data) {
         <td><strong>${actNum.toFixed(2)}%</strong></td>
         <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${varStr}</td>
         <td style="max-width: 180px;">${h['Remarks'] || '-'}</td>
+        <td>${docCell}</td>
         <td><span class="badge ${verVal === 'YES' ? 'badge-ahead' : 'badge-delayed'}">${verVal}</span></td>
         <td><span class="badge ${appVal === 'YES' ? 'badge-ahead' : 'badge-delayed'}">${appVal}</span></td>
       </tr>
     `;
   }).join('');
+}
+
+// ATTACHMENT MODAL OVERLAY LOGIC
+function openDocumentModal(url) {
+  const modal = document.getElementById('docModalBackdrop');
+  const body = document.getElementById('docModalBody');
+
+  if (url.match(/\.(jpeg|jpg|gif|png)$/i) || url.startsWith('data:image')) {
+    body.innerHTML = `<img src="${url}" alt="Attachment Preview">`;
+  } else {
+    body.innerHTML = `
+      <div style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <iframe src="${url}" style="width: 100%; height: 100%;"></iframe>
+        <p style="margin-top: 10px; font-size: 11px;"><a href="${url}" target="_blank" style="color: var(--blue); font-weight: 600;">Open Document in New Tab ↗</a></p>
+      </div>
+    `;
+  }
+  modal.style.display = 'flex';
+}
+
+function closeDocumentModal(e) {
+  document.getElementById('docModalBackdrop').style.display = 'none';
+  document.getElementById('docModalBody').innerHTML = '';
 }
 
 function handleProgressSubmit(e) {
@@ -1887,36 +2011,53 @@ function handleProgressSubmit(e) {
 
   const plan = parseFloat(document.getElementById('pPlanned').value);
   const act = parseFloat(document.getElementById('pActual').value);
+  const fileInput = document.getElementById('pDocFile');
 
-  const payload = {
-    action: "submitProgress",
-    projectId: prjId,
-    projectName: prjName,
-    scopeCode: document.getElementById('pScopeCode').value,
-    scopeCategory: document.getElementById('pScopeCat').value,
-    trade: document.getElementById('pTrade').value,
-    reportingPeriod: document.getElementById('pCadence').value,
-    reportingMonth: document.getElementById('pMonth').value,
-    reportingSegmentPeriod: document.getElementById('pSegment').value || 'By Month',
-    planned: plan,
-    actual: act,
-    overallStatus: document.getElementById('pOverallStatus').value,
-    remarks: document.getElementById('pRemarks').value
+  const processAndSend = function(fileBase64, fileName, fileMime) {
+    const payload = {
+      action: "submitProgress",
+      projectId: prjId,
+      projectName: prjName,
+      scopeCode: document.getElementById('pScopeCode').value,
+      scopeCategory: document.getElementById('pScopeCat').value,
+      trade: document.getElementById('pTrade').value,
+      reportingPeriod: document.getElementById('pCadence').value,
+      reportingMonth: document.getElementById('pMonth').value,
+      reportingSegmentPeriod: document.getElementById('pSegment').value || 'By Month',
+      planned: plan,
+      actual: act,
+      overallStatus: document.getElementById('pOverallStatus').value,
+      remarks: document.getElementById('pRemarks').value,
+      fileData: fileBase64 || "",
+      fileName: fileName || "",
+      fileMime: fileMime || ""
+    };
+
+    if (GOOGLE_SCRIPT_URL) {
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(() => {
+        alert('Progress report submitted! Pending Consultant Verification (Verification = NO, Approval = NO).');
+        document.getElementById('formProgressUpdate').reset();
+        fetchProjectMetadataAndHistory();
+      });
+    } else {
+      alert('Progress update recorded locally.');
+    }
   };
 
-  if (GOOGLE_SCRIPT_URL) {
-    fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(() => {
-      alert('Progress report submitted! Pending Consultant Verification (Verification = NO, Approval = NO).');
-      document.getElementById('formProgressUpdate').reset();
-      fetchProjectMetadataAndHistory();
-    });
+  if (fileInput.files && fileInput.files[0]) {
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      processAndSend(evt.target.result, file.name, file.type);
+    };
+    reader.readAsDataURL(file);
   } else {
-    alert('Progress update recorded locally.');
+    processAndSend("", "", "");
   }
 }
 
