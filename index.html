@@ -1616,6 +1616,10 @@ function formatExactRM(val) {
 }
 
 function loginAs(role) {
+  // Always reset PIN session state when switching roles or logging in
+  resetContractorSelection();
+  resetConsultantSelection();
+
   document.getElementById('appHeader').style.display = 'flex';
   document.getElementById('appRule').style.display = 'block';
 
@@ -1638,7 +1642,7 @@ function loginAs(role) {
     document.getElementById('navApproval').style.display = 'none';
     document.getElementById('navScorecard').style.display = 'none';
     document.getElementById('navVerification').style.display = 'inline-block';
-    document.getElementById('navInput').style.display = 'inline-block';
+    document.getElementById('navInput').style.display = 'none'; // HIDDEN CONTRACTOR PORTAL FOR CONSULTANT
     switchPage('page3Consultant');
   } else if (role === 'Contractor') {
     document.getElementById('navDashboard').style.display = 'none';
@@ -1651,6 +1655,10 @@ function loginAs(role) {
 }
 
 function logout() {
+  // Reset all authenticated PIN selections upon logout
+  resetContractorSelection();
+  resetConsultantSelection();
+
   document.getElementById('appHeader').style.display = 'none';
   document.getElementById('appRule').style.display = 'none';
   switchPage('page1');
@@ -2015,7 +2023,6 @@ function loadConsultantPageData() {
   renderConsultantScurve();
 
   if (GOOGLE_SCRIPT_URL) {
-    // Fetch Pending Verifications
     fetch(GOOGLE_SCRIPT_URL + "?action=getPendingVerifications")
       .then(res => res.json())
       .then(res => {
@@ -2025,7 +2032,6 @@ function loadConsultantPageData() {
         }
       });
 
-    // Fetch Full Project History for Latest Progress Breakdown
     fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=" + activeConsultantProjectCode)
       .then(res => res.json())
       .then(res => {
@@ -2048,11 +2054,9 @@ function renderLatestBreakdownTable(data) {
     return;
   }
 
-  // Group history by Scope Code + Trade to find latest record per trade scope
   const latestMap = {};
   data.forEach(item => {
     const key = (item['Scope Code'] || '') + '_' + (item['Trade'] || '');
-    // Replace with newer record
     latestMap[key] = item;
   });
 
