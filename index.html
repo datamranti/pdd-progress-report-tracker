@@ -545,10 +545,10 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
         </div>
       </div>
 
-      <!-- PROJECT & YEAR FILTERS FOR SCORECARD TABLES -->
-      <div style="display: flex; gap: 12px; max-width: 580px; margin-bottom: 20px; flex-wrap: wrap;">
-        <div style="flex: 1; min-width: 240px;">
-          <label for="mgmtScorecardPrjFilter" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">Filter Scorecard by Project:</label>
+      <!-- PROJECT, YEAR & MONTH FILTERS FOR SCORECARD TABLES -->
+      <div style="display: flex; gap: 12px; max-width: 720px; margin-bottom: 20px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 200px;">
+          <label for="mgmtScorecardPrjFilter" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">Filter Project:</label>
           <select id="mgmtScorecardPrjFilter" onchange="loadHigherMgmtScorecards()" style="width: 100%; border: 1px solid var(--line); padding: 8px; font-size: 11px; border-radius: 4px; margin-top: 4px;">
             <option value="ALL">All Projects</option>
             <option value="Infrastructure P1">PRJ-001: Infrastructure P1</option>
@@ -562,12 +562,31 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
           </select>
         </div>
 
-        <div style="width: 140px;">
+        <div style="width: 130px;">
           <label for="mgmtScorecardYearFilter" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">Filter Year:</label>
           <select id="mgmtScorecardYearFilter" onchange="loadHigherMgmtScorecards()" style="width: 100%; border: 1px solid var(--line); padding: 8px; font-size: 11px; border-radius: 4px; margin-top: 4px;">
             <option value="ALL">All Years</option>
             <option value="2026">2026</option>
             <option value="2027">2027</option>
+          </select>
+        </div>
+
+        <div style="width: 150px;">
+          <label for="mgmtScorecardMonthFilter" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">Filter Month:</label>
+          <select id="mgmtScorecardMonthFilter" onchange="loadHigherMgmtScorecards()" style="width: 100%; border: 1px solid var(--line); padding: 8px; font-size: 11px; border-radius: 4px; margin-top: 4px;">
+            <option value="ALL">All Months</option>
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
           </select>
         </div>
       </div>
@@ -616,48 +635,149 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     </div>
   </div>
 
-  <!-- CONSULTANT PROGRESS REPORT VERIFICATION PAGE (WITH ATTACHMENT COLUMN) -->
+  <!-- CONSULTANT PROGRESS REPORT VERIFICATION PAGE -->
   <div id="page3Consultant" class="app-page">
     <div class="eyebrow">PAGE 3 · CONSULTANT PORTAL</div>
-    <h2 style="margin: 6px 0 8px; font-size: 22px; font-weight: 600;">Consultant Progress Report Verification Page</h2>
-    <p style="font-size: 11px; color: var(--muted); margin-bottom: 20px;">
-      Pending submission from contractor awaiting verification (<strong>Verification = "NO"</strong>).
-    </p>
+    <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Consultant Verification Portal</h2>
 
-    <div style="max-width: 360px; margin-bottom: 20px;">
-      <label for="consultantProjectFilter" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">Select Project to Verify:</label>
-      <select id="consultantProjectFilter" onchange="renderConsultantTable()" style="width: 100%; border: 1px solid var(--line); padding: 8px; font-size: 12px; border-radius: 4px; margin-top: 4px;">
-        <option value="ALL">All Projects</option>
-        <option value="PRJ-001">PRJ-001: Infrastructure P1</option>
-        <option value="PRJ-002">PRJ-002: Infrastructure P2A</option>
-        <option value="PRJ-003">PRJ-003: Slope Remedial</option>
-        <option value="PRJ-004">PRJ-004: Area 57</option>
-        <option value="PRJ-005">PRJ-005: AI Customer Support Bot</option>
-        <option value="PRJ-006">PRJ-006: Data Lakehouse & BI Hub</option>
-        <option value="PRJ-007">PRJ-007: Supply Chain Automation</option>
-        <option value="PRJ-008">PRJ-008: Cyber Security Zero-Trust</option>
-      </select>
+    <!-- CONSULTANT STEP 1: PROJECT SELECTOR -->
+    <div id="consultantProjectSelector" class="entry-card">
+      <div class="eyebrow" style="margin-bottom: 6px;">STEP 1: SELECT YOUR ASSIGNED PROJECT</div>
+      <p style="font-size: 11px; color: var(--muted); margin-bottom: 16px;">
+        Select your assigned project card below and enter your access PIN to authenticate.
+      </p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-001', 'Infrastructure P1')">
+          <strong style="display:block; font-size: 12px;">PRJ-001</strong>
+          <span style="font-size: 10px; color: var(--muted);">Infrastructure P1</span>
+        </button>
+        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-002', 'Infrastructure P2A')">
+          <strong style="display:block; font-size: 12px;">PRJ-002</strong>
+          <span style="font-size: 10px; color: var(--muted);">Infrastructure P2A</span>
+        </button>
+        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-003', 'Slope Remedial')">
+          <strong style="display:block; font-size: 12px;">PRJ-003</strong>
+          <span style="font-size: 10px; color: var(--muted);">Slope Remedial</span>
+        </button>
+        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-004', 'Area 57')">
+          <strong style="display:block; font-size: 12px;">PRJ-004</strong>
+          <span style="font-size: 10px; color: var(--muted);">Area 57</span>
+        </button>
+        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-005', 'AI Customer Support Bot')">
+          <strong style="display:block; font-size: 12px;">PRJ-005</strong>
+          <span style="font-size: 10px; color: var(--muted);">AI Customer Support Bot</span>
+        </button>
+        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-006', 'Data Lakehouse & BI Hub')">
+          <strong style="display:block; font-size: 12px;">PRJ-006</strong>
+          <span style="font-size: 10px; color: var(--muted);">Data Lakehouse & BI Hub</span>
+        </button>
+        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-007', 'Supply Chain Automation')">
+          <strong style="display:block; font-size: 12px;">PRJ-007</strong>
+          <span style="font-size: 10px; color: var(--muted);">Supply Chain Automation</span>
+        </button>
+        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-008', 'Cyber Security Zero-Trust')">
+          <strong style="display:block; font-size: 12px;">PRJ-008</strong>
+          <span style="font-size: 10px; color: var(--muted);">Cyber Security Zero-Trust</span>
+        </button>
+      </div>
     </div>
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Project Name</th>
-            <th>Scope Category & Trade</th>
-            <th>Reporting Segment</th>
-            <th>Reporting Month</th>
-            <th>Exact Date</th>
-            <th>Planned %</th>
-            <th>Actual %</th>
-            <th>Variation</th>
-            <th>Remarks</th>
-            <th>Attachment</th>
-            <th>Verification Action</th>
-          </tr>
-        </thead>
-        <tbody id="consultantTableBody"></tbody>
-      </table>
+    <!-- CONSULTANT STEP 2: PIN VERIFICATION -->
+    <div id="consultantPinVerification" class="entry-card" style="display: none; max-width: 400px; margin: 20px 0;">
+      <div class="eyebrow" id="consultantSelectedProjectLabel">AUTHENTICATION REQUIRED</div>
+      <h3 style="margin: 4px 0 12px; font-size: 15px;">Enter Access PIN</h3>
+      <div class="form-group" style="margin-bottom: 12px;">
+        <label for="consultantPinInput">Consultant Access PIN <span class="req-star">*</span></label>
+        <input type="password" id="consultantPinInput" maxlength="4" placeholder="Enter 4-digit PIN" style="letter-spacing: 0.2em; font-size: 16px; font-weight: 700;">
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button type="button" class="btn-action" onclick="verifyConsultantPin()">Unlock Verification Portal</button>
+        <button type="button" class="btn-nav" onclick="resetConsultantSelection()">Cancel</button>
+      </div>
+    </div>
+
+    <!-- CONSULTANT UNLOCKED PORTAL CONTENT -->
+    <div id="consultantUnlockedArea" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; background: #eef3ff; padding: 12px 16px; border-radius: 6px; margin-bottom: 20px;">
+        <div>
+          <span class="badge badge-ahead">AUTHENTICATED CONSULTANT</span>
+          <strong id="consultantAuthenticatedProjectTitle" style="margin-left: 8px; font-size: 12px;"></strong>
+        </div>
+        <button type="button" class="btn-nav" style="font-size: 10px;" onclick="resetConsultantSelection()">Switch Project 🔒</button>
+      </div>
+
+      <!-- S-CURVE CHART FOR CONSULTANT (FILTERED AUTOMATICALLY TO SELECTED PROJECT) -->
+      <div class="chart-box" style="margin-bottom: 32px;">
+        <div class="chart-header">
+          <div>
+            <div class="eyebrow">PROJECT TRAJECTORY ANALYTICS</div>
+            <h3 style="margin: 4px 0 0; font-size: 16px; font-weight: 600;" id="consultantScurveTitle">S-Curve Analysis</h3>
+          </div>
+          <div style="width: 140px;">
+            <label for="consultantChartYearSelect" style="font-size: 9px; font-weight: 700; text-transform: uppercase;">Year View:</label>
+            <select id="consultantChartYearSelect" onchange="renderConsultantScurve()" style="width: 100%; border: 1px solid var(--line); padding: 7px; font-size: 11px; border-radius: 4px;">
+              <option value="2026" selected>2026</option>
+              <option value="2027">2027</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="chart-bar-container" id="consultantScurveContainer"></div>
+        <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px; font-size: 10px; color: var(--muted);">
+          <span><strong style="color: rgba(0,0,255,0.25);">■</strong> Cumulative Planned %</span>
+          <span><strong style="color: var(--blue);">■</strong> Cumulative Actual %</span>
+        </div>
+      </div>
+
+      <!-- LATEST PROGRESS BREAKDOWN TABLE -->
+      <div class="eyebrow">LATEST PROGRESS BREAKDOWN (BY SCOPE & TRADE)</div>
+      <p style="font-size: 11px; color: var(--muted); margin-bottom: 8px;">
+        Current latest recorded metrics per scope category and trade for sanity check before verification.
+      </p>
+      <div class="table-wrap" style="margin-bottom: 32px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Scope Code</th>
+              <th>Scope Category</th>
+              <th>Trade</th>
+              <th>Latest Month</th>
+              <th>Latest Planned %</th>
+              <th>Latest Actual %</th>
+              <th>Variation</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="latestBreakdownTableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- PENDING VERIFICATIONS TABLE -->
+      <div class="eyebrow">PENDING PROGRESS VERIFICATIONS</div>
+      <p style="font-size: 11px; color: var(--muted); margin-bottom: 12px;">
+        Contractor progress updates requiring verification (<strong>Verification = "NO"</strong>).
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Project Name</th>
+              <th>Scope Category & Trade</th>
+              <th>Reporting Segment</th>
+              <th>Reporting Month</th>
+              <th>Exact Date</th>
+              <th>Planned %</th>
+              <th>Actual %</th>
+              <th>Variation</th>
+              <th>Remarks</th>
+              <th>Attachment</th>
+              <th>Verification Action</th>
+            </tr>
+          </thead>
+          <tbody id="consultantTableBody"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -752,7 +872,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-top: 24px; gap: 12px;">
       <div class="eyebrow" id="scorecardTableLabel">CURRENT CONSULTANT SCORECARD DATA</div>
-      <div style="display: flex; gap: 10px; width: 100%; max-width: 440px;">
+      <div style="display: flex; gap: 10px; width: 100%; max-width: 580px;">
         <div style="flex: 1;">
           <select id="pddAuthorityPrjFilter" onchange="filterAuthorityScorecardTable()" style="width: 100%; border: 1px solid var(--line); padding: 6px 10px; font-size: 11px; border-radius: 4px;">
             <option value="ALL">All Projects</option>
@@ -766,11 +886,28 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
             <option value="Cyber Security Zero-Trust">PRJ-008: Cyber Security Zero-Trust</option>
           </select>
         </div>
-        <div style="width: 120px;">
+        <div style="width: 110px;">
           <select id="pddAuthorityYearFilter" onchange="filterAuthorityScorecardTable()" style="width: 100%; border: 1px solid var(--line); padding: 6px 10px; font-size: 11px; border-radius: 4px;">
             <option value="ALL">All Years</option>
             <option value="2026">2026</option>
             <option value="2027">2027</option>
+          </select>
+        </div>
+        <div style="width: 130px;">
+          <select id="pddAuthorityMonthFilter" onchange="filterAuthorityScorecardTable()" style="width: 100%; border: 1px solid var(--line); padding: 6px 10px; font-size: 11px; border-radius: 4px;">
+            <option value="ALL">All Months</option>
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
           </select>
         </div>
       </div>
@@ -797,7 +934,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     </div>
   </div>
 
-  <!-- PDD AUTHORITY PROGRESS APPROVAL PORTAL (WITH ATTACHMENT COLUMN) -->
+  <!-- PDD AUTHORITY PROGRESS APPROVAL PORTAL -->
   <div id="page3Authority" class="app-page">
     <div class="eyebrow">PAGE 3 · PDD AUTHORITY PORTAL</div>
     <h2 style="margin: 6px 0 8px; font-size: 22px; font-weight: 600;">PDD Authority Progress Approval Portal</h2>
@@ -909,7 +1046,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
         </div>
 
         <div class="red-instruction-box">
-          <strong>Important Instructions:</strong> Metrics are locked to your authenticated project. Check history before entering metrics (<strong>CUMULATIVE progress</strong>).
+          <strong>Important Instructions:</strong> Submitting exact same Scope, Trade, Cadence, Month & Segment will <strong>OVERWRITE</strong> previous records for easy data correction.
         </div>
 
         <!-- FORM A: PROJECT PROGRESS UPDATE -->
@@ -1083,7 +1220,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       </table>
     </div>
 
-    <!-- LIVE SHEET HISTORY RECORDS (WITH ATTACHMENT COLUMN) -->
+    <!-- LIVE SHEET HISTORY RECORDS -->
     <div class="eyebrow">LIVE SHEET HISTORY RECORDS (REAL-TIME FILTERED)</div>
     <div class="table-wrap">
       <table>
@@ -1126,8 +1263,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 </div>
 
 <script>
-// Paste Google Apps Script Web App URL below:
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw5j9l3RdTwLjC5aomE2oIlE0L3N2HUUcPnPzSU1fN7jurdV5_P341Z8J16L-JJdE3JUw/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyk9k03N7czSlWKy412-bZjN8MEG9ssgFWSyhk9fiyb5NM3W44CUkdzH9yP5j4bsMsJgw/exec";
 
 // PROJECT SECURITY PIN CONFIGURATION
 const PROJECT_PINS = {
@@ -1143,6 +1279,9 @@ const PROJECT_PINS = {
 
 let activeSelectedProjectCode = "";
 let activeSelectedProjectName = "";
+
+let activeConsultantProjectCode = "";
+let activeConsultantProjectName = "";
 
 let baselineOverallData = [
   { id: "PRJ-001", name: "Infrastructure P1", cat: "CAPEX", budget: 75000000.00, cost: 68500000.00, paid: 38000000.00, claim: 4200000.00, balance: 6500000.00, status: "In Progress", health: "Ahead" },
@@ -1310,6 +1449,73 @@ let activeScorecardData = [];
 let consultantScorecardFullList = [];
 let contractorScorecardFullList = [];
 
+// CONSULTANT PIN AUTHENTICATION
+function selectConsultantProject(code, name) {
+  activeConsultantProjectCode = code;
+  activeConsultantProjectName = name;
+
+  document.getElementById('consultantSelectedProjectLabel').innerText = "AUTHENTICATION REQUIRED: " + code;
+  document.getElementById('consultantProjectSelector').style.display = 'none';
+  document.getElementById('consultantPinVerification').style.display = 'block';
+  document.getElementById('consultantPinInput').value = '';
+  document.getElementById('consultantPinInput').focus();
+}
+
+function verifyConsultantPin() {
+  const enteredPin = document.getElementById('consultantPinInput').value.trim();
+  const correctPin = PROJECT_PINS[activeConsultantProjectCode];
+
+  if (enteredPin === correctPin) {
+    document.getElementById('consultantPinVerification').style.display = 'none';
+    document.getElementById('consultantUnlockedArea').style.display = 'block';
+    document.getElementById('consultantAuthenticatedProjectTitle').innerText = activeConsultantProjectCode + " - " + activeConsultantProjectName;
+    document.getElementById('consultantScurveTitle').innerText = "S-Curve Analysis: " + activeConsultantProjectCode;
+
+    loadConsultantPageData();
+  } else {
+    alert("Incorrect Security PIN for " + activeConsultantProjectCode + "! Access Denied.");
+    document.getElementById('consultantPinInput').value = '';
+  }
+}
+
+function resetConsultantSelection() {
+  activeConsultantProjectCode = "";
+  activeConsultantProjectName = "";
+  document.getElementById('consultantUnlockedArea').style.display = 'none';
+  document.getElementById('consultantPinVerification').style.display = 'none';
+  document.getElementById('consultantProjectSelector').style.display = 'block';
+}
+
+function renderConsultantScurve() {
+  if (!activeConsultantProjectCode) return;
+  const year = document.getElementById('consultantChartYearSelect').value;
+  const container = document.getElementById('consultantScurveContainer');
+
+  var projectMap = fullMonthlyTrackingMap[activeConsultantProjectCode] || fullMonthlyTrackingMap["PRJ-001"];
+  var monthData = projectMap[year] || projectMap["2026"];
+
+  container.innerHTML = monthData.map(d => {
+    const planH = (d.plan / 100) * 100;
+    const actH = d.act !== null ? (d.act / 100) * 100 : 0;
+    return `
+      <div class="chart-col" title="${d.m} - Plan: ${d.plan}%, Act: ${d.act !== null ? d.act + '%' : 'N/A'}">
+        <div class="bar-wrapper">
+          <div class="scurve-plan" style="height: ${planH}%;">
+            <div class="pct-tag">${d.plan}%</div>
+          </div>
+          ${d.act !== null ? `
+            <div class="scurve-act" style="height: ${actH}%;">
+              <div class="pct-tag" style="color: var(--blue);">${d.act}%</div>
+            </div>
+          ` : ''}
+        </div>
+        <div class="col-label">${d.m}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+// CONTRACTOR PIN AUTHENTICATION
 function selectContractorProject(code, name) {
   activeSelectedProjectCode = code;
   activeSelectedProjectName = name;
@@ -1462,7 +1668,9 @@ function switchPage(pageId) {
   if (pageId === 'page4') document.getElementById('navInput').classList.add('active');
 
   if (pageId === 'page2') { loadPage2Data(); loadMonthlyTrackingGraph(); loadHigherMgmtScorecards(); }
-  if (pageId === 'page3Consultant') loadConsultantPageData();
+  if (pageId === 'page3Consultant') {
+    if (activeConsultantProjectCode) loadConsultantPageData();
+  }
   if (pageId === 'pageScorecard') loadScorecardPageData();
   if (pageId === 'page3Authority') loadAuthorityPageData();
   if (pageId === 'page4') {
@@ -1582,6 +1790,7 @@ function loadScorecardPageData() {
 function filterAuthorityScorecardTable() {
   const filterPrj = document.getElementById('pddAuthorityPrjFilter').value;
   const filterYear = document.getElementById('pddAuthorityYearFilter').value;
+  const filterMonth = document.getElementById('pddAuthorityMonthFilter').value;
 
   let filtered = activeScorecardData;
   
@@ -1591,6 +1800,10 @@ function filterAuthorityScorecardTable() {
 
   if (filterYear !== 'ALL') {
     filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
+  }
+
+  if (filterMonth !== 'ALL') {
+    filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
   }
   
   renderScorecardTable('pddAuthorityScorecardTableBody', filtered);
@@ -1662,6 +1875,7 @@ function renderScorecardTable(targetTbodyId, data) {
 function loadHigherMgmtScorecards() {
   const filterPrj = document.getElementById('mgmtScorecardPrjFilter').value;
   const filterYear = document.getElementById('mgmtScorecardYearFilter').value;
+  const filterMonth = document.getElementById('mgmtScorecardMonthFilter').value;
 
   if (GOOGLE_SCRIPT_URL) {
     fetch(GOOGLE_SCRIPT_URL + "?action=getScorecardData&type=Consultant")
@@ -1676,6 +1890,9 @@ function loadHigherMgmtScorecards() {
           }
           if (filterYear !== 'ALL') {
             filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
+          }
+          if (filterMonth !== 'ALL') {
+            filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
           }
 
           renderScorecardTable('mgmtConsultantScorecardBody', filtered);
@@ -1695,6 +1912,9 @@ function loadHigherMgmtScorecards() {
           }
           if (filterYear !== 'ALL') {
             filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
+          }
+          if (filterMonth !== 'ALL') {
+            filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
           }
 
           renderScorecardTable('mgmtContractorScorecardBody', filtered);
@@ -1792,7 +2012,10 @@ function handleScorecardSubmit(e) {
 
 // CONSULTANT VERIFICATION PAGE LOGIC
 function loadConsultantPageData() {
+  renderConsultantScurve();
+
   if (GOOGLE_SCRIPT_URL) {
+    // Fetch Pending Verifications
     fetch(GOOGLE_SCRIPT_URL + "?action=getPendingVerifications")
       .then(res => res.json())
       .then(res => {
@@ -1801,23 +2024,74 @@ function loadConsultantPageData() {
           renderConsultantTable();
         }
       });
+
+    // Fetch Full Project History for Latest Progress Breakdown
+    fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=" + activeConsultantProjectCode)
+      .then(res => res.json())
+      .then(res => {
+        if (res.status === 'success') {
+          renderLatestBreakdownTable(res.data);
+        }
+      });
   } else {
     pendingVerificationsList = [];
     renderConsultantTable();
+    renderLatestBreakdownTable([]);
   }
+}
+
+function renderLatestBreakdownTable(data) {
+  const tbody = document.getElementById('latestBreakdownTableBody');
+
+  if (!data || data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--muted);">No progress records available for this project.</td></tr>';
+    return;
+  }
+
+  // Group history by Scope Code + Trade to find latest record per trade scope
+  const latestMap = {};
+  data.forEach(item => {
+    const key = (item['Scope Code'] || '') + '_' + (item['Trade'] || '');
+    // Replace with newer record
+    latestMap[key] = item;
+  });
+
+  const latestList = Object.values(latestMap);
+
+  tbody.innerHTML = latestList.map(h => {
+    var planNum = parsePercentageVal(h['Planned']);
+    var actNum = parsePercentageVal(h['Actual']);
+    var varNum = (actNum - planNum).toFixed(2);
+    var varStr = (varNum >= 0 ? '+' : '') + varNum + '%';
+
+    var status = h['Status'] || h['Overall Project Status'] || 'On Track';
+    var badgeClass = status === 'Ahead' ? 'badge-ahead' : (status === 'Delayed' ? 'badge-delayed' : 'badge-ontrack');
+
+    return `
+      <tr>
+        <td style="font-weight: 600; color: var(--blue);">${h['Scope Code'] || '-'}</td>
+        <td>${h['Scope Category'] || '-'}</td>
+        <td style="font-weight: 600;">${h['Trade'] || '-'}</td>
+        <td>${formatMonthText(h['Reporting Month'])}</td>
+        <td>${planNum.toFixed(2)}%</td>
+        <td><strong>${actNum.toFixed(2)}%</strong></td>
+        <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${varStr}</td>
+        <td><span class="badge ${badgeClass}">${status}</span></td>
+      </tr>
+    `;
+  }).join('');
 }
 
 function renderConsultantTable() {
   const tbody = document.getElementById('consultantTableBody');
-  const prjFilter = document.getElementById('consultantProjectFilter').value;
 
   let filtered = pendingVerificationsList;
-  if (prjFilter !== 'ALL') {
-    filtered = filtered.filter(h => h.sheetName === prjFilter);
+  if (activeConsultantProjectCode) {
+    filtered = filtered.filter(h => h.sheetName === activeConsultantProjectCode);
   }
 
   if (!filtered || filtered.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; color: var(--muted);">No pending progress reports requiring verification.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; color: var(--muted);">No pending progress reports requiring verification for ' + activeConsultantProjectCode + '.</td></tr>';
     return;
   }
 
@@ -2187,7 +2461,7 @@ function handleProgressSubmit(e) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       }).then(() => {
-        alert('Progress report submitted! Pending Consultant Verification (Verification = NO, Approval = NO).');
+        alert('Progress report recorded/updated! Pending Consultant Verification (Verification = NO, Approval = NO).');
         document.getElementById('formProgressUpdate').reset();
         fetchProjectMetadataAndHistory();
       });
