@@ -121,25 +121,6 @@ button, input, select, textarea { font: inherit; }
 }
 .btn-login-role:hover { opacity: 0.9; }
 
-/* Summary Headline Cards */
-.hero-side {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 16px;
-  margin: 20px 0 32px;
-}
-
-.hero-stat {
-  background: var(--soft);
-  padding: 18px;
-  border-top: 3px solid var(--blue);
-  border-radius: 4px;
-}
-
-.hero-stat .label { font-size: 9px; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
-.hero-stat .value { font-size: 24px; font-weight: 600; color: var(--ink); margin-top: 6px; }
-.hero-stat .note { font-size: 10px; color: var(--muted); margin-top: 4px; }
-
 /* Dynamic Monthly S-Curve Chart */
 .chart-box {
   background: var(--soft);
@@ -224,7 +205,7 @@ th {
 }
 td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; color: #354052; }
 
-/* Colored Badges */
+/* Badges */
 .badge { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 9px; font-weight: 600; text-transform: uppercase; }
 .badge-ahead { background: #e6f9f0; color: var(--green); }
 .badge-ontrack { background: #eefbff; color: var(--blue); }
@@ -242,14 +223,9 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
   font-weight: 600;
   border-radius: 4px;
   cursor: pointer;
-  transition: all 0.2s;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
 }
-.btn-doc:hover { background: var(--blue); color: white; }
 
-/* Forms & Cards */
+/* Forms */
 .entry-card {
   background: var(--softb);
   border: 1px solid #c8d2ff;
@@ -258,17 +234,23 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
   margin-bottom: 32px;
 }
 
-.red-instruction-box {
-  background: #fff0f0;
-  border: 1px solid #ffd0d0;
-  border-left: 4px solid var(--red);
-  color: var(--red);
-  padding: 12px 16px;
-  font-size: 11px;
-  line-height: 1.6;
-  border-radius: 4px;
-  margin: 16px 0;
+.hero-side {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+  margin: 20px 0 32px;
 }
+
+.hero-stat {
+  background: var(--soft);
+  padding: 18px;
+  border-top: 3px solid var(--blue);
+  border-radius: 4px;
+}
+
+.hero-stat .label { font-size: 9px; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+.hero-stat .value { font-size: 24px; font-weight: 600; color: var(--ink); margin-top: 6px; }
+.hero-stat .note { font-size: 10px; color: var(--muted); margin-top: 4px; }
 
 .form-grid {
   display: grid;
@@ -289,16 +271,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
   color: var(--ink);
 }
 
-.disclaimer-box {
-  background: #fff8e6;
-  border-left: 4px solid var(--amber);
-  padding: 12px 16px;
-  font-size: 11px;
-  color: #7a5200;
-  border-radius: 0 4px 4px 0;
-  margin-top: 18px;
-}
-
 .btn-action {
   background: var(--blue);
   color: white;
@@ -313,28 +285,19 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 .btn-approve { background: var(--green); }
 .btn-reject { background: var(--red); color: white; }
 
-.tab-switcher {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
+.tab-switcher { display: flex; gap: 10px; margin-bottom: 20px; }
 .btn-tab {
   padding: 10px 20px;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
   border: 1px solid var(--line);
   background: var(--soft);
   color: var(--ink);
   border-radius: 4px;
   cursor: pointer;
 }
-.btn-tab.active {
-  background: var(--blue);
-  color: white;
-  border-color: var(--blue);
-}
+.btn-tab.active { background: var(--blue); color: white; border-color: var(--blue); }
 
 /* Modals */
 .doc-modal-backdrop {
@@ -374,18 +337,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
   align-items: center;
   justify-content: center;
   overflow: auto;
-}
-.doc-modal-body iframe, .doc-modal-body img {
-  width: 100%;
-  height: 100%;
-  border: none;
-  object-fit: contain;
-}
-
-@media (max-width: 768px) {
-  .page { padding: 16px 18px 48px; }
-  .chart-header { flex-direction: column; align-items: flex-start; }
-  .chart-controls { width: 100%; max-width: 100%; }
 }
 </style>
 </head>
@@ -428,7 +379,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     </div>
   </div>
 
-  <!-- PAGE 2: HIGHER MANAGEMENT VIEW PAGE -->
+  <!-- PAGE 2: HIGHER MANAGEMENT VIEW -->
   <div id="page2" class="app-page">
     <div class="eyebrow">PAGE 2 · HIGHER MANAGEMENT VIEW</div>
     <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Higher Management View Page</h2>
@@ -629,50 +580,22 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     </div>
   </div>
 
-  <!-- CONSULTANT PROGRESS REPORT VERIFICATION PAGE -->
+  <!-- CONSULTANT VERIFICATION PAGE -->
   <div id="page3Consultant" class="app-page">
     <div class="eyebrow">PAGE 3 · CONSULTANT PORTAL</div>
     <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Consultant Verification Portal</h2>
 
     <div id="consultantProjectSelector" class="entry-card">
       <div class="eyebrow" style="margin-bottom: 6px;">STEP 1: SELECT YOUR ASSIGNED PROJECT</div>
-      <p style="font-size: 11px; color: var(--muted); margin-bottom: 16px;">
-        Select your assigned project card below and enter your access PIN to authenticate.
-      </p>
-
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
-        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-001', 'Infrastructure P1')">
-          <strong style="display:block; font-size: 12px;">PRJ-001</strong>
-          <span style="font-size: 10px; color: var(--muted);">Infrastructure P1</span>
-        </button>
-        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-002', 'Infrastructure P2A')">
-          <strong style="display:block; font-size: 12px;">PRJ-002</strong>
-          <span style="font-size: 10px; color: var(--muted);">Infrastructure P2A</span>
-        </button>
-        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-003', 'Slope Remedial')">
-          <strong style="display:block; font-size: 12px;">PRJ-003</strong>
-          <span style="font-size: 10px; color: var(--muted);">Slope Remedial</span>
-        </button>
-        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-004', 'Area 57')">
-          <strong style="display:block; font-size: 12px;">PRJ-004</strong>
-          <span style="font-size: 10px; color: var(--muted);">Area 57</span>
-        </button>
-        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-005', 'AI Customer Support Bot')">
-          <strong style="display:block; font-size: 12px;">PRJ-005</strong>
-          <span style="font-size: 10px; color: var(--muted);">AI Customer Support Bot</span>
-        </button>
-        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-006', 'Data Lakehouse & BI Hub')">
-          <strong style="display:block; font-size: 12px;">PRJ-006</strong>
-          <span style="font-size: 10px; color: var(--muted);">Data Lakehouse & BI Hub</span>
-        </button>
-        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-007', 'Supply Chain Automation')">
-          <strong style="display:block; font-size: 12px;">PRJ-007</strong>
-          <span style="font-size: 10px; color: var(--muted);">Supply Chain Automation</span>
-        </button>
-        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-008', 'Cyber Security Zero-Trust')">
-          <strong style="display:block; font-size: 12px;">PRJ-008</strong>
-          <span style="font-size: 10px; color: var(--muted);">Cyber Security Zero-Trust</span>
-        </button>
+        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-001', 'Infrastructure P1')"><strong>PRJ-001</strong><br><small>Infrastructure P1</small></button>
+        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-002', 'Infrastructure P2A')"><strong>PRJ-002</strong><br><small>Infrastructure P2A</small></button>
+        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-003', 'Slope Remedial')"><strong>PRJ-003</strong><br><small>Slope Remedial</small></button>
+        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-004', 'Area 57')"><strong>PRJ-004</strong><br><small>Area 57</small></button>
+        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-005', 'AI Customer Support Bot')"><strong>PRJ-005</strong><br><small>AI Bot</small></button>
+        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-006', 'Data Lakehouse & BI Hub')"><strong>PRJ-006</strong><br><small>Data Hub</small></button>
+        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-007', 'Supply Chain Automation')"><strong>PRJ-007</strong><br><small>Supply Chain</small></button>
+        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-008', 'Cyber Security Zero-Trust')"><strong>PRJ-008</strong><br><small>Cyber Security</small></button>
       </div>
     </div>
 
@@ -684,7 +607,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
         <input type="password" id="consultantPinInput" maxlength="4" placeholder="Enter 4-digit PIN" style="letter-spacing: 0.2em; font-size: 16px; font-weight: 700;">
       </div>
       <div style="display: flex; gap: 8px;">
-        <button type="button" class="btn-action" onclick="verifyConsultantPin()">Unlock Verification Portal</button>
+        <button type="button" class="btn-action" onclick="verifyConsultantPin()">Unlock Portal</button>
         <button type="button" class="btn-nav" onclick="resetConsultantSelection()">Cancel</button>
       </div>
     </div>
@@ -712,18 +635,10 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
             </select>
           </div>
         </div>
-
         <div class="chart-bar-container" id="consultantScurveContainer"></div>
-        <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px; font-size: 10px; color: var(--muted);">
-          <span><strong style="color: rgba(0,0,255,0.25);">■</strong> Cumulative Planned %</span>
-          <span><strong style="color: var(--blue);">■</strong> Cumulative Actual %</span>
-        </div>
       </div>
 
       <div class="eyebrow">LATEST PROGRESS BREAKDOWN (BY TRADE)</div>
-      <p style="font-size: 11px; color: var(--muted); margin-bottom: 8px;">
-        Current recorded metrics per trade for sanity check before verification.
-      </p>
       <div class="table-wrap" style="margin-bottom: 32px;">
         <table>
           <thead>
@@ -801,13 +716,10 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     </div>
   </div>
 
-  <!-- CONSULTANT & CONTRACTOR SCORECARD PORTAL -->
+  <!-- SCORECARD PORTAL -->
   <div id="pageScorecard" class="app-page">
     <div class="eyebrow">PDD AUTHORITY PORTAL</div>
     <h2 style="margin: 6px 0 8px; font-size: 22px; font-weight: 600;">Consultant & Contractor Scorecard</h2>
-    <p style="font-size: 11px; color: var(--muted); margin-bottom: 20px;">
-      Provide monthly ratings from 1.0 to 10.0 for each aspect. Unstarted months with all 0s are excluded from portfolio averages.
-    </p>
 
     <div class="tab-switcher">
       <button class="btn-tab active" id="btnScorecardConsultant" onclick="setScorecardType('Consultant')">Consultant Scorecard</button>
@@ -816,11 +728,10 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 
     <section class="entry-card">
       <h3 style="margin: 0 0 16px; font-size: 15px; font-weight: 600;" id="scorecardFormTitle">Input Ratings: Consultant Scorecard</h3>
-      
       <form id="formScorecard" onsubmit="handleScorecardSubmit(event)">
         <div class="form-grid">
           <div class="form-group" style="max-width: 320px;">
-            <label for="scorePrjSelect">Select Target Project (1 of 8)</label>
+            <label for="scorePrjSelect">Target Project</label>
             <select id="scorePrjSelect" required onchange="loadExistingProjectScoreData()">
               <option value="Infrastructure P1">PRJ-001: Infrastructure P1</option>
               <option value="Infrastructure P2A">PRJ-002: Infrastructure P2A</option>
@@ -834,7 +745,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
           </div>
 
           <div class="form-group" style="max-width: 220px;">
-            <label for="scoreMonthSelect">Select Rating Month</label>
+            <label for="scoreMonthSelect">Rating Month</label>
             <select id="scoreMonthSelect" required onchange="loadExistingProjectScoreData()">
               <option value="October 2026" selected>October 2026</option>
               <option value="November 2026">November 2026</option>
@@ -843,110 +754,52 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
             </select>
           </div>
 
-          <div class="form-group">
-            <label for="scoreProgress">Progress (Score 1-10)</label>
-            <input type="number" id="scoreProgress" min="1" max="10" step="0.1" placeholder="Score 1-10" required oninput="calcAverageScorecard()">
-          </div>
-
-          <div class="form-group">
-            <label for="scoreQuality">Quality (Score 1-10)</label>
-            <input type="number" id="scoreQuality" min="1" max="10" step="0.1" placeholder="Score 1-10" required oninput="calcAverageScorecard()">
-          </div>
-
-          <div class="form-group">
-            <label for="scoreHSE">HSE (Score 1-10)</label>
-            <input type="number" id="scoreHSE" min="1" max="10" step="0.1" placeholder="Score 1-10" required oninput="calcAverageScorecard()">
-          </div>
-
-          <div class="form-group">
-            <label for="scoreReporting">Reporting Compliance (Score 1-10)</label>
-            <input type="number" id="scoreReporting" min="1" max="10" step="0.1" placeholder="Score 1-10" required oninput="calcAverageScorecard()">
-          </div>
-
-          <div class="form-group">
-            <label for="scoreResponsiveness">Responsiveness (Score 1-10)</label>
-            <input type="number" id="scoreResponsiveness" min="1" max="10" step="0.1" placeholder="Score 1-10" required oninput="calcAverageScorecard()">
-          </div>
-
-          <div class="form-group">
-            <label for="scoreRecovery">Recovery Actions (Score 1-10)</label>
-            <input type="number" id="scoreRecovery" min="1" max="10" step="0.1" placeholder="Score 1-10" required oninput="calcAverageScorecard()">
-          </div>
-
-          <div class="form-group" style="max-width: 200px;">
-            <label for="scoreTotal">Total Score (Read-Only)</label>
-            <input type="text" id="scoreTotal" value="0.00" readonly style="background: var(--softb); font-weight: 700;">
-          </div>
-
-          <div class="form-group" style="max-width: 200px;">
-            <label for="scoreAverage">Average Score (Read-Only)</label>
-            <input type="text" id="scoreAverage" value="0.00" readonly style="background: var(--softb); font-weight: 700; color: var(--blue);">
-          </div>
+          <div class="form-group"><label for="scoreProgress">Progress (1-10)</label><input type="number" id="scoreProgress" min="1" max="10" step="0.1" required oninput="calcAverageScorecard()"></div>
+          <div class="form-group"><label for="scoreQuality">Quality (1-10)</label><input type="number" id="scoreQuality" min="1" max="10" step="0.1" required oninput="calcAverageScorecard()"></div>
+          <div class="form-group"><label for="scoreHSE">HSE (1-10)</label><input type="number" id="scoreHSE" min="1" max="10" step="0.1" required oninput="calcAverageScorecard()"></div>
+          <div class="form-group"><label for="scoreReporting">Compliance (1-10)</label><input type="number" id="scoreReporting" min="1" max="10" step="0.1" required oninput="calcAverageScorecard()"></div>
+          <div class="form-group"><label for="scoreResponsiveness">Responsiveness (1-10)</label><input type="number" id="scoreResponsiveness" min="1" max="10" step="0.1" required oninput="calcAverageScorecard()"></div>
+          <div class="form-group"><label for="scoreRecovery">Recovery (1-10)</label><input type="number" id="scoreRecovery" min="1" max="10" step="0.1" required oninput="calcAverageScorecard()"></div>
+          <div class="form-group" style="max-width: 180px;"><label for="scoreTotal">Total Score</label><input type="text" id="scoreTotal" value="0.00" readonly></div>
+          <div class="form-group" style="max-width: 180px;"><label for="scoreAverage">Average Score</label><input type="text" id="scoreAverage" value="0.00" readonly style="color: var(--blue); font-weight: 700;"></div>
         </div>
 
         <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
-          <button type="submit" class="btn-action">Submit Monthly Scorecard Feedback</button>
+          <button type="submit" class="btn-action">Submit Scorecard Feedback</button>
         </div>
       </form>
     </section>
 
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-top: 24px; gap: 12px;">
-      <div class="eyebrow" id="scorecardTableLabel">CURRENT CONSULTANT SCORECARD DATA</div>
-      <div style="display: flex; gap: 10px; width: 100%; max-width: 580px;">
-        <div style="flex: 1;">
-          <select id="pddAuthorityPrjFilter" onchange="filterAuthorityScorecardTable()" style="width: 100%; border: 1px solid var(--line); padding: 6px 10px; font-size: 11px; border-radius: 4px;">
-            <option value="ALL">All Projects</option>
-            <option value="Infrastructure P1">PRJ-001: Infrastructure P1</option>
-            <option value="Infrastructure P2A">PRJ-002: Infrastructure P2A</option>
-            <option value="Slope Remedial">PRJ-003: Slope Remedial</option>
-            <option value="Area 57">PRJ-004: Area 57</option>
-            <option value="AI Customer Support Bot">PRJ-005: AI Customer Support Bot</option>
-            <option value="Data Lakehouse & BI Hub">PRJ-006: Data Lakehouse & BI Hub</option>
-            <option value="Supply Chain Automation">PRJ-007: Supply Chain Automation</option>
-            <option value="Cyber Security Zero-Trust">PRJ-008: Cyber Security Zero-Trust</option>
-          </select>
-        </div>
-        <div style="width: 110px;">
-          <select id="pddAuthorityYearFilter" onchange="filterAuthorityScorecardTable()" style="width: 100%; border: 1px solid var(--line); padding: 6px 10px; font-size: 11px; border-radius: 4px;">
-            <option value="ALL">All Years</option>
-            <option value="2026">2026</option>
-            <option value="2027">2027</option>
-          </select>
-        </div>
-        <div style="width: 130px;">
-          <select id="pddAuthorityMonthFilter" onchange="filterAuthorityScorecardTable()" style="width: 100%; border: 1px solid var(--line); padding: 6px 10px; font-size: 11px; border-radius: 4px;">
-            <option value="ALL">All Months</option>
-            <option value="January">January</option>
-            <option value="February">February</option>
-            <option value="March">March</option>
-            <option value="April">April</option>
-            <option value="May">May</option>
-            <option value="June">June</option>
-            <option value="July">July</option>
-            <option value="August">August</option>
-            <option value="September">September</option>
-            <option value="October">October</option>
-            <option value="November">November</option>
-            <option value="December">December</option>
-          </select>
-        </div>
-      </div>
+    <div class="eyebrow" id="scorecardTableLabel">CURRENT SCORECARD DATA</div>
+    <div style="display: flex; gap: 10px; margin-bottom: 12px; max-width: 580px;">
+      <select id="pddAuthorityPrjFilter" onchange="filterAuthorityScorecardTable()" style="flex:1; padding:6px; font-size:11px;">
+        <option value="ALL">All Projects</option>
+        <option value="Infrastructure P1">PRJ-001</option>
+        <option value="Infrastructure P2A">PRJ-002</option>
+        <option value="Slope Remedial">PRJ-003</option>
+        <option value="Area 57">PRJ-004</option>
+        <option value="AI Customer Support Bot">PRJ-005</option>
+        <option value="Data Lakehouse & BI Hub">PRJ-006</option>
+        <option value="Supply Chain Automation">PRJ-007</option>
+        <option value="Cyber Security Zero-Trust">PRJ-008</option>
+      </select>
+      <select id="pddAuthorityYearFilter" onchange="filterAuthorityScorecardTable()" style="width:110px; padding:6px; font-size:11px;">
+        <option value="ALL">All Years</option>
+        <option value="2026">2026</option>
+        <option value="2027">2027</option>
+      </select>
+      <select id="pddAuthorityMonthFilter" onchange="filterAuthorityScorecardTable()" style="width:130px; padding:6px; font-size:11px;">
+        <option value="ALL">All Months</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+      </select>
     </div>
 
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th>Project Name</th>
-            <th>Month</th>
-            <th>Progress</th>
-            <th>Quality</th>
-            <th>HSE</th>
-            <th>Reporting Compliance</th>
-            <th>Responsiveness</th>
-            <th>Recovery Actions</th>
-            <th>Total Score</th>
-            <th>Average Score</th>
+            <th>Project Name</th><th>Month</th><th>Progress</th><th>Quality</th><th>HSE</th><th>Compliance</th><th>Responsiveness</th><th>Recovery</th><th>Total Score</th><th>Average</th>
           </tr>
         </thead>
         <tbody id="pddAuthorityScorecardTableBody"></tbody>
@@ -954,24 +807,31 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     </div>
   </div>
 
-  <!-- PDD AUTHORITY PROGRESS APPROVAL PORTAL -->
+  <!-- PDD AUTHORITY APPROVAL PORTAL -->
   <div id="page3Authority" class="app-page">
     <div class="eyebrow">PAGE 3 · PDD AUTHORITY PORTAL</div>
     <h2 style="margin: 6px 0 8px; font-size: 22px; font-weight: 600;">PDD Authority Progress Approval Portal</h2>
 
-    <div class="eyebrow" style="margin-top: 16px;">LATEST PROGRESS BREAKDOWN (BY TRADE)</div>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
+      <div class="eyebrow">LATEST PROGRESS BREAKDOWN (BY TRADE)</div>
+      <div style="width: 220px;">
+        <select id="authorityBreakdownPrjFilter" onchange="loadAuthorityPageData()" style="width: 100%; padding: 6px; font-size: 11px; border-radius: 4px; border: 1px solid var(--line);">
+          <option value="PRJ-001">PRJ-001</option>
+          <option value="PRJ-002">PRJ-002</option>
+          <option value="PRJ-003">PRJ-003</option>
+          <option value="PRJ-004">PRJ-004</option>
+          <option value="PRJ-005">PRJ-005</option>
+          <option value="PRJ-006">PRJ-006</option>
+          <option value="PRJ-007">PRJ-007</option>
+          <option value="PRJ-008">PRJ-008</option>
+        </select>
+      </div>
+    </div>
     <div class="table-wrap" style="margin-bottom: 28px;">
       <table>
         <thead>
           <tr>
-            <th>Main Scope</th>
-            <th>Subscope</th>
-            <th>Trade</th>
-            <th>Latest Month</th>
-            <th>Latest Planned %</th>
-            <th>Latest Actual %</th>
-            <th>Variation</th>
-            <th>Status</th>
+            <th>Main Scope</th><th>Subscope</th><th>Trade</th><th>Latest Month</th><th>Latest Planned %</th><th>Latest Actual %</th><th>Variation</th><th>Status</th>
           </tr>
         </thead>
         <tbody id="authorityBreakdownTableBody"></tbody>
@@ -998,18 +858,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       <table>
         <thead>
           <tr>
-            <th>Project Name</th>
-            <th>Subscope & Trade</th>
-            <th>Reporting Segment</th>
-            <th>Reporting Month</th>
-            <th>Exact Date</th>
-            <th>Planned %</th>
-            <th>Actual %</th>
-            <th>Variation</th>
-            <th>Overall Status</th>
-            <th>Remarks</th>
-            <th>Attachment</th>
-            <th>Approval Action</th>
+            <th>Project Name</th><th>Subscope & Trade</th><th>Reporting Segment</th><th>Reporting Month</th><th>Exact Date</th><th>Planned %</th><th>Actual %</th><th>Variation</th><th>Overall Status</th><th>Remarks</th><th>Attachment</th><th>Approval Action</th>
           </tr>
         </thead>
         <tbody id="authorityTableBody"></tbody>
@@ -1021,14 +870,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       <table>
         <thead>
           <tr>
-            <th>Project Name</th>
-            <th>Main Scope</th>
-            <th>Subscope</th>
-            <th>Trade</th>
-            <th>Duration</th>
-            <th>Start Date</th>
-            <th>Finish Date</th>
-            <th>Approval Action</th>
+            <th>Project Name</th><th>Main Scope</th><th>Subscope</th><th>Trade</th><th>Duration</th><th>Start Date</th><th>Finish Date</th><th>Approval Action</th>
           </tr>
         </thead>
         <tbody id="authorityScopeTableBody"></tbody>
@@ -1036,7 +878,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     </div>
   </div>
 
-  <!-- PAGE 4: CONTRACTOR / DEVELOPER PAGE -->
+  <!-- CONTRACTOR PORTAL -->
   <div id="page4" class="app-page">
     <div class="eyebrow">PAGE 4 · CONTRACTOR / DEVELOPER PORTAL</div>
     <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Contractor/Developer Page</h2>
@@ -1044,43 +886,15 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     <section class="entry-card">
       <div id="contractorProjectSelector">
         <div class="eyebrow" style="margin-bottom: 6px;">STEP 1: SELECT YOUR ASSIGNED PROJECT</div>
-        <p style="font-size: 11px; color: var(--muted); margin-bottom: 16px;">
-          Select your assigned project card below and enter your access PIN to authenticate.
-        </p>
-
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 20px;">
-          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-001', 'Infrastructure P1')">
-            <strong style="display:block; font-size: 12px;">PRJ-001</strong>
-            <span style="font-size: 10px; color: var(--muted);">Infrastructure P1</span>
-          </button>
-          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-002', 'Infrastructure P2A')">
-            <strong style="display:block; font-size: 12px;">PRJ-002</strong>
-            <span style="font-size: 10px; color: var(--muted);">Infrastructure P2A</span>
-          </button>
-          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-003', 'Slope Remedial')">
-            <strong style="display:block; font-size: 12px;">PRJ-003</strong>
-            <span style="font-size: 10px; color: var(--muted);">Slope Remedial</span>
-          </button>
-          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-004', 'Area 57')">
-            <strong style="display:block; font-size: 12px;">PRJ-004</strong>
-            <span style="font-size: 10px; color: var(--muted);">Area 57</span>
-          </button>
-          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-005', 'AI Customer Support Bot')">
-            <strong style="display:block; font-size: 12px;">PRJ-005</strong>
-            <span style="font-size: 10px; color: var(--muted);">AI Customer Support Bot</span>
-          </button>
-          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-006', 'Data Lakehouse & BI Hub')">
-            <strong style="display:block; font-size: 12px;">PRJ-006</strong>
-            <span style="font-size: 10px; color: var(--muted);">Data Lakehouse & BI Hub</span>
-          </button>
-          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-007', 'Supply Chain Automation')">
-            <strong style="display:block; font-size: 12px;">PRJ-007</strong>
-            <span style="font-size: 10px; color: var(--muted);">Supply Chain Automation</span>
-          </button>
-          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-008', 'Cyber Security Zero-Trust')">
-            <strong style="display:block; font-size: 12px;">PRJ-008</strong>
-            <span style="font-size: 10px; color: var(--muted);">Cyber Security Zero-Trust</span>
-          </button>
+          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-001', 'Infrastructure P1')"><strong>PRJ-001</strong><br><small>Infrastructure P1</small></button>
+          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-002', 'Infrastructure P2A')"><strong>PRJ-002</strong><br><small>Infrastructure P2A</small></button>
+          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-003', 'Slope Remedial')"><strong>PRJ-003</strong><br><small>Slope Remedial</small></button>
+          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-004', 'Area 57')"><strong>PRJ-004</strong><br><small>Area 57</small></button>
+          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-005', 'AI Customer Support Bot')"><strong>PRJ-005</strong><br><small>AI Bot</small></button>
+          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-006', 'Data Lakehouse & BI Hub')"><strong>PRJ-006</strong><br><small>Data Hub</small></button>
+          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-007', 'Supply Chain Automation')"><strong>PRJ-007</strong><br><small>Supply Chain</small></button>
+          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-008', 'Cyber Security Zero-Trust')"><strong>PRJ-008</strong><br><small>Cyber Security</small></button>
         </div>
       </div>
 
@@ -1114,24 +928,15 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
           </select>
         </div>
 
-        <div class="red-instruction-box">
-          <strong>Important Instructions:</strong> Submitting exact same Scope, Trade, Cadence, Month & Segment will <strong>OVERWRITE</strong> previous records for easy data correction.
-        </div>
-
-        <!-- FORM A: PROJECT PROGRESS UPDATE -->
         <form id="formProgressUpdate" onsubmit="handleProgressSubmit(event)">
           <div class="form-grid">
             <div class="form-group">
               <label for="pPrj">Project Name <span class="req-star">*</span></label>
               <select id="pPrj" required disabled style="background: #f1f3f8;">
-                <option value="PRJ-001">Infrastructure P1 (PRJ-001)</option>
-                <option value="PRJ-002">Infrastructure P2A (PRJ-002)</option>
-                <option value="PRJ-003">Slope Remedial (PRJ-003)</option>
-                <option value="PRJ-004">Area 57 (PRJ-004)</option>
-                <option value="PRJ-005">AI Customer Support Bot (PRJ-005)</option>
-                <option value="PRJ-006">Data Lakehouse & BI Hub (PRJ-006)</option>
-                <option value="PRJ-007">Supply Chain Automation (PRJ-007)</option>
-                <option value="PRJ-008">Cyber Security Zero-Trust (PRJ-008)</option>
+                <option value="PRJ-001">PRJ-001</option><option value="PRJ-002">PRJ-002</option>
+                <option value="PRJ-003">PRJ-003</option><option value="PRJ-004">PRJ-004</option>
+                <option value="PRJ-005">PRJ-005</option><option value="PRJ-006">PRJ-006</option>
+                <option value="PRJ-007">PRJ-007</option><option value="PRJ-008">PRJ-008</option>
               </select>
             </div>
 
@@ -1146,17 +951,17 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 
             <div class="form-group p-scope-field">
               <label for="pScopeCode">Main Scope</label>
-              <select id="pScopeCode" onchange="onScopeCodeSelectChange()"><option value="">Loading metadata...</option></select>
+              <select id="pScopeCode" onchange="onScopeCodeSelectChange()"><option value="">Loading...</option></select>
             </div>
 
             <div class="form-group p-scope-field">
               <label for="pScopeCat">Subscope</label>
-              <select id="pScopeCat" onchange="filterHistoryByFormSelection()"><option value="">Loading metadata...</option></select>
+              <select id="pScopeCat" onchange="filterHistoryByFormSelection()"><option value="">Loading...</option></select>
             </div>
 
             <div class="form-group p-scope-field">
-              <label for="pTrade">Trade <span class="req-star">*</span></label>
-              <select id="pTrade" onchange="filterHistoryByFormSelection()"><option value="">Loading metadata...</option></select>
+              <label for="pTrade">Trade (Verified & Approved Only) <span class="req-star">*</span></label>
+              <select id="pTrade" onchange="filterHistoryByFormSelection()"><option value="">Loading trades...</option></select>
             </div>
 
             <div class="form-group">
@@ -1196,18 +1001,14 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
             </div>
 
             <div class="form-group">
-              <label for="pDocFile">Supporting Document (Optional PDF / Photo)</label>
-              <input type="file" id="pDocFile" accept="image/*,.pdf" capture="environment">
+              <label for="pDocFile">Supporting Document (PDF / Photo)</label>
+              <input type="file" id="pDocFile" accept="image/*,.pdf">
             </div>
 
             <div class="form-group" style="grid-column: 1 / -1;">
               <label for="pRemarks">Progress Remarks <span class="req-star">*</span></label>
-              <textarea id="pRemarks" rows="2" placeholder="Record achievements, site delays, or cutover milestones..." required></textarea>
+              <textarea id="pRemarks" rows="2" placeholder="Record achievements or issues..." required></textarea>
             </div>
-          </div>
-
-          <div class="disclaimer-box">
-            <strong>Disclaimer:</strong> I hereby declare that the progress metrics submitted above are accurate and true.
           </div>
 
           <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
@@ -1215,7 +1016,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
           </div>
         </form>
 
-        <!-- FORM B: SCHEDULE SETUP -->
         <form id="formScheduleSetup" onsubmit="handleMetadataSubmit(event)" style="display: none;">
           <div class="form-grid">
             <div class="form-group" style="grid-column: 1 / -1; max-width: 320px;">
@@ -1234,46 +1034,16 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
             <div class="form-group">
               <label for="sPrj">Project Name <span class="req-star">*</span></label>
               <select id="sPrj" required disabled style="background: #f1f3f8;">
-                <option value="PRJ-001">Infrastructure P1 (PRJ-001)</option>
-                <option value="PRJ-002">Infrastructure P2A (PRJ-002)</option>
-                <option value="PRJ-003">Slope Remedial (PRJ-003)</option>
-                <option value="PRJ-004">Area 57 (PRJ-004)</option>
-                <option value="PRJ-005">AI Customer Support Bot (PRJ-005)</option>
-                <option value="PRJ-006">Data Lakehouse & BI Hub (PRJ-006)</option>
-                <option value="PRJ-007">Supply Chain Automation (PRJ-007)</option>
-                <option value="PRJ-008">Cyber Security Zero-Trust (PRJ-008)</option>
+                <option value="PRJ-001">PRJ-001</option><option value="PRJ-002">PRJ-002</option>
               </select>
             </div>
 
-            <div class="form-group">
-              <label for="sScopeCode">Main Scope (Optional)</label>
-              <input type="text" id="sScopeCode" placeholder="e.g. Earthworks or N/A">
-            </div>
-
-            <div class="form-group">
-              <label for="sScopeCat">Subscope (Optional)</label>
-              <input type="text" id="sScopeCat" placeholder="e.g. Site Clearance or N/A">
-            </div>
-
-            <div class="form-group">
-              <label for="sTrade">Trade <span class="req-star">*</span></label>
-              <input type="text" id="sTrade" placeholder="e.g. Site Office / Facilities" required>
-            </div>
-
-            <div class="form-group">
-              <label for="sDuration">Duration <span class="req-star">*</span></label>
-              <input type="text" id="sDuration" placeholder="e.g. 8 days" required>
-            </div>
-
-            <div class="form-group">
-              <label for="sStartDate">Start Date <span class="req-star">*</span></label>
-              <input type="date" id="sStartDate" required>
-            </div>
-
-            <div class="form-group">
-              <label for="sFinishDate">Finish Date <span class="req-star">*</span></label>
-              <input type="date" id="sFinishDate" required>
-            </div>
+            <div class="form-group"><label for="sScopeCode">Main Scope (Optional)</label><input type="text" id="sScopeCode" placeholder="e.g. Earthworks or N/A"></div>
+            <div class="form-group"><label for="sScopeCat">Subscope (Optional)</label><input type="text" id="sScopeCat" placeholder="e.g. Site Clearance or N/A"></div>
+            <div class="form-group"><label for="sTrade">Trade <span class="req-star">*</span></label><input type="text" id="sTrade" required></div>
+            <div class="form-group"><label for="sDuration">Duration <span class="req-star">*</span></label><input type="text" id="sDuration" required></div>
+            <div class="form-group"><label for="sStartDate">Start Date <span class="req-star">*</span></label><input type="date" id="sStartDate" required></div>
+            <div class="form-group"><label for="sFinishDate">Finish Date <span class="req-star">*</span></label><input type="date" id="sFinishDate" required></div>
           </div>
 
           <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
@@ -1288,16 +1058,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       <table>
         <thead>
           <tr>
-            <th>Entry ID</th>
-            <th>Project Name</th>
-            <th>Main Scope</th>
-            <th>Subscope</th>
-            <th>Trade</th>
-            <th>Duration</th>
-            <th>Start Date</th>
-            <th>Finish Date</th>
-            <th>Verified</th>
-            <th>Approved</th>
+            <th>Entry ID</th><th>Project Name</th><th>Main Scope</th><th>Subscope</th><th>Trade</th><th>Duration</th><th>Start Date</th><th>Finish Date</th><th>Verified</th><th>Approved</th>
           </tr>
         </thead>
         <tbody id="metadataTableBody"></tbody>
@@ -1309,20 +1070,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       <table>
         <thead>
           <tr>
-            <th>Entry ID</th>
-            <th>Project Name</th>
-            <th>Main Scope & Subscope</th>
-            <th>Trade</th>
-            <th>Reporting Cadence</th>
-            <th>Reporting Month</th>
-            <th>Exact Date</th>
-            <th>Planned %</th>
-            <th>Actual %</th>
-            <th>Variation</th>
-            <th>Remarks</th>
-            <th>Attachment</th>
-            <th>Verified</th>
-            <th>Approved</th>
+            <th>Entry ID</th><th>Project Name</th><th>Main Scope & Subscope</th><th>Trade</th><th>Reporting Cadence</th><th>Reporting Month</th><th>Exact Date</th><th>Planned %</th><th>Actual %</th><th>Variation</th><th>Remarks</th><th>Attachment</th><th>Verified</th><th>Approved</th>
           </tr>
         </thead>
         <tbody id="historyTableBody"></tbody>
@@ -1332,7 +1080,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 
 </div>
 
-<!-- ATTACHMENT MODAL OVERLAY -->
+<!-- ATTACHMENT MODAL -->
 <div class="doc-modal-backdrop" id="docModalBackdrop" onclick="closeDocumentModal(event)">
   <div class="doc-modal-card" onclick="event.stopPropagation()">
     <div class="doc-modal-head">
@@ -1343,14 +1091,12 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
   </div>
 </div>
 
-<!-- REJECTION REASON MODAL OVERLAY -->
+<!-- REJECTION REASON MODAL -->
 <div class="doc-modal-backdrop" id="rejectModalBackdrop">
   <div class="doc-modal-card" style="max-width: 480px; height: auto; padding: 24px;" onclick="event.stopPropagation()">
     <div style="font-weight: 700; font-size: 15px; margin-bottom: 12px; color: var(--red);">Confirm Record Rejection</div>
     <p style="font-size: 11px; color: var(--muted); margin-bottom: 12px;">Please specify the reason for rejecting this record:</p>
-    
-    <textarea id="rejectReasonInput" rows="3" style="width: 100%; padding: 8px; font-size: 12px; border: 1px solid var(--line); border-radius: 4px;" placeholder="Type rejection reason here..."></textarea>
-    
+    <textarea id="rejectReasonInput" rows="3" style="width: 100%; padding: 8px; font-size: 12px; border: 1px solid var(--line); border-radius: 4px;" placeholder="Type rejection reason..."></textarea>
     <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px;">
       <button class="btn-nav" onclick="closeRejectModal()">Cancel</button>
       <button class="btn-action" style="background: var(--red);" onclick="submitRejection()">Confirm Rejection</button>
@@ -1359,22 +1105,15 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 </div>
 
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyla3GlOWzfFMQKLpLcdd_Ob9ycXORXFEbXCW7Kk98OZ3zECfwyQDFQVm9y2iPvgQMsaw/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxZUpy8UsJvikkwkBcNVrDS7PtStcapoogF9ESmGzO3Ub3PflWzxGtco4lcfhOLAFQp_A/exec";
 
 const PROJECT_PINS = {
-  "PRJ-001": "5751",
-  "PRJ-002": "3442",
-  "PRJ-003": "7562",
-  "PRJ-004": "8712",
-  "PRJ-005": "3599",
-  "PRJ-006": "1741",
-  "PRJ-007": "3562",
-  "PRJ-008": "7153"
+  "PRJ-001": "5751", "PRJ-002": "3442", "PRJ-003": "7562", "PRJ-004": "8712",
+  "PRJ-005": "3599", "PRJ-006": "1741", "PRJ-007": "3562", "PRJ-008": "7153"
 };
 
 let activeSelectedProjectCode = "";
 let activeSelectedProjectName = "";
-
 let activeConsultantProjectCode = "";
 let activeConsultantProjectName = "";
 
@@ -1389,25 +1128,28 @@ let baselineOverallData = [
   { id: "PRJ-008", name: "Cyber Security Zero-Trust", cat: "Government Grant", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, milestone: "Policy Framework", status: "Planning", health: "Planned" }
 ];
 
+// FULL S-CURVE DATA PRESETS FOR ALL PROJECTS
 const fullMonthlyTrackingMap = {
   "PRJ-001": {
-    "2026": [
-      { m: "Jan 26", plan: 3.50, act: 3.50 }, { m: "Feb 26", plan: 8.00, act: 7.00 },
-      { m: "Mar 26", plan: 13.00, act: 12.00 }, { m: "Apr 26", plan: 19.00, act: 18.00 },
-      { m: "May 26", plan: 26.00, act: 24.00 }, { m: "Jun 26", plan: 33.00, act: 31.00 },
-      { m: "Jul 26", plan: 41.00, act: 38.00 }, { m: "Aug 26", plan: 49.00, act: 46.00 },
-      { m: "Sep 26", plan: 58.62, act: 59.73 }, { m: "Oct 26", plan: 68.00, act: null },
-      { m: "Nov 26", plan: 78.00, act: null }, { m: "Dec 26", plan: 88.00, act: null }
-    ],
-    "2027": [
-      { m: "Jan 27", plan: 95.00, act: null }, { m: "Feb 27", plan: 100.00, act: null },
-      { m: "Mar 27", plan: 100.00, act: null }, { m: "Apr 27", plan: 100.00, act: null },
-      { m: "May 27", plan: 100.00, act: null }, { m: "Jun 27", plan: 100.00, act: null },
-      { m: "Jul 27", plan: 100.00, act: null }, { m: "Aug 27", plan: 100.00, act: null },
-      { m: "Sep 27", plan: 100.00, act: null }, { m: "Oct 27", plan: 100.00, act: null },
-      { m: "Nov 27", plan: 100.00, act: null }, { m: "Dec 27", plan: 100.00, act: null }
-    ]
-  }
+    "2026": [{m:"Jan 26",plan:3.5,act:3.5},{m:"Feb 26",plan:8,act:7},{m:"Mar 26",plan:13,act:12},{m:"Apr 26",plan:19,act:18},{m:"May 26",plan:26,act:24},{m:"Jun 26",plan:33,act:31},{m:"Jul 26",plan:41,act:38},{m:"Aug 26",plan:49,act:46},{m:"Sep 26",plan:58.62,act:59.73},{m:"Oct 26",plan:68,act:null},{m:"Nov 26",plan:78,act:null},{m:"Dec 26",plan:88,act:null}],
+    "2027": [{m:"Jan 27",plan:95,act:null},{m:"Feb 27",plan:100,act:null},{m:"Mar 27",plan:100,act:null},{m:"Apr 27",plan:100,act:null},{m:"May 27",plan:100,act:null},{m:"Jun 27",plan:100,act:null},{m:"Jul 27",plan:100,act:null},{m:"Aug 27",plan:100,act:null},{m:"Sep 27",plan:100,act:null},{m:"Oct 27",plan:100,act:null},{m:"Nov 27",plan:100,act:null},{m:"Dec 27",plan:100,act:null}]
+  },
+  "PRJ-002": {
+    "2026": [{m:"Jan 26",plan:0,act:0},{m:"Feb 26",plan:0,act:0},{m:"Mar 26",plan:5,act:5},{m:"Apr 26",plan:15,act:14},{m:"May 26",plan:28,act:25},{m:"Jun 26",plan:42,act:38},{m:"Jul 26",plan:55,act:50},{m:"Aug 26",plan:65,act:60},{m:"Sep 26",plan:70,act:65},{m:"Oct 26",plan:82,act:null},{m:"Nov 26",plan:100,act:null},{m:"Dec 26",plan:100,act:null}],
+    "2027": [{m:"Jan 27",plan:100,act:null},{m:"Feb 27",plan:100,act:null},{m:"Mar 27",plan:100,act:null},{m:"Apr 27",plan:100,act:null},{m:"May 27",plan:100,act:null},{m:"Jun 27",plan:100,act:null},{m:"Jul 27",plan:100,act:null},{m:"Aug 27",plan:100,act:null},{m:"Sep 27",plan:100,act:null},{m:"Oct 27",plan:100,act:null},{m:"Nov 27",plan:100,act:null},{m:"Dec 27",plan:100,act:null}]
+  },
+  "PRJ-003": {
+    "2026": [{m:"Jan 26",plan:8,act:8},{m:"Feb 26",plan:18,act:16},{m:"Mar 26",plan:30,act:28},{m:"Apr 26",plan:45,act:40},{m:"May 26",plan:60,act:52},{m:"Jun 26",plan:72,act:62},{m:"Jul 26",plan:82,act:70},{m:"Aug 26",plan:90,act:76},{m:"Sep 26",plan:95,act:80},{m:"Oct 26",plan:100,act:null},{m:"Nov 26",plan:100,act:null},{m:"Dec 26",plan:100,act:null}],
+    "2027": [{m:"Jan 27",plan:100,act:null},{m:"Feb 27",plan:100,act:null},{m:"Mar 27",plan:100,act:null},{m:"Apr 27",plan:100,act:null},{m:"May 27",plan:100,act:null},{m:"Jun 27",plan:100,act:null},{m:"Jul 27",plan:100,act:null},{m:"Aug 27",plan:100,act:null},{m:"Sep 27",plan:100,act:null},{m:"Oct 27",plan:100,act:null},{m:"Nov 27",plan:100,act:null},{m:"Dec 27",plan:100,act:null}]
+  },
+  "PRJ-004": {
+    "2026": [{m:"Jan 26",plan:0,act:0},{m:"Feb 26",plan:0,act:0},{m:"Mar 26",plan:0,act:0},{m:"Apr 26",plan:0,act:0},{m:"May 26",plan:8,act:7},{m:"Jun 26",plan:18,act:15},{m:"Jul 26",plan:28,act:24},{m:"Aug 26",plan:38,act:34},{m:"Sep 26",plan:50,act:45},{m:"Oct 26",plan:65,act:null},{m:"Nov 26",plan:85,act:null},{m:"Dec 26",plan:100,act:null}],
+    "2027": [{m:"Jan 27",plan:100,act:null},{m:"Feb 27",plan:100,act:null},{m:"Mar 27",plan:100,act:null},{m:"Apr 27",plan:100,act:null},{m:"May 27",plan:100,act:null},{m:"Jun 27",plan:100,act:null},{m:"Jul 27",plan:100,act:null},{m:"Aug 27",plan:100,act:null},{m:"Sep 27",plan:100,act:null},{m:"Oct 27",plan:100,act:null},{m:"Nov 27",plan:100,act:null},{m:"Dec 27",plan:100,act:null}]
+  },
+  "PRJ-005": { "2026": [{m:"Jan 26",plan:0,act:0},{m:"Dec 26",plan:5,act:null}], "2027": [{m:"Jan 27",plan:18,act:null},{m:"Jun 27",plan:100,act:null}] },
+  "PRJ-006": { "2026": [{m:"Jan 26",plan:0,act:0},{m:"Dec 26",plan:0,act:null}], "2027": [{m:"Feb 27",plan:8,act:null},{m:"Oct 27",plan:100,act:null}] },
+  "PRJ-007": { "2026": [{m:"Jan 26",plan:0,act:0},{m:"Dec 26",plan:0,act:null}], "2027": [{m:"Mar 27",plan:10,act:null},{m:"Nov 27",plan:100,act:null}] },
+  "PRJ-008": { "2026": [{m:"Jan 26",plan:0,act:0},{m:"Dec 26",plan:0,act:null}], "2027": [{m:"Apr 27",plan:8,act:null},{m:"Dec 27",plan:100,act:null}] }
 };
 
 let currentMetadataList = [];
@@ -1426,7 +1168,6 @@ let pendingRejectTarget = null;
 function selectConsultantProject(code, name) {
   activeConsultantProjectCode = code;
   activeConsultantProjectName = name;
-
   document.getElementById('consultantSelectedProjectLabel').innerText = "AUTHENTICATION REQUIRED: " + code;
   document.getElementById('consultantProjectSelector').style.display = 'none';
   document.getElementById('consultantPinVerification').style.display = 'block';
@@ -1436,18 +1177,14 @@ function selectConsultantProject(code, name) {
 
 function verifyConsultantPin() {
   const enteredPin = document.getElementById('consultantPinInput').value.trim();
-  const correctPin = PROJECT_PINS[activeConsultantProjectCode];
-
-  if (enteredPin === correctPin) {
+  if (enteredPin === PROJECT_PINS[activeConsultantProjectCode]) {
     document.getElementById('consultantPinVerification').style.display = 'none';
     document.getElementById('consultantUnlockedArea').style.display = 'block';
     document.getElementById('consultantAuthenticatedProjectTitle').innerText = activeConsultantProjectCode + " - " + activeConsultantProjectName;
     document.getElementById('consultantScurveTitle').innerText = "S-Curve Analysis: " + activeConsultantProjectCode;
-
     loadConsultantPageData();
   } else {
-    alert("Incorrect Security PIN for " + activeConsultantProjectCode + "! Access Denied.");
-    document.getElementById('consultantPinInput').value = '';
+    alert("Incorrect Security PIN for " + activeConsultantProjectCode);
   }
 }
 
@@ -1473,14 +1210,8 @@ function renderConsultantScurve() {
     return `
       <div class="chart-col" title="${d.m} - Plan: ${d.plan}%, Act: ${d.act !== null ? d.act + '%' : 'N/A'}">
         <div class="bar-wrapper">
-          <div class="scurve-plan" style="height: ${planH}%;">
-            <div class="pct-tag">${d.plan}%</div>
-          </div>
-          ${d.act !== null ? `
-            <div class="scurve-act" style="height: ${actH}%;">
-              <div class="pct-tag" style="color: var(--blue);">${d.act}%</div>
-            </div>
-          ` : ''}
+          <div class="scurve-plan" style="height: ${planH}%;"><div class="pct-tag">${d.plan}%</div></div>
+          ${d.act !== null ? `<div class="scurve-act" style="height: ${actH}%;"><div class="pct-tag" style="color: var(--blue);">${d.act}%</div></div>` : ''}
         </div>
         <div class="col-label">${d.m}</div>
       </div>
@@ -1491,7 +1222,6 @@ function renderConsultantScurve() {
 function selectContractorProject(code, name) {
   activeSelectedProjectCode = code;
   activeSelectedProjectName = name;
-
   document.getElementById('selectedProjectLabel').innerText = "AUTHENTICATION REQUIRED: " + code;
   document.getElementById('contractorProjectSelector').style.display = 'none';
   document.getElementById('contractorPinVerification').style.display = 'block';
@@ -1501,20 +1231,15 @@ function selectContractorProject(code, name) {
 
 function verifyContractorPin() {
   const enteredPin = document.getElementById('contractorPinInput').value.trim();
-  const correctPin = PROJECT_PINS[activeSelectedProjectCode];
-
-  if (enteredPin === correctPin) {
+  if (enteredPin === PROJECT_PINS[activeSelectedProjectCode]) {
     document.getElementById('contractorPinVerification').style.display = 'none';
     document.getElementById('contractorUnlockedArea').style.display = 'block';
     document.getElementById('authenticatedProjectTitle').innerText = activeSelectedProjectCode + " - " + activeSelectedProjectName;
-
     document.getElementById('pPrj').value = activeSelectedProjectCode;
     document.getElementById('sPrj').value = activeSelectedProjectCode;
-
     fetchProjectMetadataAndHistory();
   } else {
-    alert("Incorrect Security PIN for " + activeSelectedProjectCode + "! Access Denied.");
-    document.getElementById('contractorPinInput').value = '';
+    alert("Incorrect Security PIN for " + activeSelectedProjectCode);
   }
 }
 
@@ -1523,68 +1248,41 @@ function resetContractorSelection() {
   activeSelectedProjectName = "";
   currentMetadataList = [];
   currentHistoryList = [];
-
   document.getElementById('contractorUnlockedArea').style.display = 'none';
   document.getElementById('contractorPinVerification').style.display = 'none';
   document.getElementById('contractorProjectSelector').style.display = 'block';
-
   document.getElementById('metadataTableBody').innerHTML = '<tr><td colspan="10" style="text-align: center; color: var(--muted);">Select and unlock a project to view metadata.</td></tr>';
   document.getElementById('historyTableBody').innerHTML = '<tr><td colspan="14" style="text-align: center; color: var(--muted);">Select and unlock a project to view live history records.</td></tr>';
 }
 
 function parsePercentageVal(val) {
   if (val === null || val === undefined || val === '') return 0.0;
-  if (typeof val === 'number') {
-    if (val <= 1.0 && val > 0) return val * 100.0;
-    return val;
-  }
+  if (typeof val === 'number') return val <= 1.0 && val > 0 ? val * 100.0 : val;
   var str = String(val).replace('%', '').trim();
   var num = parseFloat(str);
   if (isNaN(num)) return 0.0;
-  if (num <= 1.0 && num > 0 && String(val).indexOf('%') === -1) {
-    return num * 100.0;
-  }
-  return num;
+  return (num <= 1.0 && num > 0 && String(val).indexOf('%') === -1) ? num * 100.0 : num;
 }
 
 function formatMonthText(val) {
   if (!val || val === '-') return '-';
   var str = String(val).trim();
-
   if (/^[A-Za-z]+\s+\d{4}$/.test(str)) return str;
-
   if (/^\d{4}-\d{2}$/.test(str)) {
     var parts = str.split('-');
-    var monthIndex = parseInt(parts[1], 10) - 1;
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    return months[monthIndex] + " " + parts[0];
+    return months[parseInt(parts[1], 10) - 1] + " " + parts[0];
   }
-
-  var d = new Date(str);
-  if (!isNaN(d.getTime())) {
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var adjustedDate = new Date(d.getTime() + (12 * 60 * 60 * 1000));
-    return months[adjustedDate.getUTCMonth()] + " " + adjustedDate.getUTCFullYear();
-  }
-
   return str;
 }
 
 function formatDateShort(val) {
   if (!val || val === '-') return '-';
   var str = String(val).trim();
-
   if (str.indexOf('Week') !== -1 || str.indexOf('By Month') !== -1) return str;
-
   if (/^\d{4}-\d{2}-\d{2}$/.test(str)) {
     var parts = str.split('-');
     return parseInt(parts[2], 10) + "/" + parseInt(parts[1], 10) + "/" + parts[0];
-  }
-
-  var d = new Date(str);
-  if (!isNaN(d.getTime())) {
-    var adjusted = new Date(d.getTime() + (12 * 60 * 60 * 1000));
-    return adjusted.getUTCDate() + "/" + (adjusted.getUTCMonth() + 1) + "/" + adjusted.getUTCFullYear();
   }
   return str;
 }
@@ -1596,7 +1294,6 @@ function formatExactRM(val) {
 function loginAs(role) {
   resetContractorSelection();
   resetConsultantSelection();
-
   document.getElementById('appHeader').style.display = 'flex';
   document.getElementById('appRule').style.display = 'block';
 
@@ -1634,7 +1331,6 @@ function loginAs(role) {
 function logout() {
   resetContractorSelection();
   resetConsultantSelection();
-
   document.getElementById('appHeader').style.display = 'none';
   document.getElementById('appRule').style.display = 'none';
   switchPage('page1');
@@ -1675,11 +1371,7 @@ function renderOverallTable(data) {
   const tbody = document.getElementById('overallTableBody');
   tbody.innerHTML = data.map(r => {
     let health = r['Project Health'] || r.health || 'Planned';
-    let badgeClass = 'badge-planned';
-    if (health === 'Ahead') badgeClass = 'badge-ahead';
-    else if (health === 'On Track') badgeClass = 'badge-ontrack';
-    else if (health === 'Delayed') badgeClass = 'badge-delayed';
-
+    let badgeClass = health === 'Ahead' ? 'badge-ahead' : (health === 'On Track' ? 'badge-ontrack' : 'badge-delayed');
     return `
       <tr>
         <td style="font-weight: 600;">${r['Project Name'] || r.name}</td>
@@ -1710,14 +1402,8 @@ function loadMonthlyTrackingGraph() {
     return `
       <div class="chart-col" title="${d.m} - Plan: ${d.plan}%, Act: ${d.act !== null ? d.act + '%' : 'N/A'}">
         <div class="bar-wrapper">
-          <div class="scurve-plan" style="height: ${planH}%;">
-            <div class="pct-tag">${d.plan}%</div>
-          </div>
-          ${d.act !== null ? `
-            <div class="scurve-act" style="height: ${actH}%;">
-              <div class="pct-tag" style="color: var(--blue);">${d.act}%</div>
-            </div>
-          ` : ''}
+          <div class="scurve-plan" style="height: ${planH}%;"><div class="pct-tag">${d.plan}%</div></div>
+          ${d.act !== null ? `<div class="scurve-act" style="height: ${actH}%;"><div class="pct-tag" style="color: var(--blue);">${d.act}%</div></div>` : ''}
         </div>
         <div class="col-label">${d.m}</div>
       </div>
@@ -1729,10 +1415,8 @@ function setScorecardType(type) {
   currentScorecardType = type;
   document.getElementById('btnScorecardConsultant').classList.toggle('active', type === 'Consultant');
   document.getElementById('btnScorecardContractor').classList.toggle('active', type === 'Contractor');
-  
   document.getElementById('scorecardFormTitle').innerText = "Input Ratings: " + type + " Scorecard";
   document.getElementById('scorecardTableLabel').innerText = "CURRENT " + type.toUpperCase() + " SCORECARD DATA";
-  
   loadScorecardPageData();
 }
 
@@ -1743,12 +1427,9 @@ function calcAverageScorecard() {
   const r = parseFloat(document.getElementById('scoreReporting').value) || 0;
   const res = parseFloat(document.getElementById('scoreResponsiveness').value) || 0;
   const rec = parseFloat(document.getElementById('scoreRecovery').value) || 0;
-
   const total = p + q + h + r + res + rec;
-  const avg = total / 6.0;
-
   document.getElementById('scoreTotal').value = total.toFixed(2);
-  document.getElementById('scoreAverage').value = avg.toFixed(2);
+  document.getElementById('scoreAverage').value = (total / 6.0).toFixed(2);
 }
 
 function loadScorecardPageData() {
@@ -1762,8 +1443,6 @@ function loadScorecardPageData() {
           loadExistingProjectScoreData();
         }
       });
-  } else {
-    filterAuthorityScorecardTable();
   }
 }
 
@@ -1776,7 +1455,7 @@ function filterAuthorityScorecardTable() {
   if (filterPrj !== 'ALL') filtered = filtered.filter(d => String(d['Project Name']).trim().toLowerCase() === filterPrj.trim().toLowerCase());
   if (filterYear !== 'ALL') filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
   if (filterMonth !== 'ALL') filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
-  
+
   renderScorecardTable('pddAuthorityScorecardTableBody', filtered);
 }
 
@@ -1815,49 +1494,29 @@ function renderScorecardTable(targetTbodyId, data) {
   }
 
   tbody.innerHTML = data.map(d => {
-    var p = parseFloat(d['Progress'] || 0);
-    var q = parseFloat(d['Quality'] || 0);
-    var h = parseFloat(d['HSE'] || 0);
-    var r = parseFloat(d['Reporting Compliance'] || 0);
-    var res = parseFloat(d['Responsiveness'] || 0);
-    var rec = parseFloat(d['Recovery Actions'] || 0);
-
+    var p = parseFloat(d['Progress'] || 0), q = parseFloat(d['Quality'] || 0), h = parseFloat(d['HSE'] || 0), r = parseFloat(d['Reporting Compliance'] || 0), res = parseFloat(d['Responsiveness'] || 0), rec = parseFloat(d['Recovery Actions'] || 0);
     var tot = p + q + h + r + res + rec;
-    var avg = (tot / 6.0).toFixed(2);
-
     return `
       <tr>
         <td style="font-weight: 600;">${d['Project Name']}</td>
         <td>${d['Month'] || '-'}</td>
-        <td>${p.toFixed(1)}</td>
-        <td>${q.toFixed(1)}</td>
-        <td>${h.toFixed(1)}</td>
-        <td>${r.toFixed(1)}</td>
-        <td>${res.toFixed(1)}</td>
-        <td>${rec.toFixed(1)}</td>
+        <td>${p.toFixed(1)}</td><td>${q.toFixed(1)}</td><td>${h.toFixed(1)}</td>
+        <td>${r.toFixed(1)}</td><td>${res.toFixed(1)}</td><td>${rec.toFixed(1)}</td>
         <td><strong>${tot.toFixed(2)}</strong></td>
-        <td style="font-weight: 700; color: var(--blue);">${avg}</td>
+        <td style="font-weight: 700; color: var(--blue);">${(tot / 6.0).toFixed(2)}</td>
       </tr>
     `;
   }).join('');
 }
 
 function loadHigherMgmtScorecards() {
-  const filterPrj = document.getElementById('mgmtScorecardPrjFilter').value;
-  const filterYear = document.getElementById('mgmtScorecardYearFilter').value;
-  const filterMonth = document.getElementById('mgmtScorecardMonthFilter').value;
-
   if (GOOGLE_SCRIPT_URL) {
     fetch(GOOGLE_SCRIPT_URL + "?action=getScorecardData&type=Consultant")
       .then(res => res.json())
       .then(res => { 
         if (res.status === 'success') {
           consultantScorecardFullList = res.data;
-          var filtered = res.data;
-          if (filterPrj !== 'ALL') filtered = filtered.filter(d => String(d['Project Name']).trim().toLowerCase() === filterPrj.trim().toLowerCase());
-          if (filterYear !== 'ALL') filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
-          if (filterMonth !== 'ALL') filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
-          renderScorecardTable('mgmtConsultantScorecardBody', filtered);
+          renderScorecardTable('mgmtConsultantScorecardBody', res.data);
           calculateScorecardKPICards();
         } 
       });
@@ -1867,11 +1526,7 @@ function loadHigherMgmtScorecards() {
       .then(res => { 
         if (res.status === 'success') {
           contractorScorecardFullList = res.data;
-          var filtered = res.data;
-          if (filterPrj !== 'ALL') filtered = filtered.filter(d => String(d['Project Name']).trim().toLowerCase() === filterPrj.trim().toLowerCase());
-          if (filterYear !== 'ALL') filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
-          if (filterMonth !== 'ALL') filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
-          renderScorecardTable('mgmtContractorScorecardBody', filtered);
+          renderScorecardTable('mgmtContractorScorecardBody', res.data);
           calculateScorecardKPICards();
         } 
       });
@@ -1882,14 +1537,16 @@ function calculateScorecardKPICards() {
   var cValidCount = 0, cSumAvg = 0;
   consultantScorecardFullList.forEach(d => {
     var p = parseFloat(d['Progress'] || 0), q = parseFloat(d['Quality'] || 0), h = parseFloat(d['HSE'] || 0), r = parseFloat(d['Reporting Compliance'] || 0), res = parseFloat(d['Responsiveness'] || 0), rec = parseFloat(d['Recovery Actions'] || 0);
-    if (p > 0 || q > 0 || h > 0 || r > 0 || res > 0 || rec > 0) { cValidCount++; cSumAvg += (p + q + h + r + res + rec) / 6.0; }
+    var avg = (p + q + h + r + res + rec) / 6.0;
+    if (avg > 0) { cValidCount++; cSumAvg += avg; }
   });
   document.getElementById('kpiConsultantAvg').innerText = (cValidCount > 0 ? (cSumAvg / cValidCount).toFixed(2) : '0.00') + " / 10";
 
   var kValidCount = 0, kSumAvg = 0;
   contractorScorecardFullList.forEach(d => {
     var p = parseFloat(d['Progress'] || 0), q = parseFloat(d['Quality'] || 0), h = parseFloat(d['HSE'] || 0), r = parseFloat(d['Reporting Compliance'] || 0), res = parseFloat(d['Responsiveness'] || 0), rec = parseFloat(d['Recovery Actions'] || 0);
-    if (p > 0 || q > 0 || h > 0 || r > 0 || res > 0 || rec > 0) { kValidCount++; kSumAvg += (p + q + h + r + res + rec) / 6.0; }
+    var avg = (p + q + h + r + res + rec) / 6.0;
+    if (avg > 0) { kValidCount++; kSumAvg += avg; }
   });
   document.getElementById('kpiContractorAvg').innerText = (kValidCount > 0 ? (kSumAvg / kValidCount).toFixed(2) : '0.00') + " / 10";
 }
@@ -1920,10 +1577,8 @@ function handleScorecardSubmit(e) {
   });
 }
 
-/* CONSULTANT PORTAL */
 function loadConsultantPageData() {
   renderConsultantScurve();
-
   if (GOOGLE_SCRIPT_URL) {
     fetch(GOOGLE_SCRIPT_URL + "?action=getPendingVerifications")
       .then(res => res.json())
@@ -1956,7 +1611,6 @@ function renderLatestBreakdownTable(targetId, data) {
     var planNum = parsePercentageVal(h['Planned']);
     var actNum = parsePercentageVal(h['Actual']);
     var varNum = (actNum - planNum).toFixed(2);
-    var varStr = (varNum >= 0 ? '+' : '') + varNum + '%';
     var status = h['Status'] || h['Overall Project Status'] || 'On Track';
     var badgeClass = status === 'Ahead' ? 'badge-ahead' : (status === 'Delayed' ? 'badge-delayed' : 'badge-ontrack');
 
@@ -1968,7 +1622,7 @@ function renderLatestBreakdownTable(targetId, data) {
         <td>${formatMonthText(h['Reporting Month'])}</td>
         <td>${planNum.toFixed(2)}%</td>
         <td><strong>${actNum.toFixed(2)}%</strong></td>
-        <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${varStr}</td>
+        <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${(varNum >= 0 ? '+' : '') + varNum}%</td>
         <td><span class="badge ${badgeClass}">${status}</span></td>
       </tr>
     `;
@@ -1992,13 +1646,7 @@ function renderConsultantTable() {
     var planNum = parsePercentageVal(h['Planned']);
     var actNum = parsePercentageVal(h['Actual']);
     var varNum = (actNum - planNum).toFixed(2);
-    var varStr = (varNum >= 0 ? '+' : '') + varNum + '%';
-
-    var docCell = '-';
-    var docUrl = h['Supporting Document'] || h['Supporting Doc'] || h['Attachment'];
-    if (docUrl && docUrl !== '-' && docUrl !== '') {
-      docCell = `<button class="btn-doc" onclick="openDocumentModal('${docUrl}')">📎 View File</button>`;
-    }
+    var docCell = (h['Supporting Document'] && h['Supporting Document'] !== '-') ? `<button class="btn-doc" onclick="openDocumentModal('${h['Supporting Document']}')">📎 View File</button>` : '-';
 
     return `
       <tr>
@@ -2009,7 +1657,7 @@ function renderConsultantTable() {
         <td>${formatDateShort(h['Exact Date'] || h['Reporting Segment Period'])}</td>
         <td>${planNum.toFixed(2)}%</td>
         <td><strong>${actNum.toFixed(2)}%</strong></td>
-        <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${varStr}</td>
+        <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${(varNum >= 0 ? '+' : '') + varNum}%</td>
         <td>${h['Status'] || h['Overall Project Status'] || 'On Track'}</td>
         <td style="max-width: 180px;">${h['Remarks'] || '-'}</td>
         <td>${docCell}</td>
@@ -2053,8 +1701,9 @@ function renderConsultantScopeTable() {
   `).join('');
 }
 
-/* PDD AUTHORITY PORTAL */
 function loadAuthorityPageData() {
+  const breakdownPrj = document.getElementById('authorityBreakdownPrjFilter').value;
+
   if (GOOGLE_SCRIPT_URL) {
     fetch(GOOGLE_SCRIPT_URL + "?action=getPendingApprovals")
       .then(res => res.json())
@@ -2064,7 +1713,7 @@ function loadAuthorityPageData() {
       .then(res => res.json())
       .then(res => { if (res.status === 'success') { pendingScopeApprovalsList = res.data; renderAuthorityScopeTable(); } });
 
-    fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=PRJ-001")
+    fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=" + breakdownPrj)
       .then(res => res.json())
       .then(res => { if (res.status === 'success') renderLatestBreakdownTable('authorityBreakdownTableBody', res.data); });
   }
@@ -2086,13 +1735,7 @@ function renderAuthorityTable() {
     var planNum = parsePercentageVal(h['Planned']);
     var actNum = parsePercentageVal(h['Actual']);
     var varNum = (actNum - planNum).toFixed(2);
-    var varStr = (varNum >= 0 ? '+' : '') + varNum + '%';
-
-    var docCell = '-';
-    var docUrl = h['Supporting Document'] || h['Supporting Doc'] || h['Attachment'];
-    if (docUrl && docUrl !== '-' && docUrl !== '') {
-      docCell = `<button class="btn-doc" onclick="openDocumentModal('${docUrl}')">📎 View File</button>`;
-    }
+    var docCell = (h['Supporting Document'] && h['Supporting Document'] !== '-') ? `<button class="btn-doc" onclick="openDocumentModal('${h['Supporting Document']}')">📎 View File</button>` : '-';
 
     return `
       <tr>
@@ -2103,7 +1746,7 @@ function renderAuthorityTable() {
         <td>${formatDateShort(h['Exact Date'] || h['Reporting Segment Period'])}</td>
         <td>${planNum.toFixed(2)}%</td>
         <td><strong>${actNum.toFixed(2)}%</strong></td>
-        <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${varStr}</td>
+        <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${(varNum >= 0 ? '+' : '') + varNum}%</td>
         <td>${h['Status'] || h['Overall Project Status'] || 'On Track'}</td>
         <td style="max-width: 180px;">${h['Remarks'] || '-'}</td>
         <td>${docCell}</td>
@@ -2191,16 +1834,10 @@ function submitRejection() {
   });
 }
 
-/* FORM CONTROLS & SUBMISSIONS */
 function toggleEntryMode() {
   const mode = document.getElementById('formTypeSelect').value;
-  if (mode === 'PROGRESS') {
-    document.getElementById('formProgressUpdate').style.display = 'block';
-    document.getElementById('formScheduleSetup').style.display = 'none';
-  } else {
-    document.getElementById('formProgressUpdate').style.display = 'none';
-    document.getElementById('formScheduleSetup').style.display = 'block';
-  }
+  document.getElementById('formProgressUpdate').style.display = mode === 'PROGRESS' ? 'block' : 'none';
+  document.getElementById('formScheduleSetup').style.display = mode === 'PROGRESS' ? 'none' : 'block';
 }
 
 function handleCadenceChangeProgress() {
@@ -2210,33 +1847,19 @@ function handleCadenceChangeProgress() {
 
   if (cadence === 'Monthly Summary') {
     scopeFields.forEach(el => el.style.display = 'none');
-    container.innerHTML = `
-      <label for="pSegment">Segment Period <span class="req-star">*</span></label>
-      <input type="text" id="pSegment" value="By Month" readonly style="background: #f1f3f8;">
-    `;
+    container.innerHTML = `<label for="pSegment">Segment Period <span class="req-star">*</span></label><input type="text" id="pSegment" value="By Month" readonly style="background: #f1f3f8;">`;
   } else {
     scopeFields.forEach(el => el.style.display = 'flex');
     if (cadence === 'Daily') {
-      container.innerHTML = `
-        <label for="pSegment">Select Exact Date <span class="req-star">*</span></label>
-        <input type="date" id="pSegment" required>
-      `;
+      container.innerHTML = `<label for="pSegment">Select Exact Date <span class="req-star">*</span></label><input type="date" id="pSegment" required>`;
     } else {
-      container.innerHTML = `
-        <label for="pSegment">Segment Period <span class="req-star">*</span></label>
-        <select id="pSegment" required>
-          <option value="Week 2 (1st - 14th)" selected>Week 2 (1st - 14th)</option>
-          <option value="Week 4 (15th - End)">Week 4 (15th - End)</option>
-        </select>
-      `;
+      container.innerHTML = `<label for="pSegment">Segment Period <span class="req-star">*</span></label><select id="pSegment" required><option value="Week 2 (1st - 14th)" selected>Week 2 (1st - 14th)</option><option value="Week 4 (15th - End)">Week 4 (15th - End)</option></select>`;
     }
   }
 }
 
 function toggleScopeSetupAction() {
-  const mode = document.getElementById('sSetupAction').value;
-  const container = document.getElementById('sTradeSelectContainer');
-  container.style.display = mode === 'EDIT' ? 'block' : 'none';
+  document.getElementById('sTradeSelectContainer').style.display = document.getElementById('sSetupAction').value === 'EDIT' ? 'block' : 'none';
 }
 
 function populateScopeFormForEdit() {
@@ -2286,20 +1909,33 @@ function populateMetadataDropdowns(data) {
   const tradeSel = document.getElementById('pTrade');
   const tradeEditSel = document.getElementById('sExistingTradeSelect');
 
+  // ONLY INCLUDE TRADES THAT ARE VERIFIED = YES AND APPROVAL = YES
+  const verifiedApprovedData = data.filter(d => 
+    String(d['Verification']).toUpperCase() === 'YES' && 
+    String(d['Approval']).toUpperCase() === 'YES'
+  );
+
   const codes = [...new Set(data.map(d => d['Main Scope'] || d['Scope Code']).filter(Boolean))];
   const cats = [...new Set(data.map(d => d['Subscope'] || d['Scope Category']).filter(Boolean))];
-  const trades = [...new Set(data.map(d => d['Trade']).filter(Boolean))];
+  const approvedTrades = [...new Set(verifiedApprovedData.map(d => d['Trade']).filter(Boolean))];
+  const allTrades = [...new Set(data.map(d => d['Trade']).filter(Boolean))];
 
   codeSel.innerHTML = '<option value="N/A">N/A</option>' + codes.map(c => `<option value="${c}">${c}</option>`).join('');
   catSel.innerHTML = '<option value="N/A">N/A</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join('');
-  tradeSel.innerHTML = trades.map(t => `<option value="${t}">${t}</option>`).join('');
-  tradeEditSel.innerHTML = '<option value="">Select Existing Trade...</option>' + trades.map(t => `<option value="${t}">${t}</option>`).join('');
+  
+  if (approvedTrades.length > 0) {
+    tradeSel.innerHTML = approvedTrades.map(t => `<option value="${t}">${t}</option>`).join('');
+  } else {
+    tradeSel.innerHTML = '<option value="">No Verified/Approved Trades Available</option>';
+  }
+
+  tradeEditSel.innerHTML = '<option value="">Select Existing Trade...</option>' + allTrades.map(t => `<option value="${t}">${t}</option>`).join('');
 }
 
 function populateDefaultMetadataDropdowns() {
   document.getElementById('pScopeCode').innerHTML = `<option value="N/A">N/A</option>`;
   document.getElementById('pScopeCat').innerHTML = `<option value="N/A">N/A</option>`;
-  document.getElementById('pTrade').innerHTML = `<option value="General Works">General Works</option>`;
+  document.getElementById('pTrade').innerHTML = `<option value="">No Verified/Approved Trades Available</option>`;
 }
 
 function onScopeCodeSelectChange() {
@@ -2326,7 +1962,7 @@ function filterHistoryByFormSelection() {
 function renderMetadataTable(data) {
   const tbody = document.getElementById('metadataTableBody');
   if (!data || data.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: var(--muted);">No metadata schedule entries found for selected project.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: var(--muted);">No metadata schedule entries found.</td></tr>';
     return;
   }
 
@@ -2357,15 +1993,7 @@ function renderHistoryTable(data) {
     var planNum = parsePercentageVal(h['Planned']);
     var actNum = parsePercentageVal(h['Actual']);
     var varNum = (actNum - planNum).toFixed(2);
-    var varStr = (varNum >= 0 ? '+' : '') + varNum + '%';
-    var verVal = h['Verification'] || 'NO';
-    var appVal = h['Approval'] || 'NO';
-
-    var docCell = '-';
-    var docUrl = h['Supporting Document'] || h['Supporting Doc'] || h['Attachment'];
-    if (docUrl && docUrl !== '-' && docUrl !== '') {
-      docCell = `<button class="btn-doc" onclick="openDocumentModal('${docUrl}')">📎 View File</button>`;
-    }
+    var docCell = (h['Supporting Document'] && h['Supporting Document'] !== '-') ? `<button class="btn-doc" onclick="openDocumentModal('${h['Supporting Document']}')">📎 View File</button>` : '-';
 
     return `
       <tr>
@@ -2378,11 +2006,11 @@ function renderHistoryTable(data) {
         <td>${formatDateShort(h['Exact Date'] || h['Reporting Segment Period'])}</td>
         <td>${planNum.toFixed(2)}%</td>
         <td><strong>${actNum.toFixed(2)}%</strong></td>
-        <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${varStr}</td>
+        <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${(varNum >= 0 ? '+' : '') + varNum}%</td>
         <td style="max-width: 180px;">${h['Remarks'] || '-'}</td>
         <td>${docCell}</td>
-        <td><span class="badge ${verVal === 'YES' ? 'badge-ahead' : 'badge-delayed'}">${verVal}</span></td>
-        <td><span class="badge ${appVal === 'YES' ? 'badge-ahead' : 'badge-delayed'}">${appVal}</span></td>
+        <td><span class="badge ${h['Verification'] === 'YES' ? 'badge-ahead' : 'badge-delayed'}">${h['Verification'] || 'NO'}</span></td>
+        <td><span class="badge ${h['Approval'] === 'YES' ? 'badge-ahead' : 'badge-delayed'}">${h['Approval'] || 'NO'}</span></td>
       </tr>
     `;
   }).join('');
@@ -2391,9 +2019,7 @@ function renderHistoryTable(data) {
 function openDocumentModal(url) {
   const modal = document.getElementById('docModalBackdrop');
   const body = document.getElementById('docModalBody');
-
-  let previewUrl = url;
-  if (url.includes('drive.google.com') && !url.endsWith('/preview')) previewUrl = url.replace(/\/view(\?.*)?$/, '/preview');
+  let previewUrl = url.includes('drive.google.com') && !url.endsWith('/preview') ? url.replace(/\/view(\?.*)?$/, '/preview') : url;
 
   if (url.match(/\.(jpeg|jpg|gif|png)$/i) || url.startsWith('data:image')) {
     body.innerHTML = `<img src="${url}" alt="Attachment Preview">`;
@@ -2487,7 +2113,6 @@ function handleMetadataSubmit(e) {
   });
 }
 
-// Initialize Application
 loadPage2Data();
 </script>
 
