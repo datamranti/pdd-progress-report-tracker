@@ -231,10 +231,8 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 .badge-planned { background: #f1f3f8; color: var(--gray); }
 .badge-delayed { background: #ffebeb; color: var(--red); }
 
-/* Mandatory Red Asterisk */
 .req-star { color: var(--red); font-weight: 700; margin-left: 2px; }
 
-/* View Attachment Button */
 .btn-doc {
   background: #f0f4ff;
   border: 1px solid #a3b8ff;
@@ -305,7 +303,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
   background: var(--blue);
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 8px 16px;
   font-weight: 600;
   font-size: 11px;
   border-radius: 4px;
@@ -313,6 +311,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 }
 .btn-verify { background: var(--amber); color: #111; }
 .btn-approve { background: var(--green); }
+.btn-reject { background: var(--red); color: white; }
 
 .tab-switcher {
   display: flex;
@@ -337,7 +336,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
   border-color: var(--blue);
 }
 
-/* Floating Attachment Modal Overlay */
+/* Modals */
 .doc-modal-backdrop {
   display: none;
   position: fixed;
@@ -434,7 +433,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     <div class="eyebrow">PAGE 2 · HIGHER MANAGEMENT VIEW</div>
     <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Higher Management View Page</h2>
 
-    <!-- Summary Headline Cards -->
     <div class="hero-side">
       <div class="hero-stat">
         <div class="label">Total Portfolio Budget</div>
@@ -468,7 +466,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       </div>
     </div>
 
-    <!-- Table Project Details Overall -->
     <div class="eyebrow" style="margin-top: 24px;">PROJECT DETAILS OVERALL</div>
     <div class="table-wrap">
       <table>
@@ -480,6 +477,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
             <th>Project Cost</th>
             <th>Paid to Date</th>
             <th>Budget Balance</th>
+            <th>Key Milestone</th>
             <th>Overall Status</th>
             <th>Health</th>
           </tr>
@@ -488,7 +486,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       </table>
     </div>
 
-    <!-- Project Monthly Tracking Graph Section -->
     <div class="chart-box">
       <div class="chart-header">
         <div>
@@ -526,12 +523,10 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       </div>
     </div>
 
-    <!-- CONSULTANT & CONTRACTOR SCORECARD SUMMARY & CARDS -->
     <div style="margin-top: 36px;">
       <div class="eyebrow">PORTFOLIO EVALUATION SUMMARY</div>
       <h3 style="margin: 4px 0 16px; font-size: 18px; font-weight: 600;">Consultant & Contractor Performance Scorecard</h3>
 
-      <!-- EXECUTIVE SCORECARD CARDS -->
       <div class="hero-side" style="margin-bottom: 24px;">
         <div class="hero-stat">
           <div class="label">Consultant Portfolio Avg</div>
@@ -545,7 +540,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
         </div>
       </div>
 
-      <!-- PROJECT, YEAR & MONTH FILTERS FOR SCORECARD TABLES -->
       <div style="display: flex; gap: 12px; max-width: 720px; margin-bottom: 20px; flex-wrap: wrap;">
         <div style="flex: 1; min-width: 200px;">
           <label for="mgmtScorecardPrjFilter" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">Filter Project:</label>
@@ -640,7 +634,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     <div class="eyebrow">PAGE 3 · CONSULTANT PORTAL</div>
     <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Consultant Verification Portal</h2>
 
-    <!-- CONSULTANT STEP 1: PROJECT SELECTOR -->
     <div id="consultantProjectSelector" class="entry-card">
       <div class="eyebrow" style="margin-bottom: 6px;">STEP 1: SELECT YOUR ASSIGNED PROJECT</div>
       <p style="font-size: 11px; color: var(--muted); margin-bottom: 16px;">
@@ -683,7 +676,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       </div>
     </div>
 
-    <!-- CONSULTANT STEP 2: PIN VERIFICATION -->
     <div id="consultantPinVerification" class="entry-card" style="display: none; max-width: 400px; margin: 20px 0;">
       <div class="eyebrow" id="consultantSelectedProjectLabel">AUTHENTICATION REQUIRED</div>
       <h3 style="margin: 4px 0 12px; font-size: 15px;">Enter Access PIN</h3>
@@ -697,7 +689,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       </div>
     </div>
 
-    <!-- CONSULTANT UNLOCKED PORTAL CONTENT -->
     <div id="consultantUnlockedArea" style="display: none;">
       <div style="display: flex; justify-content: space-between; align-items: center; background: #eef3ff; padding: 12px 16px; border-radius: 6px; margin-bottom: 20px;">
         <div>
@@ -707,7 +698,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
         <button type="button" class="btn-nav" style="font-size: 10px;" onclick="resetConsultantSelection()">Switch Project 🔒</button>
       </div>
 
-      <!-- S-CURVE CHART FOR CONSULTANT (FILTERED AUTOMATICALLY TO SELECTED PROJECT) -->
       <div class="chart-box" style="margin-bottom: 32px;">
         <div class="chart-header">
           <div>
@@ -730,17 +720,16 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
         </div>
       </div>
 
-      <!-- LATEST PROGRESS BREAKDOWN TABLE -->
-      <div class="eyebrow">LATEST PROGRESS BREAKDOWN (BY SCOPE & TRADE)</div>
+      <div class="eyebrow">LATEST PROGRESS BREAKDOWN (BY TRADE)</div>
       <p style="font-size: 11px; color: var(--muted); margin-bottom: 8px;">
-        Current latest recorded metrics per scope category and trade for sanity check before verification.
+        Current recorded metrics per trade for sanity check before verification.
       </p>
       <div class="table-wrap" style="margin-bottom: 32px;">
         <table>
           <thead>
             <tr>
-              <th>Scope Code</th>
-              <th>Scope Category</th>
+              <th>Main Scope</th>
+              <th>Subscope</th>
               <th>Trade</th>
               <th>Latest Month</th>
               <th>Latest Planned %</th>
@@ -753,29 +742,60 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
         </table>
       </div>
 
-      <!-- PENDING VERIFICATIONS TABLE -->
-      <div class="eyebrow">PENDING PROGRESS VERIFICATIONS</div>
-      <p style="font-size: 11px; color: var(--muted); margin-bottom: 12px;">
-        Contractor progress updates requiring verification (<strong>Verification = "NO"</strong>).
-      </p>
-      <div class="table-wrap">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <div class="eyebrow">PENDING PROGRESS VERIFICATIONS</div>
+        <div style="width: 220px;">
+          <select id="consultantPrjFilter" onchange="renderConsultantTable()" style="width: 100%; padding: 6px; font-size: 11px; border-radius: 4px; border: 1px solid var(--line);">
+            <option value="ALL">All Projects</option>
+            <option value="PRJ-001">PRJ-001</option>
+            <option value="PRJ-002">PRJ-002</option>
+            <option value="PRJ-003">PRJ-003</option>
+            <option value="PRJ-004">PRJ-004</option>
+            <option value="PRJ-005">PRJ-005</option>
+            <option value="PRJ-006">PRJ-006</option>
+            <option value="PRJ-007">PRJ-007</option>
+            <option value="PRJ-008">PRJ-008</option>
+          </select>
+        </div>
+      </div>
+      <div class="table-wrap" style="margin-bottom: 32px;">
         <table>
           <thead>
             <tr>
               <th>Project Name</th>
-              <th>Scope Category & Trade</th>
+              <th>Subscope & Trade</th>
               <th>Reporting Segment</th>
               <th>Reporting Month</th>
               <th>Exact Date</th>
               <th>Planned %</th>
               <th>Actual %</th>
               <th>Variation</th>
+              <th>Overall Status</th>
               <th>Remarks</th>
               <th>Attachment</th>
               <th>Verification Action</th>
             </tr>
           </thead>
           <tbody id="consultantTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="eyebrow">PENDING SCOPE SETUP & SCHEDULE VERIFICATIONS</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Project Name</th>
+              <th>Main Scope</th>
+              <th>Subscope</th>
+              <th>Trade</th>
+              <th>Duration</th>
+              <th>Start Date</th>
+              <th>Finish Date</th>
+              <th>Verification Action</th>
+            </tr>
+          </thead>
+          <tbody id="consultantScopeTableBody"></tbody>
         </table>
       </div>
     </div>
@@ -938,22 +958,55 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
   <div id="page3Authority" class="app-page">
     <div class="eyebrow">PAGE 3 · PDD AUTHORITY PORTAL</div>
     <h2 style="margin: 6px 0 8px; font-size: 22px; font-weight: 600;">PDD Authority Progress Approval Portal</h2>
-    <p style="font-size: 11px; color: var(--muted); margin-bottom: 20px;">
-      Review consultant-verified progress submissions (<strong>Verification = "YES"</strong> and <strong>Approval = "NO"</strong>).
-    </p>
 
-    <div class="table-wrap">
+    <div class="eyebrow" style="margin-top: 16px;">LATEST PROGRESS BREAKDOWN (BY TRADE)</div>
+    <div class="table-wrap" style="margin-bottom: 28px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Main Scope</th>
+            <th>Subscope</th>
+            <th>Trade</th>
+            <th>Latest Month</th>
+            <th>Latest Planned %</th>
+            <th>Latest Actual %</th>
+            <th>Variation</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="authorityBreakdownTableBody"></tbody>
+      </table>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <div class="eyebrow">PENDING PROGRESS APPROVALS</div>
+      <div style="width: 220px;">
+        <select id="authorityPrjFilter" onchange="renderAuthorityTable()" style="width: 100%; padding: 6px; font-size: 11px; border-radius: 4px; border: 1px solid var(--line);">
+          <option value="ALL">All Projects</option>
+          <option value="PRJ-001">PRJ-001</option>
+          <option value="PRJ-002">PRJ-002</option>
+          <option value="PRJ-003">PRJ-003</option>
+          <option value="PRJ-004">PRJ-004</option>
+          <option value="PRJ-005">PRJ-005</option>
+          <option value="PRJ-006">PRJ-006</option>
+          <option value="PRJ-007">PRJ-007</option>
+          <option value="PRJ-008">PRJ-008</option>
+        </select>
+      </div>
+    </div>
+    <div class="table-wrap" style="margin-bottom: 28px;">
       <table>
         <thead>
           <tr>
             <th>Project Name</th>
-            <th>Scope Category & Trade</th>
+            <th>Subscope & Trade</th>
             <th>Reporting Segment</th>
             <th>Reporting Month</th>
             <th>Exact Date</th>
             <th>Planned %</th>
             <th>Actual %</th>
             <th>Variation</th>
+            <th>Overall Status</th>
             <th>Remarks</th>
             <th>Attachment</th>
             <th>Approval Action</th>
@@ -962,15 +1015,33 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
         <tbody id="authorityTableBody"></tbody>
       </table>
     </div>
+
+    <div class="eyebrow">PENDING SCOPE SETUP & SCHEDULE APPROVALS</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Project Name</th>
+            <th>Main Scope</th>
+            <th>Subscope</th>
+            <th>Trade</th>
+            <th>Duration</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Approval Action</th>
+          </tr>
+        </thead>
+        <tbody id="authorityScopeTableBody"></tbody>
+      </table>
+    </div>
   </div>
 
-  <!-- PAGE 4: CONTRACTOR / DEVELOPER PAGE (WITH PIN SECURITY AUTHENTICATION) -->
+  <!-- PAGE 4: CONTRACTOR / DEVELOPER PAGE -->
   <div id="page4" class="app-page">
     <div class="eyebrow">PAGE 4 · CONTRACTOR / DEVELOPER PORTAL</div>
     <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Contractor/Developer Page</h2>
 
     <section class="entry-card">
-      <!-- STEP 1: PROJECT SELECTION GRID -->
       <div id="contractorProjectSelector">
         <div class="eyebrow" style="margin-bottom: 6px;">STEP 1: SELECT YOUR ASSIGNED PROJECT</div>
         <p style="font-size: 11px; color: var(--muted); margin-bottom: 16px;">
@@ -1013,7 +1084,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
         </div>
       </div>
 
-      <!-- STEP 2: PIN VERIFICATION -->
       <div id="contractorPinVerification" style="display: none; max-width: 400px; margin: 20px 0;">
         <div class="eyebrow" id="selectedProjectLabel">AUTHENTICATION REQUIRED</div>
         <h3 style="margin: 4px 0 12px; font-size: 15px;">Enter Access PIN</h3>
@@ -1027,7 +1097,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
         </div>
       </div>
 
-      <!-- STEP 3: UNLOCKED ENTRY FORM AREA -->
       <div id="contractorUnlockedArea" style="display: none;">
         <div style="display: flex; justify-content: space-between; align-items: center; background: #eef3ff; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px;">
           <div>
@@ -1067,27 +1136,27 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
             </div>
 
             <div class="form-group">
-              <label for="pScopeCode">Scope Code <span class="req-star">*</span></label>
-              <select id="pScopeCode" required onchange="onScopeCodeSelectChange()"><option value="">Loading metadata...</option></select>
-            </div>
-
-            <div class="form-group">
-              <label for="pScopeCat">Scope Category <span class="req-star">*</span></label>
-              <select id="pScopeCat" required onchange="filterHistoryByFormSelection()"><option value="">Loading metadata...</option></select>
-            </div>
-
-            <div class="form-group">
-              <label for="pTrade">Trade <span class="req-star">*</span></label>
-              <select id="pTrade" required onchange="filterHistoryByFormSelection()"><option value="">Loading metadata...</option></select>
-            </div>
-
-            <div class="form-group">
               <label for="pCadence">Reporting Cadence <span class="req-star">*</span></label>
               <select id="pCadence" onchange="handleCadenceChangeProgress()">
                 <option value="Daily">Daily Update</option>
                 <option value="Biweekly" selected>Biweekly Report</option>
-                <option value="Monthly">Monthly Summary</option>
+                <option value="Monthly Summary">Monthly Summary</option>
               </select>
+            </div>
+
+            <div class="form-group p-scope-field">
+              <label for="pScopeCode">Main Scope</label>
+              <select id="pScopeCode" onchange="onScopeCodeSelectChange()"><option value="">Loading metadata...</option></select>
+            </div>
+
+            <div class="form-group p-scope-field">
+              <label for="pScopeCat">Subscope</label>
+              <select id="pScopeCat" onchange="filterHistoryByFormSelection()"><option value="">Loading metadata...</option></select>
+            </div>
+
+            <div class="form-group p-scope-field">
+              <label for="pTrade">Trade <span class="req-star">*</span></label>
+              <select id="pTrade" onchange="filterHistoryByFormSelection()"><option value="">Loading metadata...</option></select>
             </div>
 
             <div class="form-group">
@@ -1108,12 +1177,12 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 
             <div class="form-group">
               <label for="pPlanned">Planned Progress (%) <span class="req-star">*</span></label>
-              <input type="number" id="pPlanned" step="0.01" min="0" max="100" placeholder="e.g. 58.62 (refer past data)" required>
+              <input type="number" id="pPlanned" step="0.01" min="0" max="100" placeholder="e.g. 58.62" required>
             </div>
 
             <div class="form-group">
               <label for="pActual">Actual Progress (%) <span class="req-star">*</span></label>
-              <input type="number" id="pActual" step="0.01" min="0" max="100" placeholder="e.g. 59.73 (refer past data)" required>
+              <input type="number" id="pActual" step="0.01" min="0" max="100" placeholder="e.g. 59.73" required>
             </div>
 
             <div class="form-group">
@@ -1149,6 +1218,19 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
         <!-- FORM B: SCHEDULE SETUP -->
         <form id="formScheduleSetup" onsubmit="handleMetadataSubmit(event)" style="display: none;">
           <div class="form-grid">
+            <div class="form-group" style="grid-column: 1 / -1; max-width: 320px;">
+              <label for="sSetupAction">Scope Setup Mode <span class="req-star">*</span></label>
+              <select id="sSetupAction" onchange="toggleScopeSetupAction()">
+                <option value="ADD" selected>Add New Trade / Scope</option>
+                <option value="EDIT">Edit Existing Trade / Scope</option>
+              </select>
+            </div>
+
+            <div class="form-group" id="sTradeSelectContainer" style="display: none; grid-column: 1 / -1; max-width: 320px;">
+              <label for="sExistingTradeSelect">Select Target Trade to Edit <span class="req-star">*</span></label>
+              <select id="sExistingTradeSelect" onchange="populateScopeFormForEdit()"><option value="">Select Existing Trade...</option></select>
+            </div>
+
             <div class="form-group">
               <label for="sPrj">Project Name <span class="req-star">*</span></label>
               <select id="sPrj" required disabled style="background: #f1f3f8;">
@@ -1164,13 +1246,13 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
             </div>
 
             <div class="form-group">
-              <label for="sScopeCode">Scope Code <span class="req-star">*</span></label>
-              <input type="text" id="sScopeCode" placeholder="e.g. SCP-01" required>
+              <label for="sScopeCode">Main Scope (Optional)</label>
+              <input type="text" id="sScopeCode" placeholder="e.g. Earthworks or N/A">
             </div>
 
             <div class="form-group">
-              <label for="sScopeCat">Scope Category <span class="req-star">*</span></label>
-              <input type="text" id="sScopeCat" placeholder="e.g. Earthworks & Clearance" required>
+              <label for="sScopeCat">Subscope (Optional)</label>
+              <input type="text" id="sScopeCat" placeholder="e.g. Site Clearance or N/A">
             </div>
 
             <div class="form-group">
@@ -1195,7 +1277,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
           </div>
 
           <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
-            <button type="submit" class="btn-action">Save Schedule Setup</button>
+            <button type="submit" class="btn-action">Submit Schedule Changes for Approval</button>
           </div>
         </form>
       </div>
@@ -1208,19 +1290,20 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
           <tr>
             <th>Entry ID</th>
             <th>Project Name</th>
-            <th>Scope Code</th>
-            <th>Scope Category</th>
+            <th>Main Scope</th>
+            <th>Subscope</th>
             <th>Trade</th>
             <th>Duration</th>
             <th>Start Date</th>
             <th>Finish Date</th>
+            <th>Verified</th>
+            <th>Approved</th>
           </tr>
         </thead>
         <tbody id="metadataTableBody"></tbody>
       </table>
     </div>
 
-    <!-- LIVE SHEET HISTORY RECORDS -->
     <div class="eyebrow">LIVE SHEET HISTORY RECORDS (REAL-TIME FILTERED)</div>
     <div class="table-wrap">
       <table>
@@ -1228,7 +1311,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
           <tr>
             <th>Entry ID</th>
             <th>Project Name</th>
-            <th>Scope Code & Category</th>
+            <th>Main Scope & Subscope</th>
             <th>Trade</th>
             <th>Reporting Cadence</th>
             <th>Reporting Month</th>
@@ -1249,23 +1332,35 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 
 </div>
 
-<!-- FLOATING ATTACHMENT MODAL OVERLAY -->
+<!-- ATTACHMENT MODAL OVERLAY -->
 <div class="doc-modal-backdrop" id="docModalBackdrop" onclick="closeDocumentModal(event)">
   <div class="doc-modal-card" onclick="event.stopPropagation()">
     <div class="doc-modal-head">
       <div style="font-weight: 700; font-size: 13px;" id="docModalTitle">Supporting Document Preview</div>
       <button class="btn-doc" onclick="closeDocumentModal()">Close ✕</button>
     </div>
-    <div class="doc-modal-body" id="docModalBody">
-      <!-- Image/PDF preview dynamically injected here -->
+    <div class="doc-modal-body" id="docModalBody"></div>
+  </div>
+</div>
+
+<!-- REJECTION REASON MODAL OVERLAY -->
+<div class="doc-modal-backdrop" id="rejectModalBackdrop">
+  <div class="doc-modal-card" style="max-width: 480px; height: auto; padding: 24px;" onclick="event.stopPropagation()">
+    <div style="font-weight: 700; font-size: 15px; margin-bottom: 12px; color: var(--red);">Confirm Record Rejection</div>
+    <p style="font-size: 11px; color: var(--muted); margin-bottom: 12px;">Please specify the reason for rejecting this record:</p>
+    
+    <textarea id="rejectReasonInput" rows="3" style="width: 100%; padding: 8px; font-size: 12px; border: 1px solid var(--line); border-radius: 4px;" placeholder="Type rejection reason here..."></textarea>
+    
+    <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px;">
+      <button class="btn-nav" onclick="closeRejectModal()">Cancel</button>
+      <button class="btn-action" style="background: var(--red);" onclick="submitRejection()">Confirm Rejection</button>
     </div>
   </div>
 </div>
 
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyk9k03N7czSlWKy412-bZjN8MEG9ssgFWSyhk9fiyb5NM3W44CUkdzH9yP5j4bsMsJgw/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyla3GlOWzfFMQKLpLcdd_Ob9ycXORXFEbXCW7Kk98OZ3zECfwyQDFQVm9y2iPvgQMsaw/exec";
 
-// PROJECT SECURITY PIN CONFIGURATION
 const PROJECT_PINS = {
   "PRJ-001": "5751",
   "PRJ-002": "3442",
@@ -1284,14 +1379,14 @@ let activeConsultantProjectCode = "";
 let activeConsultantProjectName = "";
 
 let baselineOverallData = [
-  { id: "PRJ-001", name: "Infrastructure P1", cat: "CAPEX", budget: 75000000.00, cost: 68500000.00, paid: 38000000.00, claim: 4200000.00, balance: 6500000.00, status: "In Progress", health: "Ahead" },
-  { id: "PRJ-002", name: "Infrastructure P2A", cat: "CAPEX", budget: 76000000.00, cost: 47377700.00, paid: 0.00, claim: 0.00, balance: 28622300.00, status: "In Progress", health: "On Track" },
-  { id: "PRJ-003", name: "Slope Remedial", cat: "Government Grant", budget: 6000000.00, cost: 2936510.00, paid: 2009510.00, claim: 0.00, balance: 3063490.00, status: "Completed", health: "Ahead" },
-  { id: "PRJ-004", name: "Area 57", cat: "Government Grant", budget: 18000000.00, cost: 17100000.00, paid: 0.00, claim: 0.00, balance: 900000.00, status: "On Hold", health: "Ahead" },
-  { id: "PRJ-005", name: "AI Customer Support Bot", cat: "CAPEX", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, status: "Planning", health: "Planned" },
-  { id: "PRJ-006", name: "Data Lakehouse & BI Hub", cat: "Government Grant", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, status: "Planning", health: "Planned" },
-  { id: "PRJ-007", name: "Supply Chain Automation", cat: "CAPEX", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, status: "Planning", health: "Planned" },
-  { id: "PRJ-008", name: "Cyber Security Zero-Trust", cat: "Government Grant", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, status: "Planning", health: "Planned" }
+  { id: "PRJ-001", name: "Infrastructure P1", cat: "CAPEX", budget: 75000000.00, cost: 68500000.00, paid: 38000000.00, claim: 4200000.00, balance: 6500000.00, milestone: "Bridge Cutover Phase 2", status: "In Progress", health: "Ahead" },
+  { id: "PRJ-002", name: "Infrastructure P2A", cat: "CAPEX", budget: 76000000.00, cost: 47377700.00, paid: 0.00, claim: 0.00, balance: 28622300.00, milestone: "Site Clearing 80%", status: "In Progress", health: "On Track" },
+  { id: "PRJ-003", name: "Slope Remedial", cat: "Government Grant", budget: 6000000.00, cost: 2936510.00, paid: 2009510.00, claim: 0.00, balance: 3063490.00, milestone: "Retaining Wall Built", status: "Completed", health: "Ahead" },
+  { id: "PRJ-004", name: "Area 57", cat: "Government Grant", budget: 18000000.00, cost: 17100000.00, paid: 0.00, claim: 0.00, balance: 900000.00, milestone: "Tender Awarded", status: "On Hold", health: "Ahead" },
+  { id: "PRJ-005", name: "AI Customer Support Bot", cat: "CAPEX", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, milestone: "Vendor Evaluation", status: "Planning", health: "Planned" },
+  { id: "PRJ-006", name: "Data Lakehouse & BI Hub", cat: "Government Grant", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, milestone: "Architecture Review", status: "Planning", health: "Planned" },
+  { id: "PRJ-007", name: "Supply Chain Automation", cat: "CAPEX", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, milestone: "FRD Approval", status: "Planning", health: "Planned" },
+  { id: "PRJ-008", name: "Cyber Security Zero-Trust", cat: "Government Grant", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, milestone: "Policy Framework", status: "Planning", health: "Planned" }
 ];
 
 const fullMonthlyTrackingMap = {
@@ -1312,144 +1407,22 @@ const fullMonthlyTrackingMap = {
       { m: "Sep 27", plan: 100.00, act: null }, { m: "Oct 27", plan: 100.00, act: null },
       { m: "Nov 27", plan: 100.00, act: null }, { m: "Dec 27", plan: 100.00, act: null }
     ]
-  },
-  "PRJ-002": {
-    "2026": [
-      { m: "Jan 26", plan: 0.00, act: 0.00 }, { m: "Feb 26", plan: 0.00, act: 0.00 },
-      { m: "Mar 26", plan: 5.00, act: 5.00 }, { m: "Apr 26", plan: 15.00, act: 14.00 },
-      { m: "May 26", plan: 28.00, act: 25.00 }, { m: "Jun 26", plan: 42.00, act: 38.00 },
-      { m: "Jul 26", plan: 55.00, act: 50.00 }, { m: "Aug 26", plan: 65.00, act: 60.00 },
-      { m: "Sep 26", plan: 70.00, act: 65.00 }, { m: "Oct 26", plan: 82.00, act: null },
-      { m: "Nov 26", plan: 100.00, act: null }, { m: "Dec 26", plan: 100.00, act: null }
-    ],
-    "2027": [
-      { m: "Jan 27", plan: 100.00, act: null }, { m: "Feb 27", plan: 100.00, act: null },
-      { m: "Mar 27", plan: 100.00, act: null }, { m: "Apr 27", plan: 100.00, act: null },
-      { m: "May 27", plan: 100.00, act: null }, { m: "Jun 27", plan: 100.00, act: null },
-      { m: "Jul 27", plan: 100.00, act: null }, { m: "Aug 27", plan: 100.00, act: null },
-      { m: "Sep 27", plan: 100.00, act: null }, { m: "Oct 27", plan: 100.00, act: null },
-      { m: "Nov 27", plan: 100.00, act: null }, { m: "Dec 27", plan: 100.00, act: null }
-    ]
-  },
-  "PRJ-003": {
-    "2026": [
-      { m: "Jan 26", plan: 8.00, act: 8.00 }, { m: "Feb 26", plan: 18.00, act: 16.00 },
-      { m: "Mar 26", plan: 30.00, act: 28.00 }, { m: "Apr 26", plan: 45.00, act: 40.00 },
-      { m: "May 26", plan: 60.00, act: 52.00 }, { m: "Jun 26", plan: 72.00, act: 62.00 },
-      { m: "Jul 26", plan: 82.00, act: 70.00 }, { m: "Aug 26", plan: 90.00, act: 76.00 },
-      { m: "Sep 26", plan: 95.00, act: 80.00 }, { m: "Oct 26", plan: 100.00, act: null },
-      { m: "Nov 26", plan: 100.00, act: null }, { m: "Dec 26", plan: 100.00, act: null }
-    ],
-    "2027": [
-      { m: "Jan 27", plan: 100.00, act: null }, { m: "Feb 27", plan: 100.00, act: null },
-      { m: "Mar 27", plan: 100.00, act: null }, { m: "Apr 27", plan: 100.00, act: null },
-      { m: "May 27", plan: 100.00, act: null }, { m: "Jun 27", plan: 100.00, act: null },
-      { m: "Jul 27", plan: 100.00, act: null }, { m: "Aug 27", plan: 100.00, act: null },
-      { m: "Sep 27", plan: 100.00, act: null }, { m: "Oct 27", plan: 100.00, act: null },
-      { m: "Nov 27", plan: 100.00, act: null }, { m: "Dec 27", plan: 100.00, act: null }
-    ]
-  },
-  "PRJ-004": {
-    "2026": [
-      { m: "Jan 26", plan: 0.00, act: 0.00 }, { m: "Feb 26", plan: 0.00, act: 0.00 },
-      { m: "Mar 26", plan: 0.00, act: 0.00 }, { m: "Apr 26", plan: 0.00, act: 0.00 },
-      { m: "May 26", plan: 8.00, act: 7.00 }, { m: "Jun 26", plan: 18.00, act: 15.00 },
-      { m: "Jul 26", plan: 28.00, act: 24.00 }, { m: "Aug 26", plan: 38.00, act: 34.00 },
-      { m: "Sep 26", plan: 50.00, act: 45.00 }, { m: "Oct 26", plan: 65.00, act: null },
-      { m: "Nov 26", plan: 85.00, act: null }, { m: "Dec 26", plan: 100.00, act: null }
-    ],
-    "2027": [
-      { m: "Jan 27", plan: 100.00, act: null }, { m: "Feb 27", plan: 100.00, act: null },
-      { m: "Mar 27", plan: 100.00, act: null }, { m: "Apr 27", plan: 100.00, act: null },
-      { m: "May 27", plan: 100.00, act: null }, { m: "Jun 27", plan: 100.00, act: null },
-      { m: "Jul 27", plan: 100.00, act: null }, { m: "Aug 27", plan: 100.00, act: null },
-      { m: "Sep 27", plan: 100.00, act: null }, { m: "Oct 27", plan: 100.00, act: null },
-      { m: "Nov 27", plan: 100.00, act: null }, { m: "Dec 27", plan: 100.00, act: null }
-    ]
-  },
-  "PRJ-005": {
-    "2026": [
-      { m: "Jan 26", plan: 0.00, act: 0.00 }, { m: "Feb 26", plan: 0.00, act: 0.00 },
-      { m: "Mar 26", plan: 0.00, act: 0.00 }, { m: "Apr 26", plan: 0.00, act: 0.00 },
-      { m: "May 26", plan: 0.00, act: 0.00 }, { m: "Jun 26", plan: 0.00, act: 0.00 },
-      { m: "Jul 26", plan: 0.00, act: 0.00 }, { m: "Aug 26", plan: 0.00, act: 0.00 },
-      { m: "Sep 26", plan: 0.00, act: 0.00 }, { m: "Oct 26", plan: 0.00, act: null },
-      { m: "Nov 26", plan: 0.00, act: null }, { m: "Dec 26", plan: 5.00, act: null }
-    ],
-    "2027": [
-      { m: "Jan 27", plan: 18.00, act: null }, { m: "Feb 27", plan: 35.00, act: null },
-      { m: "Mar 27", plan: 55.00, act: null }, { m: "Apr 27", plan: 75.00, act: null },
-      { m: "May 27", plan: 90.00, act: null }, { m: "Jun 27", plan: 100.00, act: null },
-      { m: "Jul 27", plan: 100.00, act: null }, { m: "Aug 27", plan: 100.00, act: null },
-      { m: "Sep 27", plan: 100.00, act: null }, { m: "Oct 27", plan: 100.00, act: null },
-      { m: "Nov 27", plan: 100.00, act: null }, { m: "Dec 27", plan: 100.00, act: null }
-    ]
-  },
-  "PRJ-006": {
-    "2026": [
-      { m: "Jan 26", plan: 0.00, act: 0.00 }, { m: "Feb 26", plan: 0.00, act: 0.00 },
-      { m: "Mar 26", plan: 0.00, act: 0.00 }, { m: "Apr 26", plan: 0.00, act: 0.00 },
-      { m: "May 26", plan: 0.00, act: 0.00 }, { m: "Jun 26", plan: 0.00, act: 0.00 },
-      { m: "Jul 26", plan: 0.00, act: 0.00 }, { m: "Aug 26", plan: 0.00, act: 0.00 },
-      { m: "Sep 26", plan: 0.00, act: 0.00 }, { m: "Oct 26", plan: 0.00, act: null },
-      { m: "Nov 26", plan: 0.00, act: null }, { m: "Dec 26", plan: 0.00, act: null }
-    ],
-    "2027": [
-      { m: "Jan 27", plan: 0.00, act: null }, { m: "Feb 27", plan: 8.00, act: null },
-      { m: "Mar 27", plan: 20.00, act: null }, { m: "Apr 27", plan: 35.00, act: null },
-      { m: "May 27", plan: 50.00, act: null }, { m: "Jun 27", plan: 65.00, act: null },
-      { m: "Jul 27", plan: 78.00, act: null }, { m: "Aug 27", plan: 88.00, act: null },
-      { m: "Sep 27", plan: 95.00, act: null }, { m: "Oct 27", plan: 100.00, act: null },
-      { m: "Nov 27", plan: 100.00, act: null }, { m: "Dec 27", plan: 100.00, act: null }
-    ]
-  },
-  "PRJ-007": {
-    "2026": [
-      { m: "Jan 26", plan: 0.00, act: 0.00 }, { m: "Feb 26", plan: 0.00, act: 0.00 },
-      { m: "Mar 26", plan: 0.00, act: 0.00 }, { m: "Apr 26", plan: 0.00, act: 0.00 },
-      { m: "May 26", plan: 0.00, act: 0.00 }, { m: "Jun 26", plan: 0.00, act: 0.00 },
-      { m: "Jul 26", plan: 0.00, act: 0.00 }, { m: "Aug 26", plan: 0.00, act: 0.00 },
-      { m: "Sep 26", plan: 0.00, act: 0.00 }, { m: "Oct 26", plan: 0.00, act: null },
-      { m: "Nov 26", plan: 0.00, act: null }, { m: "Dec 26", plan: 0.00, act: null }
-    ],
-    "2027": [
-      { m: "Jan 27", plan: 0.00, act: null }, { m: "Feb 27", plan: 0.00, act: null },
-      { m: "Mar 27", plan: 10.00, act: null }, { m: "Apr 27", plan: 22.00, act: null },
-      { m: "May 27", plan: 36.00, act: null }, { m: "Jun 27", plan: 52.00, act: null },
-      { m: "Jul 27", plan: 66.00, act: null }, { m: "Aug 27", plan: 80.00, act: null },
-      { m: "Sep 27", plan: 90.00, act: null }, { m: "Oct 27", plan: 96.00, act: null },
-      { m: "Nov 27", plan: 100.00, act: null }, { m: "Dec 27", plan: 100.00, act: null }
-    ]
-  },
-  "PRJ-008": {
-    "2026": [
-      { m: "Jan 26", plan: 0.00, act: 0.00 }, { m: "Feb 26", plan: 0.00, act: 0.00 },
-      { m: "Mar 26", plan: 0.00, act: 0.00 }, { m: "Apr 26", plan: 0.00, act: 0.00 },
-      { m: "May 26", plan: 0.00, act: 0.00 }, { m: "Jun 26", plan: 0.00, act: 0.00 },
-      { m: "Jul 26", plan: 0.00, act: 0.00 }, { m: "Aug 26", plan: 0.00, act: 0.00 },
-      { m: "Sep 26", plan: 0.00, act: 0.00 }, { m: "Oct 26", plan: 0.00, act: null },
-      { m: "Nov 26", plan: 0.00, act: null }, { m: "Dec 26", plan: 0.00, act: null }
-    ],
-    "2027": [
-      { m: "Jan 27", plan: 0.00, act: null }, { m: "Feb 27", plan: 0.00, act: null },
-      { m: "Mar 27", plan: 0.00, act: null }, { m: "Apr 27", plan: 8.00, act: null },
-      { m: "May 27", plan: 20.00, act: null }, { m: "Jun 27", plan: 35.00, act: null },
-      { m: "Jul 27", plan: 50.00, act: null }, { m: "Aug 27", plan: 65.00, act: null },
-      { m: "Sep 27", plan: 80.00, act: null }, { m: "Oct 27", plan: 90.00, act: null },
-      { m: "Nov 27", plan: 96.00, act: null }, { m: "Dec 27", plan: 100.00, act: null }
-    ]
   }
 };
 
 let currentMetadataList = [];
 let currentHistoryList = [];
 let pendingVerificationsList = [];
+let pendingScopeVerificationsList = [];
+let pendingApprovalsList = [];
+let pendingScopeApprovalsList = [];
+
 let currentScorecardType = "Consultant";
 let activeScorecardData = [];
 let consultantScorecardFullList = [];
 let contractorScorecardFullList = [];
+let pendingRejectTarget = null;
 
-// CONSULTANT PIN AUTHENTICATION
 function selectConsultantProject(code, name) {
   activeConsultantProjectCode = code;
   activeConsultantProjectName = name;
@@ -1515,7 +1488,6 @@ function renderConsultantScurve() {
   }).join('');
 }
 
-// CONTRACTOR PIN AUTHENTICATION
 function selectContractorProject(code, name) {
   activeSelectedProjectCode = code;
   activeSelectedProjectName = name;
@@ -1549,9 +1521,15 @@ function verifyContractorPin() {
 function resetContractorSelection() {
   activeSelectedProjectCode = "";
   activeSelectedProjectName = "";
+  currentMetadataList = [];
+  currentHistoryList = [];
+
   document.getElementById('contractorUnlockedArea').style.display = 'none';
   document.getElementById('contractorPinVerification').style.display = 'none';
   document.getElementById('contractorProjectSelector').style.display = 'block';
+
+  document.getElementById('metadataTableBody').innerHTML = '<tr><td colspan="10" style="text-align: center; color: var(--muted);">Select and unlock a project to view metadata.</td></tr>';
+  document.getElementById('historyTableBody').innerHTML = '<tr><td colspan="14" style="text-align: center; color: var(--muted);">Select and unlock a project to view live history records.</td></tr>';
 }
 
 function parsePercentageVal(val) {
@@ -1616,7 +1594,6 @@ function formatExactRM(val) {
 }
 
 function loginAs(role) {
-  // Always reset PIN session state when switching roles or logging in
   resetContractorSelection();
   resetConsultantSelection();
 
@@ -1642,7 +1619,7 @@ function loginAs(role) {
     document.getElementById('navApproval').style.display = 'none';
     document.getElementById('navScorecard').style.display = 'none';
     document.getElementById('navVerification').style.display = 'inline-block';
-    document.getElementById('navInput').style.display = 'none'; // HIDDEN CONTRACTOR PORTAL FOR CONSULTANT
+    document.getElementById('navInput').style.display = 'none';
     switchPage('page3Consultant');
   } else if (role === 'Contractor') {
     document.getElementById('navDashboard').style.display = 'none';
@@ -1655,7 +1632,6 @@ function loginAs(role) {
 }
 
 function logout() {
-  // Reset all authenticated PIN selections upon logout
   resetContractorSelection();
   resetConsultantSelection();
 
@@ -1676,14 +1652,10 @@ function switchPage(pageId) {
   if (pageId === 'page4') document.getElementById('navInput').classList.add('active');
 
   if (pageId === 'page2') { loadPage2Data(); loadMonthlyTrackingGraph(); loadHigherMgmtScorecards(); }
-  if (pageId === 'page3Consultant') {
-    if (activeConsultantProjectCode) loadConsultantPageData();
-  }
+  if (pageId === 'page3Consultant') { if (activeConsultantProjectCode) loadConsultantPageData(); }
   if (pageId === 'pageScorecard') loadScorecardPageData();
   if (pageId === 'page3Authority') loadAuthorityPageData();
-  if (pageId === 'page4') {
-    if (activeSelectedProjectCode) fetchProjectMetadataAndHistory();
-  }
+  if (pageId === 'page4') { if (activeSelectedProjectCode) fetchProjectMetadataAndHistory(); }
 }
 
 function loadPage2Data() {
@@ -1716,6 +1688,7 @@ function renderOverallTable(data) {
         <td>${formatExactRM(r['Project Cost'] || r.cost)}</td>
         <td>${formatExactRM(r['Paid to Date'] || r.paid)}</td>
         <td>${formatExactRM(r['Budget Balance'] || r.balance)}</td>
+        <td>${r['Key Milestone'] || r.milestone || '-'}</td>
         <td>${r['Current Overall Status'] || r.status}</td>
         <td><span class="badge ${badgeClass}">${health}</span></td>
       </tr>
@@ -1752,7 +1725,6 @@ function loadMonthlyTrackingGraph() {
   }).join('');
 }
 
-// SCORECARD PORTAL LOGIC & EXECUTIVE CARDS CALCULATION
 function setScorecardType(type) {
   currentScorecardType = type;
   document.getElementById('btnScorecardConsultant').classList.toggle('active', type === 'Consultant');
@@ -1801,18 +1773,9 @@ function filterAuthorityScorecardTable() {
   const filterMonth = document.getElementById('pddAuthorityMonthFilter').value;
 
   let filtered = activeScorecardData;
-  
-  if (filterPrj !== 'ALL') {
-    filtered = filtered.filter(d => String(d['Project Name']).trim().toLowerCase() === filterPrj.trim().toLowerCase());
-  }
-
-  if (filterYear !== 'ALL') {
-    filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
-  }
-
-  if (filterMonth !== 'ALL') {
-    filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
-  }
+  if (filterPrj !== 'ALL') filtered = filtered.filter(d => String(d['Project Name']).trim().toLowerCase() === filterPrj.trim().toLowerCase());
+  if (filterYear !== 'ALL') filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
+  if (filterMonth !== 'ALL') filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
   
   renderScorecardTable('pddAuthorityScorecardTableBody', filtered);
 }
@@ -1846,7 +1809,6 @@ function loadExistingProjectScoreData() {
 
 function renderScorecardTable(targetTbodyId, data) {
   const tbody = document.getElementById(targetTbodyId);
-  
   if (!data || data.length === 0) {
     tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: var(--muted);">No scorecard records found.</td></tr>';
     return;
@@ -1892,17 +1854,9 @@ function loadHigherMgmtScorecards() {
         if (res.status === 'success') {
           consultantScorecardFullList = res.data;
           var filtered = res.data;
-
-          if (filterPrj !== 'ALL') {
-            filtered = filtered.filter(d => String(d['Project Name']).trim().toLowerCase() === filterPrj.trim().toLowerCase());
-          }
-          if (filterYear !== 'ALL') {
-            filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
-          }
-          if (filterMonth !== 'ALL') {
-            filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
-          }
-
+          if (filterPrj !== 'ALL') filtered = filtered.filter(d => String(d['Project Name']).trim().toLowerCase() === filterPrj.trim().toLowerCase());
+          if (filterYear !== 'ALL') filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
+          if (filterMonth !== 'ALL') filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
           renderScorecardTable('mgmtConsultantScorecardBody', filtered);
           calculateScorecardKPICards();
         } 
@@ -1914,168 +1868,103 @@ function loadHigherMgmtScorecards() {
         if (res.status === 'success') {
           contractorScorecardFullList = res.data;
           var filtered = res.data;
-
-          if (filterPrj !== 'ALL') {
-            filtered = filtered.filter(d => String(d['Project Name']).trim().toLowerCase() === filterPrj.trim().toLowerCase());
-          }
-          if (filterYear !== 'ALL') {
-            filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
-          }
-          if (filterMonth !== 'ALL') {
-            filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
-          }
-
+          if (filterPrj !== 'ALL') filtered = filtered.filter(d => String(d['Project Name']).trim().toLowerCase() === filterPrj.trim().toLowerCase());
+          if (filterYear !== 'ALL') filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
+          if (filterMonth !== 'ALL') filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
           renderScorecardTable('mgmtContractorScorecardBody', filtered);
           calculateScorecardKPICards();
         } 
       });
-  } else {
-    renderScorecardTable('mgmtConsultantScorecardBody', []);
-    renderScorecardTable('mgmtContractorScorecardBody', []);
   }
 }
 
 function calculateScorecardKPICards() {
-  var cValidCount = 0;
-  var cSumAvg = 0;
+  var cValidCount = 0, cSumAvg = 0;
   consultantScorecardFullList.forEach(d => {
-    var p = parseFloat(d['Progress'] || 0);
-    var q = parseFloat(d['Quality'] || 0);
-    var h = parseFloat(d['HSE'] || 0);
-    var r = parseFloat(d['Reporting Compliance'] || 0);
-    var res = parseFloat(d['Responsiveness'] || 0);
-    var rec = parseFloat(d['Recovery Actions'] || 0);
-    
-    if (p > 0 || q > 0 || h > 0 || r > 0 || res > 0 || rec > 0) {
-      cValidCount++;
-      cSumAvg += (p + q + h + r + res + rec) / 6.0;
-    }
+    var p = parseFloat(d['Progress'] || 0), q = parseFloat(d['Quality'] || 0), h = parseFloat(d['HSE'] || 0), r = parseFloat(d['Reporting Compliance'] || 0), res = parseFloat(d['Responsiveness'] || 0), rec = parseFloat(d['Recovery Actions'] || 0);
+    if (p > 0 || q > 0 || h > 0 || r > 0 || res > 0 || rec > 0) { cValidCount++; cSumAvg += (p + q + h + r + res + rec) / 6.0; }
   });
+  document.getElementById('kpiConsultantAvg').innerText = (cValidCount > 0 ? (cSumAvg / cValidCount).toFixed(2) : '0.00') + " / 10";
 
-  var cFinalAvg = cValidCount > 0 ? (cSumAvg / cValidCount).toFixed(2) : '0.00';
-  document.getElementById('kpiConsultantAvg').innerText = cFinalAvg + " / 10";
-
-  var kValidCount = 0;
-  var kSumAvg = 0;
+  var kValidCount = 0, kSumAvg = 0;
   contractorScorecardFullList.forEach(d => {
-    var p = parseFloat(d['Progress'] || 0);
-    var q = parseFloat(d['Quality'] || 0);
-    var h = parseFloat(d['HSE'] || 0);
-    var r = parseFloat(d['Reporting Compliance'] || 0);
-    var res = parseFloat(d['Responsiveness'] || 0);
-    var rec = parseFloat(d['Recovery Actions'] || 0);
-    
-    if (p > 0 || q > 0 || h > 0 || r > 0 || res > 0 || rec > 0) {
-      kValidCount++;
-      kSumAvg += (p + q + h + r + res + rec) / 6.0;
-    }
+    var p = parseFloat(d['Progress'] || 0), q = parseFloat(d['Quality'] || 0), h = parseFloat(d['HSE'] || 0), r = parseFloat(d['Reporting Compliance'] || 0), res = parseFloat(d['Responsiveness'] || 0), rec = parseFloat(d['Recovery Actions'] || 0);
+    if (p > 0 || q > 0 || h > 0 || r > 0 || res > 0 || rec > 0) { kValidCount++; kSumAvg += (p + q + h + r + res + rec) / 6.0; }
   });
-
-  var kFinalAvg = kValidCount > 0 ? (kSumAvg / kValidCount).toFixed(2) : '0.00';
-  document.getElementById('kpiContractorAvg').innerText = kFinalAvg + " / 10";
+  document.getElementById('kpiContractorAvg').innerText = (kValidCount > 0 ? (kSumAvg / kValidCount).toFixed(2) : '0.00') + " / 10";
 }
 
 function handleScorecardSubmit(e) {
   e.preventDefault();
-  
-  const p = parseFloat(document.getElementById('scoreProgress').value);
-  const q = parseFloat(document.getElementById('scoreQuality').value);
-  const h = parseFloat(document.getElementById('scoreHSE').value);
-  const r = parseFloat(document.getElementById('scoreReporting').value);
-  const res = parseFloat(document.getElementById('scoreResponsiveness').value);
-  const rec = parseFloat(document.getElementById('scoreRecovery').value);
-
-  if ([p, q, h, r, res, rec].some(val => isNaN(val) || val < 1.0 || val > 10.0)) {
-    alert("Invalid score entry! Ratings must be between 1.0 and 10.0.");
-    return;
-  }
-
   const payload = {
     action: "submitScorecard",
     scorecardType: currentScorecardType,
     projectName: document.getElementById('scorePrjSelect').value,
     month: document.getElementById('scoreMonthSelect').value,
-    progress: p,
-    quality: q,
-    hse: h,
-    reporting: r,
-    responsiveness: res,
-    recovery: rec
+    progress: parseFloat(document.getElementById('scoreProgress').value),
+    quality: parseFloat(document.getElementById('scoreQuality').value),
+    hse: parseFloat(document.getElementById('scoreHSE').value),
+    reporting: parseFloat(document.getElementById('scoreReporting').value),
+    responsiveness: parseFloat(document.getElementById('scoreResponsiveness').value),
+    recovery: parseFloat(document.getElementById('scoreRecovery').value)
   };
 
-  if (GOOGLE_SCRIPT_URL) {
-    fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(() => {
-      alert(currentScorecardType + ' Scorecard for ' + payload.month + ' updated successfully!');
-      loadScorecardPageData();
-    });
-  } else {
-    alert('Scorecard submitted locally.');
-  }
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(() => {
+    alert(currentScorecardType + ' Scorecard updated successfully!');
+    loadScorecardPageData();
+  });
 }
 
-// CONSULTANT VERIFICATION PAGE LOGIC
+/* CONSULTANT PORTAL */
 function loadConsultantPageData() {
   renderConsultantScurve();
 
   if (GOOGLE_SCRIPT_URL) {
     fetch(GOOGLE_SCRIPT_URL + "?action=getPendingVerifications")
       .then(res => res.json())
-      .then(res => {
-        if (res.status === 'success') {
-          pendingVerificationsList = res.data;
-          renderConsultantTable();
-        }
-      });
+      .then(res => { if (res.status === 'success') { pendingVerificationsList = res.data; renderConsultantTable(); } });
+
+    fetch(GOOGLE_SCRIPT_URL + "?action=getPendingScopeVerifications")
+      .then(res => res.json())
+      .then(res => { if (res.status === 'success') { pendingScopeVerificationsList = res.data; renderConsultantScopeTable(); } });
 
     fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=" + activeConsultantProjectCode)
       .then(res => res.json())
-      .then(res => {
-        if (res.status === 'success') {
-          renderLatestBreakdownTable(res.data);
-        }
-      });
-  } else {
-    pendingVerificationsList = [];
-    renderConsultantTable();
-    renderLatestBreakdownTable([]);
+      .then(res => { if (res.status === 'success') renderLatestBreakdownTable('latestBreakdownTableBody', res.data); });
   }
 }
 
-function renderLatestBreakdownTable(data) {
-  const tbody = document.getElementById('latestBreakdownTableBody');
-
+function renderLatestBreakdownTable(targetId, data) {
+  const tbody = document.getElementById(targetId);
   if (!data || data.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--muted);">No progress records available for this project.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--muted);">No progress records available.</td></tr>';
     return;
   }
 
   const latestMap = {};
   data.forEach(item => {
-    const key = (item['Scope Code'] || '') + '_' + (item['Trade'] || '');
+    const key = (item['Main Scope'] || item['Scope Code'] || '') + '_' + (item['Trade'] || '');
     latestMap[key] = item;
   });
 
-  const latestList = Object.values(latestMap);
-
-  tbody.innerHTML = latestList.map(h => {
+  tbody.innerHTML = Object.values(latestMap).map(h => {
     var planNum = parsePercentageVal(h['Planned']);
     var actNum = parsePercentageVal(h['Actual']);
     var varNum = (actNum - planNum).toFixed(2);
     var varStr = (varNum >= 0 ? '+' : '') + varNum + '%';
-
     var status = h['Status'] || h['Overall Project Status'] || 'On Track';
     var badgeClass = status === 'Ahead' ? 'badge-ahead' : (status === 'Delayed' ? 'badge-delayed' : 'badge-ontrack');
 
     return `
       <tr>
-        <td style="font-weight: 600; color: var(--blue);">${h['Scope Code'] || '-'}</td>
-        <td>${h['Scope Category'] || '-'}</td>
-        <td style="font-weight: 600;">${h['Trade'] || '-'}</td>
+        <td style="font-weight: 600; color: var(--blue);">${h['Main Scope'] || h['Scope Code'] || 'N/A'}</td>
+        <td>${h['Subscope'] || h['Scope Category'] || 'N/A'}</td>
+        <td style="font-weight: 600;">${h['Trade'] || 'N/A'}</td>
         <td>${formatMonthText(h['Reporting Month'])}</td>
         <td>${planNum.toFixed(2)}%</td>
         <td><strong>${actNum.toFixed(2)}%</strong></td>
@@ -2088,14 +1977,14 @@ function renderLatestBreakdownTable(data) {
 
 function renderConsultantTable() {
   const tbody = document.getElementById('consultantTableBody');
+  const filter = document.getElementById('consultantPrjFilter').value;
 
   let filtered = pendingVerificationsList;
-  if (activeConsultantProjectCode) {
-    filtered = filtered.filter(h => h.sheetName === activeConsultantProjectCode);
-  }
+  if (activeConsultantProjectCode) filtered = filtered.filter(h => h.sheetName === activeConsultantProjectCode);
+  if (filter !== 'ALL') filtered = filtered.filter(h => h.sheetName === filter);
 
   if (!filtered || filtered.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; color: var(--muted);">No pending progress reports requiring verification for ' + activeConsultantProjectCode + '.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="12" style="text-align: center; color: var(--muted);">No pending progress reports requiring verification.</td></tr>';
     return;
   }
 
@@ -2114,59 +2003,86 @@ function renderConsultantTable() {
     return `
       <tr>
         <td style="font-weight: 600;">${h['Project Name']}</td>
-        <td>${h['Scope Category'] || ''}<br><small style="color: var(--muted);">${h['Trade'] || ''}</small></td>
-        <td>${h['Reporting Cadence'] || h['Reporting Period'] || 'Biweekly'}</td>
+        <td>${h['Subscope'] || h['Scope Category'] || 'N/A'}<br><small style="color: var(--muted);">${h['Trade'] || 'N/A'}</small></td>
+        <td>${h['Reporting Cadence'] || 'Biweekly'}</td>
         <td>${formatMonthText(h['Reporting Month'])}</td>
         <td>${formatDateShort(h['Exact Date'] || h['Reporting Segment Period'])}</td>
         <td>${planNum.toFixed(2)}%</td>
         <td><strong>${actNum.toFixed(2)}%</strong></td>
         <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${varStr}</td>
+        <td>${h['Status'] || h['Overall Project Status'] || 'On Track'}</td>
         <td style="max-width: 180px;">${h['Remarks'] || '-'}</td>
         <td>${docCell}</td>
-        <td><button class="btn-action btn-verify" onclick="verifyRecord('${h.sheetName}', ${h.rowNumber})">Verify</button></td>
+        <td>
+          <div style="display: flex; gap: 4px;">
+            <button class="btn-action btn-verify" onclick="verifyRecord('${h.sheetName}', ${h.rowNumber}, 'verifyProgress')">Verify</button>
+            <button class="btn-action btn-reject" onclick="promptRejectRecord('${h.sheetName}', ${h.rowNumber})">Reject</button>
+          </div>
+        </td>
       </tr>
     `;
   }).join('');
 }
 
-function verifyRecord(sheetName, rowNumber) {
-  if (GOOGLE_SCRIPT_URL) {
-    fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: "verifyProgress", sheetName: sheetName, rowNumber: rowNumber })
-    }).then(() => {
-      alert('Report verified! Sent to PDD Authority for final approval.');
-      loadConsultantPageData();
-    });
-  } else {
-    alert('Report verified locally.');
+function renderConsultantScopeTable() {
+  const tbody = document.getElementById('consultantScopeTableBody');
+  let filtered = pendingScopeVerificationsList;
+  if (activeConsultantProjectCode) filtered = filtered.filter(h => h.prjId === activeConsultantProjectCode);
+
+  if (!filtered || filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--muted);">No pending schedule setup changes.</td></tr>';
+    return;
   }
+
+  tbody.innerHTML = filtered.map(h => `
+    <tr>
+      <td style="font-weight: 600;">${h['Project Name']}</td>
+      <td>${h['Main Scope'] || h['Scope Code'] || 'N/A'}</td>
+      <td>${h['Subscope'] || h['Scope Category'] || 'N/A'}</td>
+      <td style="font-weight: 600;">${h['Trade']}</td>
+      <td>${h['Duration']}</td>
+      <td>${formatDateShort(h['Start Date'])}</td>
+      <td>${formatDateShort(h['Finish Date'])}</td>
+      <td>
+        <div style="display: flex; gap: 4px;">
+          <button class="btn-action btn-verify" onclick="verifyRecord('${h.sheetName}', ${h.rowNumber}, 'verifyScope')">Verify</button>
+          <button class="btn-action btn-reject" onclick="promptRejectRecord('${h.sheetName}', ${h.rowNumber})">Reject</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
 }
 
-// PDD AUTHORITY APPROVAL PAGE LOGIC
+/* PDD AUTHORITY PORTAL */
 function loadAuthorityPageData() {
   if (GOOGLE_SCRIPT_URL) {
     fetch(GOOGLE_SCRIPT_URL + "?action=getPendingApprovals")
       .then(res => res.json())
-      .then(res => {
-        if (res.status === 'success') renderAuthorityTable(res.data);
-      });
-  } else {
-    renderAuthorityTable([]);
+      .then(res => { if (res.status === 'success') { pendingApprovalsList = res.data; renderAuthorityTable(); } });
+
+    fetch(GOOGLE_SCRIPT_URL + "?action=getPendingScopeApprovals")
+      .then(res => res.json())
+      .then(res => { if (res.status === 'success') { pendingScopeApprovalsList = res.data; renderAuthorityScopeTable(); } });
+
+    fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=PRJ-001")
+      .then(res => res.json())
+      .then(res => { if (res.status === 'success') renderLatestBreakdownTable('authorityBreakdownTableBody', res.data); });
   }
 }
 
-function renderAuthorityTable(data) {
+function renderAuthorityTable() {
   const tbody = document.getElementById('authorityTableBody');
+  const filter = document.getElementById('authorityPrjFilter').value;
 
-  if (!data || data.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; color: var(--muted);">No verified progress reports awaiting PDD Authority approval.</td></tr>';
+  let filtered = pendingApprovalsList;
+  if (filter !== 'ALL') filtered = filtered.filter(h => h.sheetName === filter);
+
+  if (!filtered || filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="12" style="text-align: center; color: var(--muted);">No verified progress reports awaiting approval.</td></tr>';
     return;
   }
 
-  tbody.innerHTML = data.map(h => {
+  tbody.innerHTML = filtered.map(h => {
     var planNum = parsePercentageVal(h['Planned']);
     var actNum = parsePercentageVal(h['Actual']);
     var varNum = (actNum - planNum).toFixed(2);
@@ -2181,37 +2097,101 @@ function renderAuthorityTable(data) {
     return `
       <tr>
         <td style="font-weight: 600;">${h['Project Name']}</td>
-        <td>${h['Scope Category'] || ''}<br><small style="color: var(--muted);">${h['Trade'] || ''}</small></td>
-        <td>${h['Reporting Cadence'] || h['Reporting Period'] || 'Biweekly'}</td>
+        <td>${h['Subscope'] || h['Scope Category'] || 'N/A'}<br><small style="color: var(--muted);">${h['Trade'] || 'N/A'}</small></td>
+        <td>${h['Reporting Cadence'] || 'Biweekly'}</td>
         <td>${formatMonthText(h['Reporting Month'])}</td>
         <td>${formatDateShort(h['Exact Date'] || h['Reporting Segment Period'])}</td>
         <td>${planNum.toFixed(2)}%</td>
         <td><strong>${actNum.toFixed(2)}%</strong></td>
         <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${varStr}</td>
+        <td>${h['Status'] || h['Overall Project Status'] || 'On Track'}</td>
         <td style="max-width: 180px;">${h['Remarks'] || '-'}</td>
         <td>${docCell}</td>
-        <td><button class="btn-action btn-approve" onclick="approveRecord('${h.sheetName}', ${h.rowNumber})">Approve</button></td>
+        <td>
+          <div style="display: flex; gap: 4px;">
+            <button class="btn-action btn-approve" onclick="verifyRecord('${h.sheetName}', ${h.rowNumber}, 'approveProgress')">Approve</button>
+            <button class="btn-action btn-reject" onclick="promptRejectRecord('${h.sheetName}', ${h.rowNumber})">Reject</button>
+          </div>
+        </td>
       </tr>
     `;
   }).join('');
 }
 
-function approveRecord(sheetName, rowNumber) {
-  if (GOOGLE_SCRIPT_URL) {
-    fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: "approveProgress", sheetName: sheetName, rowNumber: rowNumber })
-    }).then(() => {
-      alert('Submission approved by PDD Authority!');
-      loadAuthorityPageData();
-    });
-  } else {
-    alert('Record approved locally.');
+function renderAuthorityScopeTable() {
+  const tbody = document.getElementById('authorityScopeTableBody');
+  if (!pendingScopeApprovalsList || pendingScopeApprovalsList.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--muted);">No scope setup changes awaiting approval.</td></tr>';
+    return;
   }
+
+  tbody.innerHTML = pendingScopeApprovalsList.map(h => `
+    <tr>
+      <td style="font-weight: 600;">${h['Project Name']}</td>
+      <td>${h['Main Scope'] || h['Scope Code'] || 'N/A'}</td>
+      <td>${h['Subscope'] || h['Scope Category'] || 'N/A'}</td>
+      <td style="font-weight: 600;">${h['Trade']}</td>
+      <td>${h['Duration']}</td>
+      <td>${formatDateShort(h['Start Date'])}</td>
+      <td>${formatDateShort(h['Finish Date'])}</td>
+      <td>
+        <div style="display: flex; gap: 4px;">
+          <button class="btn-action btn-approve" onclick="verifyRecord('${h.sheetName}', ${h.rowNumber}, 'approveScope')">Approve</button>
+          <button class="btn-action btn-reject" onclick="promptRejectRecord('${h.sheetName}', ${h.rowNumber})">Reject</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
 }
 
+function verifyRecord(sheetName, rowNumber, actionType) {
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: actionType, sheetName: sheetName, rowNumber: rowNumber })
+  }).then(() => {
+    alert('Action processed successfully!');
+    if (activeConsultantProjectCode) loadConsultantPageData();
+    loadAuthorityPageData();
+  });
+}
+
+function promptRejectRecord(sheetName, rowNumber) {
+  pendingRejectTarget = { sheetName: sheetName, rowNumber: rowNumber };
+  document.getElementById('rejectReasonInput').value = '';
+  document.getElementById('rejectModalBackdrop').style.display = 'flex';
+}
+
+function closeRejectModal() {
+  pendingRejectTarget = null;
+  document.getElementById('rejectModalBackdrop').style.display = 'none';
+}
+
+function submitRejection() {
+  if (!pendingRejectTarget) return;
+  const reason = document.getElementById('rejectReasonInput').value.trim();
+  if (!reason) { alert("Please enter a reason for rejection."); return; }
+
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      action: "rejectRecord",
+      sheetName: pendingRejectTarget.sheetName,
+      rowNumber: pendingRejectTarget.rowNumber,
+      reason: reason
+    })
+  }).then(() => {
+    alert('Record marked as REJECTED with reason recorded.');
+    closeRejectModal();
+    if (activeConsultantProjectCode) loadConsultantPageData();
+    loadAuthorityPageData();
+  });
+}
+
+/* FORM CONTROLS & SUBMISSIONS */
 function toggleEntryMode() {
   const mode = document.getElementById('formTypeSelect').value;
   if (mode === 'PROGRESS') {
@@ -2226,25 +2206,49 @@ function toggleEntryMode() {
 function handleCadenceChangeProgress() {
   const cadence = document.getElementById('pCadence').value;
   const container = document.getElementById('segmentContainer');
+  const scopeFields = document.querySelectorAll('.p-scope-field');
 
-  if (cadence === 'Daily') {
-    container.innerHTML = `
-      <label for="pSegment">Select Exact Date <span class="req-star">*</span></label>
-      <input type="date" id="pSegment" required>
-    `;
-  } else if (cadence === 'Biweekly') {
-    container.innerHTML = `
-      <label for="pSegment">Segment Period <span class="req-star">*</span></label>
-      <select id="pSegment" required>
-        <option value="Week 2 (1st - 14th)" selected>Week 2 (1st - 14th)</option>
-        <option value="Week 4 (15th - End)">Week 4 (15th - End)</option>
-      </select>
-    `;
-  } else {
+  if (cadence === 'Monthly Summary') {
+    scopeFields.forEach(el => el.style.display = 'none');
     container.innerHTML = `
       <label for="pSegment">Segment Period <span class="req-star">*</span></label>
       <input type="text" id="pSegment" value="By Month" readonly style="background: #f1f3f8;">
     `;
+  } else {
+    scopeFields.forEach(el => el.style.display = 'flex');
+    if (cadence === 'Daily') {
+      container.innerHTML = `
+        <label for="pSegment">Select Exact Date <span class="req-star">*</span></label>
+        <input type="date" id="pSegment" required>
+      `;
+    } else {
+      container.innerHTML = `
+        <label for="pSegment">Segment Period <span class="req-star">*</span></label>
+        <select id="pSegment" required>
+          <option value="Week 2 (1st - 14th)" selected>Week 2 (1st - 14th)</option>
+          <option value="Week 4 (15th - End)">Week 4 (15th - End)</option>
+        </select>
+      `;
+    }
+  }
+}
+
+function toggleScopeSetupAction() {
+  const mode = document.getElementById('sSetupAction').value;
+  const container = document.getElementById('sTradeSelectContainer');
+  container.style.display = mode === 'EDIT' ? 'block' : 'none';
+}
+
+function populateScopeFormForEdit() {
+  const tradeVal = document.getElementById('sExistingTradeSelect').value;
+  const match = currentMetadataList.find(d => d['Trade'] === tradeVal);
+  if (match) {
+    document.getElementById('sScopeCode').value = match['Main Scope'] || match['Scope Code'] || '';
+    document.getElementById('sScopeCat').value = match['Subscope'] || match['Scope Category'] || '';
+    document.getElementById('sTrade').value = match['Trade'] || '';
+    document.getElementById('sDuration').value = match['Duration'] || '';
+    document.getElementById('sStartDate').value = match['Start Date'] ? match['Start Date'].split('T')[0] : '';
+    document.getElementById('sFinishDate').value = match['Finish Date'] ? match['Finish Date'].split('T')[0] : '';
   }
 }
 
@@ -2260,12 +2264,9 @@ function fetchProjectMetadataAndHistory() {
           populateMetadataDropdowns(res.data);
           renderMetadataTable(res.data);
         } else {
-          populateDefaultMetadataDropdowns(prjId);
+          populateDefaultMetadataDropdowns();
           renderMetadataTable([]);
         }
-      }).catch(() => {
-        populateDefaultMetadataDropdowns(prjId);
-        renderMetadataTable([]);
       });
 
     fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=" + prjId)
@@ -2276,10 +2277,6 @@ function fetchProjectMetadataAndHistory() {
           renderHistoryTable(res.data);
         }
       });
-  } else {
-    populateDefaultMetadataDropdowns(prjId);
-    renderMetadataTable([]);
-    renderHistoryTable([]);
   }
 }
 
@@ -2287,38 +2284,32 @@ function populateMetadataDropdowns(data) {
   const codeSel = document.getElementById('pScopeCode');
   const catSel = document.getElementById('pScopeCat');
   const tradeSel = document.getElementById('pTrade');
+  const tradeEditSel = document.getElementById('sExistingTradeSelect');
 
-  const codes = [...new Set(data.map(d => d['Scope Code']).filter(Boolean))];
-  const cats = [...new Set(data.map(d => d['Scope Category']).filter(Boolean))];
+  const codes = [...new Set(data.map(d => d['Main Scope'] || d['Scope Code']).filter(Boolean))];
+  const cats = [...new Set(data.map(d => d['Subscope'] || d['Scope Category']).filter(Boolean))];
   const trades = [...new Set(data.map(d => d['Trade']).filter(Boolean))];
 
-  codeSel.innerHTML = codes.map(c => `<option value="${c}">${c}</option>`).join('');
-  catSel.innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join('');
+  codeSel.innerHTML = '<option value="N/A">N/A</option>' + codes.map(c => `<option value="${c}">${c}</option>`).join('');
+  catSel.innerHTML = '<option value="N/A">N/A</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join('');
   tradeSel.innerHTML = trades.map(t => `<option value="${t}">${t}</option>`).join('');
+  tradeEditSel.innerHTML = '<option value="">Select Existing Trade...</option>' + trades.map(t => `<option value="${t}">${t}</option>`).join('');
 }
 
-function populateDefaultMetadataDropdowns(prjId) {
-  const codeSel = document.getElementById('pScopeCode');
-  const catSel = document.getElementById('pScopeCat');
-  const tradeSel = document.getElementById('pTrade');
-
-  codeSel.innerHTML = `<option value="JTU5 CH400 - C200">JTU5 CH400 - C200</option><option value="JTU5 CH200 - C0">JTU5 CH200 - C0</option>`;
-  catSel.innerHTML = `<option value="General">General</option><option value="Interim Water Reticulation">Interim Water Reticulation</option>`;
-  tradeSel.innerHTML = `<option value="Site Clearing & Earthworks">Site Clearing & Earthworks</option><option value="Road Marking">Road Marking</option>`;
+function populateDefaultMetadataDropdowns() {
+  document.getElementById('pScopeCode').innerHTML = `<option value="N/A">N/A</option>`;
+  document.getElementById('pScopeCat').innerHTML = `<option value="N/A">N/A</option>`;
+  document.getElementById('pTrade').innerHTML = `<option value="General Works">General Works</option>`;
 }
 
 function onScopeCodeSelectChange() {
   const selCode = document.getElementById('pScopeCode').value;
-  const match = currentMetadataList.find(d => d['Scope Code'] === selCode);
+  const match = currentMetadataList.find(d => (d['Main Scope'] || d['Scope Code']) === selCode);
   if (match) {
-    if (match['Scope Category']) document.getElementById('pScopeCat').value = match['Scope Category'];
+    if (match['Subscope'] || match['Scope Category']) document.getElementById('pScopeCat').value = match['Subscope'] || match['Scope Category'];
     if (match['Trade']) document.getElementById('pTrade').value = match['Trade'];
   }
   filterHistoryByFormSelection();
-}
-
-function onProjectSelectChangeProgress() {
-  fetchProjectMetadataAndHistory();
 }
 
 function filterHistoryByFormSelection() {
@@ -2326,7 +2317,7 @@ function filterHistoryByFormSelection() {
   const selTrade = document.getElementById('pTrade').value;
 
   let filtered = currentHistoryList;
-  if (selCat) filtered = filtered.filter(d => d['Scope Category'] === selCat);
+  if (selCat && selCat !== 'N/A') filtered = filtered.filter(d => (d['Subscope'] || d['Scope Category']) === selCat);
   if (selTrade) filtered = filtered.filter(d => d['Trade'] === selTrade);
 
   renderHistoryTable(filtered);
@@ -2334,9 +2325,8 @@ function filterHistoryByFormSelection() {
 
 function renderMetadataTable(data) {
   const tbody = document.getElementById('metadataTableBody');
-
   if (!data || data.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--muted);">No metadata schedule entries found for selected project.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: var(--muted);">No metadata schedule entries found for selected project.</td></tr>';
     return;
   }
 
@@ -2344,21 +2334,22 @@ function renderMetadataTable(data) {
     <tr>
       <td style="font-weight: 600; color: var(--blue);">${m['Entry ID']}</td>
       <td style="font-weight: 600;">${m['Project Name']}</td>
-      <td>${m['Scope Code']}</td>
-      <td>${m['Scope Category']}</td>
+      <td>${m['Main Scope'] || m['Scope Code'] || 'N/A'}</td>
+      <td>${m['Subscope'] || m['Scope Category'] || 'N/A'}</td>
       <td>${m['Trade']}</td>
       <td>${m['Duration']}</td>
       <td>${formatDateShort(m['Start Date'])}</td>
       <td>${formatDateShort(m['Finish Date'])}</td>
+      <td><span class="badge ${(m['Verification'] === 'YES') ? 'badge-ahead' : 'badge-delayed'}">${m['Verification'] || 'NO'}</span></td>
+      <td><span class="badge ${(m['Approval'] === 'YES') ? 'badge-ahead' : 'badge-delayed'}">${m['Approval'] || 'NO'}</span></td>
     </tr>
   `).join('');
 }
 
 function renderHistoryTable(data) {
   const tbody = document.getElementById('historyTableBody');
-
   if (!data || data.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="14" style="text-align: center; color: var(--muted);">No history records found for selected project and trade.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="14" style="text-align: center; color: var(--muted);">No history records found.</td></tr>';
     return;
   }
 
@@ -2367,8 +2358,7 @@ function renderHistoryTable(data) {
     var actNum = parsePercentageVal(h['Actual']);
     var varNum = (actNum - planNum).toFixed(2);
     var varStr = (varNum >= 0 ? '+' : '') + varNum + '%';
-
-    var verVal = h['Verification'] || h['Verification Status'] || 'NO';
+    var verVal = h['Verification'] || 'NO';
     var appVal = h['Approval'] || 'NO';
 
     var docCell = '-';
@@ -2381,9 +2371,9 @@ function renderHistoryTable(data) {
       <tr>
         <td style="font-weight: 600; color: var(--blue);">${h['Entry ID']}</td>
         <td style="font-weight: 600;">${h['Project Name']}</td>
-        <td>${h['Scope Code']}<br><small style="color: var(--muted);">${h['Scope Category']}</small></td>
-        <td>${h['Trade']}</td>
-        <td>${h['Reporting Cadence'] || h['Reporting Period'] || 'Biweekly'}</td>
+        <td>${h['Main Scope'] || h['Scope Code'] || 'N/A'}<br><small style="color: var(--muted);">${h['Subscope'] || h['Scope Category'] || 'N/A'}</small></td>
+        <td>${h['Trade'] || 'N/A'}</td>
+        <td>${h['Reporting Cadence'] || 'Biweekly'}</td>
         <td>${formatMonthText(h['Reporting Month'])}</td>
         <td>${formatDateShort(h['Exact Date'] || h['Reporting Segment Period'])}</td>
         <td>${planNum.toFixed(2)}%</td>
@@ -2398,32 +2388,22 @@ function renderHistoryTable(data) {
   }).join('');
 }
 
-// ATTACHMENT MODAL OVERLAY LOGIC
 function openDocumentModal(url) {
   const modal = document.getElementById('docModalBackdrop');
   const body = document.getElementById('docModalBody');
 
   let previewUrl = url;
-  if (url.includes('drive.google.com') && !url.endsWith('/preview')) {
-    previewUrl = url.replace(/\/view(\?.*)?$/, '/preview');
-  }
+  if (url.includes('drive.google.com') && !url.endsWith('/preview')) previewUrl = url.replace(/\/view(\?.*)?$/, '/preview');
 
   if (url.match(/\.(jpeg|jpg|gif|png)$/i) || url.startsWith('data:image')) {
     body.innerHTML = `<img src="${url}" alt="Attachment Preview">`;
   } else {
-    body.innerHTML = `
-      <div style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-        <iframe src="${previewUrl}" style="width: 100%; height: 100%; border: none;"></iframe>
-        <p style="margin-top: 10px; font-size: 11px;">
-          <a href="${url}" target="_blank" style="color: var(--blue); font-weight: 600;">Open Document in New Tab ↗</a>
-        </p>
-      </div>
-    `;
+    body.innerHTML = `<iframe src="${previewUrl}" style="width: 100%; height: 100%; border: none;"></iframe>`;
   }
   modal.style.display = 'flex';
 }
 
-function closeDocumentModal(e) {
+function closeDocumentModal() {
   document.getElementById('docModalBackdrop').style.display = 'none';
   document.getElementById('docModalBody').innerHTML = '';
 }
@@ -2432,25 +2412,21 @@ function handleProgressSubmit(e) {
   e.preventDefault();
   const prjId = document.getElementById('pPrj').value || activeSelectedProjectCode;
   const prjObj = baselineOverallData.find(o => o.id === prjId);
-  const prjName = prjObj ? prjObj.name : prjId;
-
-  const plan = parseFloat(document.getElementById('pPlanned').value);
-  const act = parseFloat(document.getElementById('pActual').value);
-  const fileInput = document.getElementById('pDocFile');
+  const cadence = document.getElementById('pCadence').value;
 
   const processAndSend = function(fileBase64, fileName, fileMime) {
     const payload = {
       action: "submitProgress",
       projectId: prjId,
-      projectName: prjName,
-      scopeCode: document.getElementById('pScopeCode').value,
-      scopeCategory: document.getElementById('pScopeCat').value,
-      trade: document.getElementById('pTrade').value,
-      reportingPeriod: document.getElementById('pCadence').value,
+      projectName: prjObj ? prjObj.name : prjId,
+      scopeCode: cadence === 'Monthly Summary' ? 'N/A' : (document.getElementById('pScopeCode').value || 'N/A'),
+      scopeCategory: cadence === 'Monthly Summary' ? 'N/A' : (document.getElementById('pScopeCat').value || 'N/A'),
+      trade: cadence === 'Monthly Summary' ? 'N/A' : (document.getElementById('pTrade').value || 'N/A'),
+      reportingPeriod: cadence,
       reportingMonth: document.getElementById('pMonth').value,
       reportingSegmentPeriod: document.getElementById('pSegment').value || 'By Month',
-      planned: plan,
-      actual: act,
+      planned: parseFloat(document.getElementById('pPlanned').value),
+      actual: parseFloat(document.getElementById('pActual').value),
       overallStatus: document.getElementById('pOverallStatus').value,
       remarks: document.getElementById('pRemarks').value,
       fileData: fileBase64 || "",
@@ -2458,28 +2434,23 @@ function handleProgressSubmit(e) {
       fileMime: fileMime || ""
     };
 
-    if (GOOGLE_SCRIPT_URL) {
-      fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }).then(() => {
-        alert('Progress report recorded/updated! Pending Consultant Verification (Verification = NO, Approval = NO).');
-        document.getElementById('formProgressUpdate').reset();
-        fetchProjectMetadataAndHistory();
-      });
-    } else {
-      alert('Progress update recorded locally.');
-    }
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(() => {
+      alert('Progress report recorded! Sent to Consultant for verification.');
+      document.getElementById('formProgressUpdate').reset();
+      fetchProjectMetadataAndHistory();
+    });
   };
 
+  const fileInput = document.getElementById('pDocFile');
   if (fileInput.files && fileInput.files[0]) {
     const file = fileInput.files[0];
     const reader = new FileReader();
-    reader.onload = function(evt) {
-      processAndSend(evt.target.result, file.name, file.type);
-    };
+    reader.onload = function(evt) { processAndSend(evt.target.result, file.name, file.type); };
     reader.readAsDataURL(file);
   } else {
     processAndSend("", "", "");
@@ -2493,30 +2464,27 @@ function handleMetadataSubmit(e) {
 
   const payload = {
     action: "submitMetadata",
+    mode: document.getElementById('sSetupAction').value,
     projectId: prjId,
     projectName: prjObj ? prjObj.name : prjId,
-    scopeCode: document.getElementById('sScopeCode').value,
-    scopeCategory: document.getElementById('sScopeCat').value,
+    scopeCode: document.getElementById('sScopeCode').value || "N/A",
+    scopeCategory: document.getElementById('sScopeCat').value || "N/A",
     trade: document.getElementById('sTrade').value,
     duration: document.getElementById('sDuration').value,
     startDate: document.getElementById('sStartDate').value,
     finishDate: document.getElementById('sFinishDate').value
   };
 
-  if (GOOGLE_SCRIPT_URL) {
-    fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(() => {
-      alert('Schedule details saved to Metadata ' + prjId + '!');
-      document.getElementById('formScheduleSetup').reset();
-      fetchProjectMetadataAndHistory();
-    });
-  } else {
-    alert('Schedule setup saved locally.');
-  }
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(() => {
+    alert('Schedule setup changes submitted! Pending Consultant verification and PDD approval.');
+    document.getElementById('formScheduleSetup').reset();
+    fetchProjectMetadataAndHistory();
+  });
 }
 
 // Initialize Application
