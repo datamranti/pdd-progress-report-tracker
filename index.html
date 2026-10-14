@@ -754,12 +754,12 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
             </select>
           </div>
 
-          <div class="form-group"><label for="scoreProgress">Progress (1-10)</label><input type="number" id="scoreProgress" min="1" max="10" step="0.1" required oninput="calcAverageScorecard()"></div>
-          <div class="form-group"><label for="scoreQuality">Quality (1-10)</label><input type="number" id="scoreQuality" min="1" max="10" step="0.1" required oninput="calcAverageScorecard()"></div>
-          <div class="form-group"><label for="scoreHSE">HSE (1-10)</label><input type="number" id="scoreHSE" min="1" max="10" step="0.1" required oninput="calcAverageScorecard()"></div>
-          <div class="form-group"><label for="scoreReporting">Compliance (1-10)</label><input type="number" id="scoreReporting" min="1" max="10" step="0.1" required oninput="calcAverageScorecard()"></div>
-          <div class="form-group"><label for="scoreResponsiveness">Responsiveness (1-10)</label><input type="number" id="scoreResponsiveness" min="1" max="10" step="0.1" required oninput="calcAverageScorecard()"></div>
-          <div class="form-group"><label for="scoreRecovery">Recovery (1-10)</label><input type="number" id="scoreRecovery" min="1" max="10" step="0.1" required oninput="calcAverageScorecard()"></div>
+          <div class="form-group"><label for="scoreProgress">Progress (1-10)</label><input type="number" id="scoreProgress" min="1" max="10" step="0.1" placeholder="Score 1-10" required oninput="calcAverageScorecard()"></div>
+          <div class="form-group"><label for="scoreQuality">Quality (1-10)</label><input type="number" id="scoreQuality" min="1" max="10" step="0.1" placeholder="Score 1-10" required oninput="calcAverageScorecard()"></div>
+          <div class="form-group"><label for="scoreHSE">HSE (1-10)</label><input type="number" id="scoreHSE" min="1" max="10" step="0.1" placeholder="Score 1-10" required oninput="calcAverageScorecard()"></div>
+          <div class="form-group"><label for="scoreReporting">Compliance (1-10)</label><input type="number" id="scoreReporting" min="1" max="10" step="0.1" placeholder="Score 1-10" required oninput="calcAverageScorecard()"></div>
+          <div class="form-group"><label for="scoreResponsiveness">Responsiveness (1-10)</label><input type="number" id="scoreResponsiveness" min="1" max="10" step="0.1" placeholder="Score 1-10" required oninput="calcAverageScorecard()"></div>
+          <div class="form-group"><label for="scoreRecovery">Recovery (1-10)</label><input type="number" id="scoreRecovery" min="1" max="10" step="0.1" placeholder="Score 1-10" required oninput="calcAverageScorecard()"></div>
           <div class="form-group" style="max-width: 180px;"><label for="scoreTotal">Total Score</label><input type="text" id="scoreTotal" value="0.00" readonly></div>
           <div class="form-group" style="max-width: 180px;"><label for="scoreAverage">Average Score</label><input type="text" id="scoreAverage" value="0.00" readonly style="color: var(--blue); font-weight: 700;"></div>
         </div>
@@ -790,8 +790,18 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       </select>
       <select id="pddAuthorityMonthFilter" onchange="filterAuthorityScorecardTable()" style="width:130px; padding:6px; font-size:11px;">
         <option value="ALL">All Months</option>
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
         <option value="October">October</option>
         <option value="November">November</option>
+        <option value="December">December</option>
       </select>
     </div>
 
@@ -1128,7 +1138,7 @@ let baselineOverallData = [
   { id: "PRJ-008", name: "Cyber Security Zero-Trust", cat: "Government Grant", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, milestone: "Policy Framework", status: "Planning", health: "Planned" }
 ];
 
-// FULL S-CURVE DATA PRESETS FOR ALL PROJECTS
+// FULL 12-MONTH S-CURVE TRAJECTORY DATA PRESETS FOR ALL PROJECTS (PRJ-001 TO PRJ-008)
 const fullMonthlyTrackingMap = {
   "PRJ-001": {
     "2026": [{m:"Jan 26",plan:3.5,act:3.5},{m:"Feb 26",plan:8,act:7},{m:"Mar 26",plan:13,act:12},{m:"Apr 26",plan:19,act:18},{m:"May 26",plan:26,act:24},{m:"Jun 26",plan:33,act:31},{m:"Jul 26",plan:41,act:38},{m:"Aug 26",plan:49,act:46},{m:"Sep 26",plan:58.62,act:59.73},{m:"Oct 26",plan:68,act:null},{m:"Nov 26",plan:78,act:null},{m:"Dec 26",plan:88,act:null}],
@@ -1146,10 +1156,22 @@ const fullMonthlyTrackingMap = {
     "2026": [{m:"Jan 26",plan:0,act:0},{m:"Feb 26",plan:0,act:0},{m:"Mar 26",plan:0,act:0},{m:"Apr 26",plan:0,act:0},{m:"May 26",plan:8,act:7},{m:"Jun 26",plan:18,act:15},{m:"Jul 26",plan:28,act:24},{m:"Aug 26",plan:38,act:34},{m:"Sep 26",plan:50,act:45},{m:"Oct 26",plan:65,act:null},{m:"Nov 26",plan:85,act:null},{m:"Dec 26",plan:100,act:null}],
     "2027": [{m:"Jan 27",plan:100,act:null},{m:"Feb 27",plan:100,act:null},{m:"Mar 27",plan:100,act:null},{m:"Apr 27",plan:100,act:null},{m:"May 27",plan:100,act:null},{m:"Jun 27",plan:100,act:null},{m:"Jul 27",plan:100,act:null},{m:"Aug 27",plan:100,act:null},{m:"Sep 27",plan:100,act:null},{m:"Oct 27",plan:100,act:null},{m:"Nov 27",plan:100,act:null},{m:"Dec 27",plan:100,act:null}]
   },
-  "PRJ-005": { "2026": [{m:"Jan 26",plan:0,act:0},{m:"Dec 26",plan:5,act:null}], "2027": [{m:"Jan 27",plan:18,act:null},{m:"Jun 27",plan:100,act:null}] },
-  "PRJ-006": { "2026": [{m:"Jan 26",plan:0,act:0},{m:"Dec 26",plan:0,act:null}], "2027": [{m:"Feb 27",plan:8,act:null},{m:"Oct 27",plan:100,act:null}] },
-  "PRJ-007": { "2026": [{m:"Jan 26",plan:0,act:0},{m:"Dec 26",plan:0,act:null}], "2027": [{m:"Mar 27",plan:10,act:null},{m:"Nov 27",plan:100,act:null}] },
-  "PRJ-008": { "2026": [{m:"Jan 26",plan:0,act:0},{m:"Dec 26",plan:0,act:null}], "2027": [{m:"Apr 27",plan:8,act:null},{m:"Dec 27",plan:100,act:null}] }
+  "PRJ-005": {
+    "2026": [{m:"Jan 26",plan:0,act:0},{m:"Feb 26",plan:0,act:0},{m:"Mar 26",plan:0,act:0},{m:"Apr 26",plan:0,act:0},{m:"May 26",plan:0,act:0},{m:"Jun 26",plan:0,act:0},{m:"Jul 26",plan:0,act:0},{m:"Aug 26",plan:0,act:0},{m:"Sep 26",plan:0,act:0},{m:"Oct 26",plan:0,act:null},{m:"Nov 26",plan:0,act:null},{m:"Dec 26",plan:5,act:null}],
+    "2027": [{m:"Jan 27",plan:18,act:null},{m:"Feb 27",plan:35,act:null},{m:"Mar 27",plan:55,act:null},{m:"Apr 27",plan:75,act:null},{m:"May 27",plan:90,act:null},{m:"Jun 27",plan:100,act:null},{m:"Jul 27",plan:100,act:null},{m:"Aug 27",plan:100,act:null},{m:"Sep 27",plan:100,act:null},{m:"Oct 27",plan:100,act:null},{m:"Nov 27",plan:100,act:null},{m:"Dec 27",plan:100,act:null}]
+  },
+  "PRJ-006": {
+    "2026": [{m:"Jan 26",plan:0,act:0},{m:"Feb 26",plan:0,act:0},{m:"Mar 26",plan:0,act:0},{m:"Apr 26",plan:0,act:0},{m:"May 26",plan:0,act:0},{m:"Jun 26",plan:0,act:0},{m:"Jul 26",plan:0,act:0},{m:"Aug 26",plan:0,act:0},{m:"Sep 26",plan:0,act:0},{m:"Oct 26",plan:0,act:null},{m:"Nov 26",plan:0,act:null},{m:"Dec 26",plan:0,act:null}],
+    "2027": [{m:"Jan 27",plan:0,act:null},{m:"Feb 27",plan:8,act:null},{m:"Mar 27",plan:20,act:null},{m:"Apr 27",plan:35,act:null},{m:"May 27",plan:50,act:null},{m:"Jun 27",plan:65,act:null},{m:"Jul 27",plan:78,act:null},{m:"Aug 27",plan:88,act:null},{m:"Sep 27",plan:95,act:null},{m:"Oct 27",plan:100,act:null},{m:"Nov 27",plan:100,act:null},{m:"Dec 27",plan:100,act:null}]
+  },
+  "PRJ-007": {
+    "2026": [{m:"Jan 26",plan:0,act:0},{m:"Feb 26",plan:0,act:0},{m:"Mar 26",plan:0,act:0},{m:"Apr 26",plan:0,act:0},{m:"May 26",plan:0,act:0},{m:"Jun 26",plan:0,act:0},{m:"Jul 26",plan:0,act:0},{m:"Aug 26",plan:0,act:0},{m:"Sep 26",plan:0,act:0},{m:"Oct 26",plan:0,act:null},{m:"Nov 26",plan:0,act:null},{m:"Dec 26",plan:0,act:null}],
+    "2027": [{m:"Jan 27",plan:0,act:null},{m:"Feb 27",plan:0,act:null},{m:"Mar 27",plan:10,act:null},{m:"Apr 27",plan:22,act:null},{m:"May 27",plan:36,act:null},{m:"Jun 27",plan:52,act:null},{m:"Jul 27",plan:66,act:null},{m:"Aug 27",plan:80,act:null},{m:"Sep 27",plan:90,act:null},{m:"Oct 27",plan:96,act:null},{m:"Nov 27",plan:100,act:null},{m:"Dec 27",plan:100,act:null}]
+  },
+  "PRJ-008": {
+    "2026": [{m:"Jan 26",plan:0,act:0},{m:"Feb 26",plan:0,act:0},{m:"Mar 26",plan:0,act:0},{m:"Apr 26",plan:0,act:0},{m:"May 26",plan:0,act:0},{m:"Jun 26",plan:0,act:0},{m:"Jul 26",plan:0,act:0},{m:"Aug 26",plan:0,act:0},{m:"Sep 26",plan:0,act:0},{m:"Oct 26",plan:0,act:null},{m:"Nov 26",plan:0,act:null},{m:"Dec 26",plan:0,act:null}],
+    "2027": [{m:"Jan 27",plan:0,act:null},{m:"Feb 27",plan:0,act:null},{m:"Mar 27",plan:0,act:null},{m:"Apr 27",plan:8,act:null},{m:"May 27",plan:20,act:null},{m:"Jun 27",plan:35,act:null},{m:"Jul 27",plan:50,act:null},{m:"Aug 27",plan:65,act:null},{m:"Sep 27",plan:80,act:null},{m:"Oct 27",plan:90,act:null},{m:"Nov 27",plan:96,act:null},{m:"Dec 27",plan:100,act:null}]
+  }
 };
 
 let currentMetadataList = [];
@@ -1371,7 +1393,11 @@ function renderOverallTable(data) {
   const tbody = document.getElementById('overallTableBody');
   tbody.innerHTML = data.map(r => {
     let health = r['Project Health'] || r.health || 'Planned';
-    let badgeClass = health === 'Ahead' ? 'badge-ahead' : (health === 'On Track' ? 'badge-ontrack' : 'badge-delayed');
+    let badgeClass = 'badge-planned';
+    if (health === 'Ahead') badgeClass = 'badge-ahead';
+    else if (health === 'On Track') badgeClass = 'badge-ontrack';
+    else if (health === 'Delayed') badgeClass = 'badge-delayed';
+
     return `
       <tr>
         <td style="font-weight: 600;">${r['Project Name'] || r.name}</td>
@@ -1510,13 +1536,22 @@ function renderScorecardTable(targetTbodyId, data) {
 }
 
 function loadHigherMgmtScorecards() {
+  const filterPrj = document.getElementById('mgmtScorecardPrjFilter').value;
+  const filterYear = document.getElementById('mgmtScorecardYearFilter').value;
+  const filterMonth = document.getElementById('mgmtScorecardMonthFilter').value;
+
   if (GOOGLE_SCRIPT_URL) {
     fetch(GOOGLE_SCRIPT_URL + "?action=getScorecardData&type=Consultant")
       .then(res => res.json())
       .then(res => { 
         if (res.status === 'success') {
           consultantScorecardFullList = res.data;
-          renderScorecardTable('mgmtConsultantScorecardBody', res.data);
+          let filtered = res.data;
+          if (filterPrj !== 'ALL') filtered = filtered.filter(d => String(d['Project Name']).trim().toLowerCase() === filterPrj.trim().toLowerCase());
+          if (filterYear !== 'ALL') filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
+          if (filterMonth !== 'ALL') filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
+          
+          renderScorecardTable('mgmtConsultantScorecardBody', filtered);
           calculateScorecardKPICards();
         } 
       });
@@ -1526,7 +1561,12 @@ function loadHigherMgmtScorecards() {
       .then(res => { 
         if (res.status === 'success') {
           contractorScorecardFullList = res.data;
-          renderScorecardTable('mgmtContractorScorecardBody', res.data);
+          let filtered = res.data;
+          if (filterPrj !== 'ALL') filtered = filtered.filter(d => String(d['Project Name']).trim().toLowerCase() === filterPrj.trim().toLowerCase());
+          if (filterYear !== 'ALL') filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
+          if (filterMonth !== 'ALL') filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
+
+          renderScorecardTable('mgmtContractorScorecardBody', filtered);
           calculateScorecardKPICards();
         } 
       });
@@ -1909,7 +1949,6 @@ function populateMetadataDropdowns(data) {
   const tradeSel = document.getElementById('pTrade');
   const tradeEditSel = document.getElementById('sExistingTradeSelect');
 
-  // ONLY INCLUDE TRADES THAT ARE VERIFIED = YES AND APPROVAL = YES
   const verifiedApprovedData = data.filter(d => 
     String(d['Verification']).toUpperCase() === 'YES' && 
     String(d['Approval']).toUpperCase() === 'YES'
