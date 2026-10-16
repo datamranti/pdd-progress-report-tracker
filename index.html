@@ -481,17 +481,38 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       <div class="eyebrow">PORTFOLIO EVALUATION SUMMARY</div>
       <h3 style="margin: 4px 0 16px; font-size: 18px; font-weight: 600;">Consultant & Contractor Performance Scorecard</h3>
 
+      <!-- PROJECT TARGET SELECTOR FOR EXECUTIVE KPI SCORECARDS -->
+      <div style="margin-bottom: 16px; max-width: 320px;">
+        <label for="mgmtScorecardKPIPrjFilter" style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--ink2);">Select Target Project for Average Scores:</label>
+        <select id="mgmtScorecardKPIPrjFilter" onchange="calculateScorecardKPICards()" style="width: 100%; border: 1px solid var(--line); padding: 8px; font-size: 11px; border-radius: 4px; margin-top: 4px;">
+          <option value="PRJ-001: Infrastructure P1" selected>PRJ-001: Infrastructure P1</option>
+          <option value="PRJ-002: Infrastructure P2A">PRJ-002: Infrastructure P2A</option>
+          <option value="PRJ-003: Slope Remedial">PRJ-003: Slope Remedial</option>
+          <option value="PRJ-004: Area 57">PRJ-004: Area 57</option>
+          <option value="PRJ-005: AI Customer Support Bot">PRJ-005: AI Customer Support Bot</option>
+          <option value="PRJ-006: Data Lakehouse & BI Hub">PRJ-006: Data Lakehouse & BI Hub</option>
+          <option value="PRJ-007: Supply Chain Automation">PRJ-007: Supply Chain Automation</option>
+          <option value="PRJ-008: Cyber Security Zero-Trust">PRJ-008: Cyber Security Zero-Trust</option>
+        </select>
+      </div>
+
       <div class="hero-side" style="margin-bottom: 24px;">
         <div class="hero-stat">
-          <div class="label">Consultant Portfolio Avg</div>
+          <div class="label">Consultant Scorecard Avg</div>
           <div class="value" style="color: var(--blue);" id="kpiConsultantAvg">0.00 / 10</div>
-          <div class="note">Active Months Avg (Excl. 0s)</div>
+          <div class="note" id="kpiConsultantNote">Selected Project Avg</div>
         </div>
         <div class="hero-stat">
-          <div class="label">Contractor Portfolio Avg</div>
+          <div class="label">Contractor Scorecard Avg</div>
           <div class="value" style="color: var(--green);" id="kpiContractorAvg">0.00 / 10</div>
-          <div class="note">Active Months Avg (Excl. 0s)</div>
+          <div class="note" id="kpiContractorNote">Selected Project Avg</div>
         </div>
+      </div>
+
+      <!-- TAB SWITCHER FOR MANAGEMENT SCORECARD TABLES -->
+      <div class="tab-switcher">
+        <button class="btn-tab active" id="btnMgmtScorecardConsultant" onclick="setMgmtScorecardTable('Consultant')">Consultant Scorecard Data</button>
+        <button class="btn-tab" id="btnMgmtScorecardContractor" onclick="setMgmtScorecardTable('Contractor')">Contractor Scorecard Data</button>
       </div>
 
       <div style="display: flex; gap: 12px; max-width: 720px; margin-bottom: 20px; flex-wrap: wrap;">
@@ -539,7 +560,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
         </div>
       </div>
 
-      <div class="table-wrap" style="margin-bottom: 24px;">
+      <div class="table-wrap" id="wrapMgmtConsultantScorecard" style="margin-bottom: 24px;">
         <div style="padding: 10px 14px; background: var(--softb); font-size: 11px; font-weight: 700; color: var(--blue);">CONSULTANT SCORECARD DATA</div>
         <table>
           <thead>
@@ -560,7 +581,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
         </table>
       </div>
 
-      <div class="table-wrap">
+      <div class="table-wrap" id="wrapMgmtContractorScorecard" style="display: none; margin-bottom: 24px;">
         <div style="padding: 10px 14px; background: var(--softb); font-size: 11px; font-weight: 700; color: var(--blue);">CONTRACTOR SCORECARD DATA</div>
         <table>
           <thead>
@@ -1118,7 +1139,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 </div>
 
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxXFqcI-ukaSA5-3D4zW6loQRrR9oP3HN6gTHoEVwAr3IFoXCPRzc-ssSPe1N3FsWr5dg/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby6MQ0JEP4uGf1P0Q9_2FpMEGl73fSDVe0RjHSed0iRQjDCIxfFxTs6WmXQWUm25bSReg/exec";
 
 const PROJECT_PINS = {
   "PRJ-001": "5751", "PRJ-002": "3442", "PRJ-003": "7562", "PRJ-004": "8712",
@@ -1184,6 +1205,7 @@ let pendingApprovalsList = [];
 let pendingScopeApprovalsList = [];
 
 let currentScorecardType = "Consultant";
+let currentMgmtScorecardTable = "Consultant";
 let activeScorecardData = [];
 let consultantScorecardFullList = [];
 let contractorScorecardFullList = [];
@@ -1330,8 +1352,13 @@ function formatDateShort(val) {
   return str;
 }
 
+// SANITIZED RM CURRENCY PARSING TO PREVENT RM NaN ISSUES
 function formatExactRM(val) {
-  return "RM " + Number(val || 0).toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  if (val === null || val === undefined || val === '') return "RM 0.00";
+  var str = String(val).replace(/[^0-9.-]+/g, "");
+  var num = parseFloat(str);
+  if (isNaN(num)) return "RM 0.00";
+  return "RM " + num.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 function loginAs(role) {
@@ -1467,6 +1494,15 @@ function setScorecardType(type) {
   loadScorecardPageData();
 }
 
+function setMgmtScorecardTable(type) {
+  currentMgmtScorecardTable = type;
+  document.getElementById('btnMgmtScorecardConsultant').classList.toggle('active', type === 'Consultant');
+  document.getElementById('btnMgmtScorecardContractor').classList.toggle('active', type === 'Contractor');
+  
+  document.getElementById('wrapMgmtConsultantScorecard').style.display = type === 'Consultant' ? 'block' : 'none';
+  document.getElementById('wrapMgmtContractorScorecard').style.display = type === 'Contractor' ? 'block' : 'none';
+}
+
 function calcAverageScorecard() {
   const p = parseFloat(document.getElementById('scoreProgress').value) || 0;
   const q = parseFloat(document.getElementById('scoreQuality').value) || 0;
@@ -1594,22 +1630,36 @@ function loadHigherMgmtScorecards() {
   }
 }
 
+// PROJECT-SPECIFIC EXECUTIVE SCORECARD CALCULATION (DEFAULTS TO PRJ-001)
 function calculateScorecardKPICards() {
+  const targetPrj = document.getElementById('mgmtScorecardKPIPrjFilter').value;
+  const prjShortName = targetPrj.split(':')[1] ? targetPrj.split(':')[1].trim().toLowerCase() : targetPrj.trim().toLowerCase();
+
+  // 1. Consultant Calculation
   var cValidCount = 0, cSumAvg = 0;
   consultantScorecardFullList.forEach(d => {
-    var p = parseFloat(d['Progress'] || 0), q = parseFloat(d['Quality'] || 0), h = parseFloat(d['HSE'] || 0), r = parseFloat(d['Reporting Compliance'] || 0), res = parseFloat(d['Responsiveness'] || 0), rec = parseFloat(d['Recovery Actions'] || 0);
-    var avg = (p + q + h + r + res + rec) / 6.0;
-    if (avg > 0) { cValidCount++; cSumAvg += avg; }
+    var pName = String(d['Project Name']).trim().toLowerCase();
+    if (pName === prjShortName || pName === targetPrj.trim().toLowerCase() || targetPrj.toLowerCase().indexOf(pName) !== -1) {
+      var p = parseFloat(d['Progress'] || 0), q = parseFloat(d['Quality'] || 0), h = parseFloat(d['HSE'] || 0), r = parseFloat(d['Reporting Compliance'] || 0), res = parseFloat(d['Responsiveness'] || 0), rec = parseFloat(d['Recovery Actions'] || 0);
+      var avg = (p + q + h + r + res + rec) / 6.0;
+      if (avg > 0) { cValidCount++; cSumAvg += avg; }
+    }
   });
   document.getElementById('kpiConsultantAvg').innerText = (cValidCount > 0 ? (cSumAvg / cValidCount).toFixed(2) : '0.00') + " / 10";
+  document.getElementById('kpiConsultantNote').innerText = targetPrj.split(':')[0] + " Active Avg";
 
+  // 2. Contractor Calculation
   var kValidCount = 0, kSumAvg = 0;
   contractorScorecardFullList.forEach(d => {
-    var p = parseFloat(d['Progress'] || 0), q = parseFloat(d['Quality'] || 0), h = parseFloat(d['HSE'] || 0), r = parseFloat(d['Reporting Compliance'] || 0), res = parseFloat(d['Responsiveness'] || 0), rec = parseFloat(d['Recovery Actions'] || 0);
-    var avg = (p + q + h + r + res + rec) / 6.0;
-    if (avg > 0) { kValidCount++; kSumAvg += avg; }
+    var pName = String(d['Project Name']).trim().toLowerCase();
+    if (pName === prjShortName || pName === targetPrj.trim().toLowerCase() || targetPrj.toLowerCase().indexOf(pName) !== -1) {
+      var p = parseFloat(d['Progress'] || 0), q = parseFloat(d['Quality'] || 0), h = parseFloat(d['HSE'] || 0), r = parseFloat(d['Reporting Compliance'] || 0), res = parseFloat(d['Responsiveness'] || 0), rec = parseFloat(d['Recovery Actions'] || 0);
+      var avg = (p + q + h + r + res + rec) / 6.0;
+      if (avg > 0) { kValidCount++; kSumAvg += avg; }
+    }
   });
   document.getElementById('kpiContractorAvg').innerText = (kValidCount > 0 ? (kSumAvg / kValidCount).toFixed(2) : '0.00') + " / 10";
+  document.getElementById('kpiContractorNote').innerText = targetPrj.split(':')[0] + " Active Avg";
 }
 
 function handleScorecardSubmit(e) {
@@ -1964,6 +2014,7 @@ function fetchProjectMetadataAndHistory() {
   }
 }
 
+// RESTRICT CONTRACTOR SELECTION TO VERIFIED & APPROVED SCOPES/TRADES ONLY
 function populateMetadataDropdowns(data) {
   const codeSel = document.getElementById('pScopeCode');
   const catSel = document.getElementById('pScopeCat');
@@ -1975,8 +2026,8 @@ function populateMetadataDropdowns(data) {
     String(d['Approval']).toUpperCase() === 'YES'
   );
 
-  const codes = [...new Set(data.map(d => d['Main Scope'] || d['Scope Code']).filter(Boolean))];
-  const cats = [...new Set(data.map(d => d['Subscope'] || d['Scope Category']).filter(Boolean))];
+  const codes = [...new Set(verifiedApprovedData.map(d => d['Main Scope'] || d['Scope Code']).filter(Boolean))];
+  const cats = [...new Set(verifiedApprovedData.map(d => d['Subscope'] || d['Scope Category']).filter(Boolean))];
   const approvedTrades = [...new Set(verifiedApprovedData.map(d => d['Trade']).filter(Boolean))];
   const allTrades = [...new Set(data.map(d => d['Trade']).filter(Boolean))];
 
