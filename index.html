@@ -170,7 +170,7 @@ button, input, select, textarea { font: inherit; }
 .card-title { font-size: 13px; font-weight: 700; color: var(--ink); line-height: 1.3; }
 .card-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
 
-/* Dynamic Monthly S-Curve Chart (Tighter spacing & Horizontal labels) */
+/* Dynamic Monthly S-Curve Chart (Wider bars & 4px gap) */
 .chart-box {
   background: var(--soft);
   border: 1px solid var(--line);
@@ -199,7 +199,7 @@ button, input, select, textarea { font: inherit; }
   display: flex;
   align-items: flex-end;
   height: 230px;
-  gap: 2px; /* Tighter gap between monthly sets */
+  gap: 4px; /* Updated distance between month sets to 4px */
   padding-top: 36px;
   padding-bottom: 20px;
   overflow-x: auto;
@@ -207,7 +207,7 @@ button, input, select, textarea { font: inherit; }
 
 .chart-col {
   flex: 1;
-  min-width: 38px; /* Compact width for tight layout */
+  min-width: 52px; /* Increased minimum width to prevent overlapping tags */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -218,14 +218,15 @@ button, input, select, textarea { font: inherit; }
 .bar-wrapper {
   display: flex;
   align-items: flex-end;
-  gap: 2px;
+  gap: 3px;
   height: 100%;
   width: 100%;
   justify-content: center;
 }
 
-.scurve-plan { width: 12px; background: rgba(0, 0, 255, 0.25); border-radius: 2px 2px 0 0; position: relative; }
-.scurve-act { width: 12px; background: var(--blue); border-radius: 2px 2px 0 0; position: relative; }
+/* Increased bar widths to 18px for clear label separation */
+.scurve-plan { width: 18px; background: rgba(0, 0, 255, 0.25); border-radius: 2px 2px 0 0; position: relative; }
+.scurve-act { width: 18px; background: var(--blue); border-radius: 2px 2px 0 0; position: relative; }
 
 .pct-tag {
   position: absolute;
@@ -240,13 +241,12 @@ button, input, select, textarea { font: inherit; }
   text-align: center;
 }
 
-/* Horizontal month-year axis tags */
 .col-label {
   font-size: 8px;
   font-weight: 600;
   color: var(--muted);
   margin-top: 8px;
-  transform: rotate(0deg); /* Horizontal orientation */
+  transform: rotate(0deg);
   white-space: nowrap;
   text-align: center;
 }
@@ -535,7 +535,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       </div>
     </div>
 
-    <!-- REORDERED TABLE COLUMNS (WITH PENDING CLAIMS AND END MILESTONE) -->
+    <!-- OVERALL TABLE WITH BLACK TEXT MILESTONES -->
     <div class="eyebrow" style="margin-top: 24px;">PROJECT DETAILS OVERALL</div>
     <div class="table-wrap">
       <table>
@@ -1613,13 +1613,12 @@ function renderOverallTable(data) {
         <td>${formatExactRM(r['Budget Balance'] || r.balance)}</td>
         <td>${r['Current Overall Status'] || r.status}</td>
         <td><span class="badge ${badgeClass}">${health}</span></td>
-        <td style="font-weight: 600; color: var(--blue);">${r['Project Milestone'] || r['Key Milestone'] || r.milestone || '-'}</td>
+        <td style="font-weight: 600; color: var(--ink);">${r['Project Milestone'] || r['Key Milestone'] || r.milestone || '-'}</td>
       </tr>
     `;
   }).join('');
 }
 
-// S-CURVE CHART WITH MONTHLY INCREMENT DATA TAGS
 function loadMonthlyTrackingGraph() {
   const prjId = document.getElementById('chartProjectSelect').value;
   const year = document.getElementById('chartYearSelect').value;
