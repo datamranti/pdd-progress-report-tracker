@@ -97,7 +97,7 @@ button, input, select, textarea { font: inherit; }
   font-weight: 700;
 }
 
-/* Landing Page (Page 1) - Redesigned 2x2 Square Cards Layout */
+/* Landing Page (Page 1) */
 .login-container {
   max-width: 620px;
   margin: 30px auto;
@@ -111,7 +111,6 @@ button, input, select, textarea { font: inherit; }
 .login-logo { width: 140px; margin-bottom: 12px; }
 .login-title { font-size: 20px; font-weight: 700; margin-bottom: 24px; color: var(--ink); }
 
-/* 2x2 Square Grid Container */
 .login-btn-group {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -119,7 +118,6 @@ button, input, select, textarea { font: inherit; }
   margin-top: 20px;
 }
 
-/* Individual Square Card Button Style */
 .btn-login-card {
   background: var(--white);
   border: 1px solid #e2e8f0;
@@ -134,7 +132,6 @@ button, input, select, textarea { font: inherit; }
   transition: all 0.25s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
   text-align: left;
-  position: relative;
 }
 
 .btn-login-card:hover {
@@ -169,24 +166,11 @@ button, input, select, textarea { font: inherit; }
   letter-spacing: 0.05em;
 }
 
-.card-bottom {
-  margin-top: 14px;
-}
+.card-bottom { margin-top: 14px; }
+.card-title { font-size: 13px; font-weight: 700; color: var(--ink); line-height: 1.3; }
+.card-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
 
-.card-title {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1.3;
-}
-
-.card-sub {
-  font-size: 10px;
-  color: var(--muted);
-  margin-top: 2px;
-}
-
-/* Dynamic Monthly S-Curve Chart */
+/* Dynamic Monthly S-Curve Chart (Tighter spacing & Horizontal labels) */
 .chart-box {
   background: var(--soft);
   border: 1px solid var(--line);
@@ -214,15 +198,16 @@ button, input, select, textarea { font: inherit; }
 .chart-bar-container {
   display: flex;
   align-items: flex-end;
-  height: 210px;
-  gap: 8px;
-  padding-top: 28px;
+  height: 230px;
+  gap: 2px; /* Tighter gap between monthly sets */
+  padding-top: 36px;
+  padding-bottom: 20px;
   overflow-x: auto;
 }
 
 .chart-col {
   flex: 1;
-  min-width: 45px;
+  min-width: 38px; /* Compact width for tight layout */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -233,31 +218,42 @@ button, input, select, textarea { font: inherit; }
 .bar-wrapper {
   display: flex;
   align-items: flex-end;
-  gap: 3px;
+  gap: 2px;
   height: 100%;
   width: 100%;
   justify-content: center;
 }
 
-.scurve-plan { width: 14px; background: rgba(0, 0, 255, 0.25); border-radius: 2px 2px 0 0; position: relative; }
-.scurve-act { width: 14px; background: var(--blue); border-radius: 2px 2px 0 0; position: relative; }
+.scurve-plan { width: 12px; background: rgba(0, 0, 255, 0.25); border-radius: 2px 2px 0 0; position: relative; }
+.scurve-act { width: 12px; background: var(--blue); border-radius: 2px 2px 0 0; position: relative; }
 
 .pct-tag {
   position: absolute;
-  top: -18px;
+  top: -24px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 8px;
+  font-size: 7.5px;
   font-weight: 700;
   color: var(--ink);
   white-space: nowrap;
+  line-height: 1.1;
+  text-align: center;
 }
 
-.col-label { font-size: 8.5px; color: var(--muted); margin-top: 8px; transform: rotate(-30deg); transform-origin: left top; }
+/* Horizontal month-year axis tags */
+.col-label {
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-top: 8px;
+  transform: rotate(0deg); /* Horizontal orientation */
+  white-space: nowrap;
+  text-align: center;
+}
 
 /* Tables & Skeleton Animations */
 .table-wrap { overflow-x: auto; background: white; border: 1px solid var(--line); border-radius: 6px; margin-top: 16px; }
-table { width: 100%; border-collapse: collapse; min-width: 1050px; }
+table { width: 100%; border-collapse: collapse; min-width: 1100px; }
 th {
   text-align: left;
   font-size: 9px;
@@ -454,7 +450,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       <p style="font-size: 11px; color: var(--muted); margin-bottom: 20px;">Select your authorized portal tile to enter:</p>
 
       <div class="login-btn-group">
-        <!-- CARD 1: MANAGEMENT VIEW -->
         <button type="button" class="btn-login-card" onclick="loginAs('HigherManagement')">
           <div class="card-top">
             <div class="card-icon" style="background: #eef2ff; color: var(--blue);">📊</div>
@@ -466,7 +461,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
           </div>
         </button>
 
-        <!-- CARD 2: PDD AUTHORITY -->
         <button type="button" class="btn-login-card" onclick="loginAs('PDDAuthority')">
           <div class="card-top">
             <div class="card-icon" style="background: #e6f9f0; color: var(--green);">🛡️</div>
@@ -478,7 +472,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
           </div>
         </button>
 
-        <!-- CARD 3: CONSULTANT VIEW -->
         <button type="button" class="btn-login-card" onclick="loginAs('Consultant')">
           <div class="card-top">
             <div class="card-icon" style="background: #fff8e6; color: var(--amber);">🔍</div>
@@ -490,7 +483,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
           </div>
         </button>
 
-        <!-- CARD 4: CONTRACTOR / DEVELOPER -->
         <button type="button" class="btn-login-card" onclick="loginAs('Contractor')">
           <div class="card-top">
             <div class="card-icon" style="background: #f1f5f9; color: var(--ink);">🏗️</div>
@@ -543,6 +535,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       </div>
     </div>
 
+    <!-- REORDERED TABLE COLUMNS (WITH PENDING CLAIMS AND END MILESTONE) -->
     <div class="eyebrow" style="margin-top: 24px;">PROJECT DETAILS OVERALL</div>
     <div class="table-wrap">
       <table>
@@ -553,10 +546,11 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
             <th>Approved Budget</th>
             <th>Project Cost</th>
             <th>Paid to Date</th>
+            <th>Pending Claim</th>
             <th>Budget Balance</th>
-            <th>Key Milestone</th>
             <th>Overall Status</th>
             <th>Health</th>
+            <th>Project Milestone</th>
           </tr>
         </thead>
         <tbody id="overallTableBody"></tbody>
@@ -1394,14 +1388,32 @@ function renderConsultantScurve() {
   var projectMap = fullMonthlyTrackingMap[activeConsultantProjectCode] || fullMonthlyTrackingMap["PRJ-001"];
   var monthData = projectMap[year] || projectMap["2026"];
 
-  container.innerHTML = monthData.map(d => {
+  container.innerHTML = monthData.map((d, idx) => {
+    var prevPlan = idx > 0 ? monthData[idx - 1].plan : 0;
+    var prevAct = (idx > 0 && monthData[idx - 1].act !== null) ? monthData[idx - 1].act : 0;
+    
+    var incPlan = (d.plan - prevPlan).toFixed(1);
+    var incAct = d.act !== null ? (d.act - prevAct).toFixed(1) : null;
+
     const planH = (d.plan / 100) * 100;
     const actH = d.act !== null ? (d.act / 100) * 100 : 0;
     return `
-      <div class="chart-col" title="${d.m} - Plan: ${d.plan}%, Act: ${d.act !== null ? d.act + '%' : 'N/A'}">
+      <div class="chart-col" title="${d.m} - Cumulative Plan: ${d.plan}%, Act: ${d.act !== null ? d.act + '%' : 'N/A'}">
         <div class="bar-wrapper">
-          <div class="scurve-plan" style="height: ${planH}%;"><div class="pct-tag">${d.plan}%</div></div>
-          ${d.act !== null ? `<div class="scurve-act" style="height: ${actH}%;"><div class="pct-tag" style="color: var(--blue);">${d.act}%</div></div>` : ''}
+          <div class="scurve-plan" style="height: ${planH}%;">
+            <div class="pct-tag">
+              <span style="display:block; font-size: 7px; color: var(--muted);">(+${incPlan}%)</span>
+              ${d.plan}%
+            </div>
+          </div>
+          ${d.act !== null ? `
+            <div class="scurve-act" style="height: ${actH}%;">
+              <div class="pct-tag" style="color: var(--blue);">
+                <span style="display:block; font-size: 7px; color: var(--blue);">(+${incAct}%)</span>
+                ${d.act}%
+              </div>
+            </div>
+          ` : ''}
         </div>
         <div class="col-label">${d.m}</div>
       </div>
@@ -1568,7 +1580,7 @@ function switchPage(pageId) {
 }
 
 function loadPage2Data() {
-  showSkeletonRows('overallTableBody', 9, 4);
+  showSkeletonRows('overallTableBody', 10, 4);
   if (GOOGLE_SCRIPT_URL) {
     fetch(GOOGLE_SCRIPT_URL + "?action=getOverallDashboard")
       .then(res => res.json())
@@ -1597,15 +1609,17 @@ function renderOverallTable(data) {
         <td>${formatExactRM(r['Approved Budget'] || r.budget)}</td>
         <td>${formatExactRM(r['Project Cost'] || r.cost)}</td>
         <td>${formatExactRM(r['Paid to Date'] || r.paid)}</td>
+        <td style="color: var(--amber); font-weight: 600;">${formatExactRM(r['Pending Claim'] || r.claim)}</td>
         <td>${formatExactRM(r['Budget Balance'] || r.balance)}</td>
-        <td>${r['Key Milestone'] || r.milestone || '-'}</td>
         <td>${r['Current Overall Status'] || r.status}</td>
         <td><span class="badge ${badgeClass}">${health}</span></td>
+        <td style="font-weight: 600; color: var(--blue);">${r['Project Milestone'] || r['Key Milestone'] || r.milestone || '-'}</td>
       </tr>
     `;
   }).join('');
 }
 
+// S-CURVE CHART WITH MONTHLY INCREMENT DATA TAGS
 function loadMonthlyTrackingGraph() {
   const prjId = document.getElementById('chartProjectSelect').value;
   const year = document.getElementById('chartYearSelect').value;
@@ -1614,14 +1628,32 @@ function loadMonthlyTrackingGraph() {
   var projectMap = fullMonthlyTrackingMap[prjId] || fullMonthlyTrackingMap["PRJ-001"];
   var monthData = projectMap[year] || projectMap["2026"];
 
-  container.innerHTML = monthData.map(d => {
+  container.innerHTML = monthData.map((d, idx) => {
+    var prevPlan = idx > 0 ? monthData[idx - 1].plan : 0;
+    var prevAct = (idx > 0 && monthData[idx - 1].act !== null) ? monthData[idx - 1].act : 0;
+    
+    var incPlan = (d.plan - prevPlan).toFixed(1);
+    var incAct = d.act !== null ? (d.act - prevAct).toFixed(1) : null;
+
     const planH = (d.plan / 100) * 100;
     const actH = d.act !== null ? (d.act / 100) * 100 : 0;
     return `
-      <div class="chart-col" title="${d.m} - Plan: ${d.plan}%, Act: ${d.act !== null ? d.act + '%' : 'N/A'}">
+      <div class="chart-col" title="${d.m} - Cumulative Plan: ${d.plan}%, Act: ${d.act !== null ? d.act + '%' : 'N/A'}">
         <div class="bar-wrapper">
-          <div class="scurve-plan" style="height: ${planH}%;"><div class="pct-tag">${d.plan}%</div></div>
-          ${d.act !== null ? `<div class="scurve-act" style="height: ${actH}%;"><div class="pct-tag" style="color: var(--blue);">${d.act}%</div></div>` : ''}
+          <div class="scurve-plan" style="height: ${planH}%;">
+            <div class="pct-tag">
+              <span style="display:block; font-size: 7px; color: var(--muted);">(+${incPlan}%)</span>
+              ${d.plan}%
+            </div>
+          </div>
+          ${d.act !== null ? `
+            <div class="scurve-act" style="height: ${actH}%;">
+              <div class="pct-tag" style="color: var(--blue);">
+                <span style="display:block; font-size: 7px; color: var(--blue);">(+${incAct}%)</span>
+                ${d.act}%
+              </div>
+            </div>
+          ` : ''}
         </div>
         <div class="col-label">${d.m}</div>
       </div>
