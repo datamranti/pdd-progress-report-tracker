@@ -193,7 +193,7 @@ button, input, select, textarea { font: inherit; }
 
 .col-label { font-size: 8.5px; color: var(--muted); margin-top: 8px; transform: rotate(-30deg); transform-origin: left top; }
 
-/* Tables */
+/* Tables & Skeleton Animations */
 .table-wrap { overflow-x: auto; background: white; border: 1px solid var(--line); border-radius: 6px; margin-top: 16px; }
 table { width: 100%; border-collapse: collapse; min-width: 1050px; }
 th {
@@ -207,6 +207,21 @@ th {
   background: var(--softb);
 }
 td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; color: #354052; }
+
+/* SKELETON ANIMATION CSS */
+@keyframes skeleton-pulse {
+  0% { background-color: #e2e8f0; }
+  50% { background-color: #cbd5e1; }
+  100% { background-color: #e2e8f0; }
+}
+
+.skeleton-box {
+  display: inline-block;
+  height: 14px;
+  width: 80%;
+  border-radius: 4px;
+  animation: skeleton-pulse 1.4s infinite ease-in-out;
+}
 
 /* Badges */
 .badge { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 9px; font-weight: 600; text-transform: uppercase; }
@@ -481,7 +496,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       <div class="eyebrow">PORTFOLIO EVALUATION SUMMARY</div>
       <h3 style="margin: 4px 0 16px; font-size: 18px; font-weight: 600;">Consultant & Contractor Performance Scorecard</h3>
 
-      <!-- PROJECT TARGET SELECTOR FOR EXECUTIVE KPI SCORECARDS -->
       <div style="margin-bottom: 16px; max-width: 320px;">
         <label for="mgmtScorecardKPIPrjFilter" style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--ink2);">Select Target Project for Average Scores:</label>
         <select id="mgmtScorecardKPIPrjFilter" onchange="calculateScorecardKPICards()" style="width: 100%; border: 1px solid var(--line); padding: 8px; font-size: 11px; border-radius: 4px; margin-top: 4px;">
@@ -509,7 +523,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
         </div>
       </div>
 
-      <!-- TAB SWITCHER FOR MANAGEMENT SCORECARD TABLES -->
       <div class="tab-switcher">
         <button class="btn-tab active" id="btnMgmtScorecardConsultant" onclick="setMgmtScorecardTable('Consultant')">Consultant Scorecard Data</button>
         <button class="btn-tab" id="btnMgmtScorecardContractor" onclick="setMgmtScorecardTable('Contractor')">Contractor Scorecard Data</button>
@@ -1141,9 +1154,16 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 <script>
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby6MQ0JEP4uGf1P0Q9_2FpMEGl73fSDVe0RjHSed0iRQjDCIxfFxTs6WmXQWUm25bSReg/exec";
 
-const PROJECT_PINS = {
+// CONTRACTOR ACCESS PINS
+const CONTRACTOR_PINS = {
   "PRJ-001": "5751", "PRJ-002": "3442", "PRJ-003": "7562", "PRJ-004": "8712",
   "PRJ-005": "3599", "PRJ-006": "1741", "PRJ-007": "3562", "PRJ-008": "7153"
+};
+
+// DISTINCT CONSULTANT ACCESS PINS
+const CONSULTANT_PINS = {
+  "PRJ-001": "6805", "PRJ-002": "4720", "PRJ-003": "8322", "PRJ-004": "1847",
+  "PRJ-005": "9430", "PRJ-006": "6261", "PRJ-007": "9205", "PRJ-008": "2873"
 };
 
 let activeSelectedProjectCode = "";
@@ -1211,6 +1231,23 @@ let consultantScorecardFullList = [];
 let contractorScorecardFullList = [];
 let pendingRejectTarget = null;
 
+// SKELETON RENDER HELPER FUNCTION
+function showSkeletonRows(tbodyId, columns, rows) {
+  const tbody = document.getElementById(tbodyId);
+  if (!tbody) return;
+  var colCount = columns || 8;
+  var rowCount = rows || 3;
+  var html = '';
+  for (var r = 0; r < rowCount; r++) {
+    html += '<tr>';
+    for (var c = 0; c < colCount; c++) {
+      html += '<td><span class="skeleton-box"></span></td>';
+    }
+    html += '</tr>';
+  }
+  tbody.innerHTML = html;
+}
+
 function selectConsultantProject(code, name) {
   activeConsultantProjectCode = code;
   activeConsultantProjectName = name;
@@ -1223,7 +1260,7 @@ function selectConsultantProject(code, name) {
 
 function verifyConsultantPin() {
   const enteredPin = document.getElementById('consultantPinInput').value.trim();
-  if (enteredPin === PROJECT_PINS[activeConsultantProjectCode]) {
+  if (enteredPin === CONSULTANT_PINS[activeConsultantProjectCode]) {
     document.getElementById('consultantPinVerification').style.display = 'none';
     document.getElementById('consultantUnlockedArea').style.display = 'block';
     document.getElementById('consultantAuthenticatedProjectTitle').innerText = activeConsultantProjectCode + " - " + activeConsultantProjectName;
@@ -1277,7 +1314,7 @@ function selectContractorProject(code, name) {
 
 function verifyContractorPin() {
   const enteredPin = document.getElementById('contractorPinInput').value.trim();
-  if (enteredPin === PROJECT_PINS[activeSelectedProjectCode]) {
+  if (enteredPin === CONTRACTOR_PINS[activeSelectedProjectCode]) {
     document.getElementById('contractorPinVerification').style.display = 'none';
     document.getElementById('contractorUnlockedArea').style.display = 'block';
     document.getElementById('authenticatedProjectTitle').innerText = activeSelectedProjectCode + " - " + activeSelectedProjectName;
@@ -1352,7 +1389,6 @@ function formatDateShort(val) {
   return str;
 }
 
-// SANITIZED RM CURRENCY PARSING TO PREVENT RM NaN ISSUES
 function formatExactRM(val) {
   if (val === null || val === undefined || val === '') return "RM 0.00";
   var str = String(val).replace(/[^0-9.-]+/g, "");
@@ -1425,6 +1461,7 @@ function switchPage(pageId) {
 }
 
 function loadPage2Data() {
+  showSkeletonRows('overallTableBody', 9, 4);
   if (GOOGLE_SCRIPT_URL) {
     fetch(GOOGLE_SCRIPT_URL + "?action=getOverallDashboard")
       .then(res => res.json())
@@ -1516,6 +1553,7 @@ function calcAverageScorecard() {
 }
 
 function loadScorecardPageData() {
+  showSkeletonRows('pddAuthorityScorecardTableBody', 10, 3);
   if (GOOGLE_SCRIPT_URL) {
     fetch(GOOGLE_SCRIPT_URL + "?action=getScorecardData&type=" + currentScorecardType)
       .then(res => res.json())
@@ -1597,6 +1635,9 @@ function loadHigherMgmtScorecards() {
   const filterYear = document.getElementById('mgmtScorecardYearFilter').value;
   const filterMonth = document.getElementById('mgmtScorecardMonthFilter').value;
 
+  showSkeletonRows('mgmtConsultantScorecardBody', 10, 3);
+  showSkeletonRows('mgmtContractorScorecardBody', 10, 3);
+
   if (GOOGLE_SCRIPT_URL) {
     fetch(GOOGLE_SCRIPT_URL + "?action=getScorecardData&type=Consultant")
       .then(res => res.json())
@@ -1630,12 +1671,10 @@ function loadHigherMgmtScorecards() {
   }
 }
 
-// PROJECT-SPECIFIC EXECUTIVE SCORECARD CALCULATION (DEFAULTS TO PRJ-001)
 function calculateScorecardKPICards() {
   const targetPrj = document.getElementById('mgmtScorecardKPIPrjFilter').value;
   const prjShortName = targetPrj.split(':')[1] ? targetPrj.split(':')[1].trim().toLowerCase() : targetPrj.trim().toLowerCase();
 
-  // 1. Consultant Calculation
   var cValidCount = 0, cSumAvg = 0;
   consultantScorecardFullList.forEach(d => {
     var pName = String(d['Project Name']).trim().toLowerCase();
@@ -1648,7 +1687,6 @@ function calculateScorecardKPICards() {
   document.getElementById('kpiConsultantAvg').innerText = (cValidCount > 0 ? (cSumAvg / cValidCount).toFixed(2) : '0.00') + " / 10";
   document.getElementById('kpiConsultantNote').innerText = targetPrj.split(':')[0] + " Active Avg";
 
-  // 2. Contractor Calculation
   var kValidCount = 0, kSumAvg = 0;
   contractorScorecardFullList.forEach(d => {
     var pName = String(d['Project Name']).trim().toLowerCase();
@@ -1690,6 +1728,10 @@ function handleScorecardSubmit(e) {
 
 function loadConsultantPageData() {
   renderConsultantScurve();
+  showSkeletonRows('consultantTableBody', 12, 3);
+  showSkeletonRows('consultantScopeTableBody', 8, 2);
+  showSkeletonRows('latestBreakdownTableBody', 8, 3);
+
   if (GOOGLE_SCRIPT_URL) {
     fetch(GOOGLE_SCRIPT_URL + "?action=getPendingVerifications")
       .then(res => res.json())
@@ -1814,6 +1856,10 @@ function renderConsultantScopeTable() {
 
 function loadAuthorityPageData() {
   const breakdownPrj = document.getElementById('authorityBreakdownPrjFilter').value;
+
+  showSkeletonRows('authorityTableBody', 12, 3);
+  showSkeletonRows('authorityScopeTableBody', 8, 2);
+  showSkeletonRows('authorityBreakdownTableBody', 8, 3);
 
   if (GOOGLE_SCRIPT_URL) {
     fetch(GOOGLE_SCRIPT_URL + "?action=getPendingApprovals")
@@ -1989,6 +2035,9 @@ function populateScopeFormForEdit() {
 function fetchProjectMetadataAndHistory() {
   const prjId = document.getElementById('pPrj').value || activeSelectedProjectCode;
 
+  showSkeletonRows('metadataTableBody', 10, 3);
+  showSkeletonRows('historyTableBody', 14, 4);
+
   if (GOOGLE_SCRIPT_URL) {
     fetch(GOOGLE_SCRIPT_URL + "?action=getMetadata&projectId=" + prjId)
       .then(res => res.json())
@@ -2014,7 +2063,6 @@ function fetchProjectMetadataAndHistory() {
   }
 }
 
-// RESTRICT CONTRACTOR SELECTION TO VERIFIED & APPROVED SCOPES/TRADES ONLY
 function populateMetadataDropdowns(data) {
   const codeSel = document.getElementById('pScopeCode');
   const catSel = document.getElementById('pScopeCat');
