@@ -170,7 +170,7 @@ button, input, select, textarea { font: inherit; }
 .card-title { font-size: 13px; font-weight: 700; color: var(--ink); line-height: 1.3; }
 .card-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
 
-/* Dynamic Monthly S-Curve Chart (Wider bars & 4px gap) */
+/* Dynamic Monthly S-Curve Chart (Widths increased to 22px & min-width 60px) */
 .chart-box {
   background: var(--soft);
   border: 1px solid var(--line);
@@ -199,7 +199,7 @@ button, input, select, textarea { font: inherit; }
   display: flex;
   align-items: flex-end;
   height: 230px;
-  gap: 4px; /* Updated distance between month sets to 4px */
+  gap: 6px; /* Optimized gap between monthly sets */
   padding-top: 36px;
   padding-bottom: 20px;
   overflow-x: auto;
@@ -207,7 +207,7 @@ button, input, select, textarea { font: inherit; }
 
 .chart-col {
   flex: 1;
-  min-width: 52px; /* Increased minimum width to prevent overlapping tags */
+  min-width: 60px; /* Increased minimum width for spacious layout */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -218,15 +218,15 @@ button, input, select, textarea { font: inherit; }
 .bar-wrapper {
   display: flex;
   align-items: flex-end;
-  gap: 3px;
+  gap: 4px;
   height: 100%;
   width: 100%;
   justify-content: center;
 }
 
-/* Increased bar widths to 18px for clear label separation */
-.scurve-plan { width: 18px; background: rgba(0, 0, 255, 0.25); border-radius: 2px 2px 0 0; position: relative; }
-.scurve-act { width: 18px; background: var(--blue); border-radius: 2px 2px 0 0; position: relative; }
+/* Increased bar widths to 22px */
+.scurve-plan { width: 22px; background: rgba(0, 0, 255, 0.25); border-radius: 2px 2px 0 0; position: relative; }
+.scurve-act { width: 22px; background: var(--blue); border-radius: 2px 2px 0 0; position: relative; }
 
 .pct-tag {
   position: absolute;
