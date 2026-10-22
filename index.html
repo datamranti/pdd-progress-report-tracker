@@ -89,6 +89,19 @@ button, input, select, textarea { font: inherit; }
 .btn-nav:hover, .btn-nav.active { background: var(--blue); color: white; border-color: var(--blue); }
 .btn-logout { background: var(--red); color: white; border: none; }
 
+.user-badge {
+  font-size: 10px;
+  font-weight: 600;
+  background: var(--softb);
+  border: 1px solid #c8d2ff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  color: var(--blue);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .eyebrow {
   font-size: 10px;
   letter-spacing: .12em;
@@ -97,80 +110,46 @@ button, input, select, textarea { font: inherit; }
   font-weight: 700;
 }
 
-/* Landing Page (Page 1) */
+/* Landing Page SSO UI */
 .login-container {
-  max-width: 620px;
-  margin: 30px auto;
+  max-width: 480px;
+  margin: 50px auto;
   background: #f8fafe;
   border: 1px solid #e0e7ff;
   border-radius: 16px;
-  padding: 36px 28px;
+  padding: 40px 32px;
   text-align: center;
   box-shadow: 0 10px 25px rgba(0,0,255,0.04);
 }
-.login-logo { width: 140px; margin-bottom: 12px; }
-.login-title { font-size: 20px; font-weight: 700; margin-bottom: 24px; color: var(--ink); }
+.login-logo { width: 140px; margin-bottom: 16px; }
+.login-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--ink); }
 
-.login-btn-group {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin-top: 20px;
-}
-
-.btn-login-card {
+.btn-sso {
   background: var(--white);
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  min-height: 150px;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-  text-align: left;
-}
-
-.btn-login-card:hover {
-  transform: translateY(-4px);
-  border-color: #a3b8ff;
-  box-shadow: 0 12px 24px rgba(0, 0, 255, 0.08);
-}
-
-.card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  border: 1px solid #cbd5e1;
+  color: var(--ink);
   width: 100%;
-}
-
-.card-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  gap: 12px;
+  margin-top: 24px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
-
-.card-badge {
-  font-size: 8.5px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.btn-sso:hover {
+  border-color: var(--blue);
+  box-shadow: 0 4px 12px rgba(0,0,255,0.1);
+  transform: translateY(-1px);
 }
+.btn-sso img { width: 20px; height: 20px; }
 
-.card-bottom { margin-top: 14px; }
-.card-title { font-size: 13px; font-weight: 700; color: var(--ink); line-height: 1.3; }
-.card-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
-
-/* Dynamic Monthly S-Curve Chart (Widths increased to 22px & min-width 60px) */
+/* Dynamic Monthly S-Curve Chart */
 .chart-box {
   background: var(--soft);
   border: 1px solid var(--line);
@@ -199,7 +178,7 @@ button, input, select, textarea { font: inherit; }
   display: flex;
   align-items: flex-end;
   height: 230px;
-  gap: 8px; /* Optimized gap between monthly sets */
+  gap: 8px;
   padding-top: 36px;
   padding-bottom: 20px;
   overflow-x: auto;
@@ -207,7 +186,7 @@ button, input, select, textarea { font: inherit; }
 
 .chart-col {
   flex: 1;
-  min-width: 70px; /* Increased minimum width for spacious layout */
+  min-width: 70px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -224,7 +203,6 @@ button, input, select, textarea { font: inherit; }
   justify-content: center;
 }
 
-/* Increased bar widths to 25px */
 .scurve-plan { width: 25px; background: rgba(0, 0, 255, 0.25); border-radius: 2px 2px 0 0; position: relative; }
 .scurve-act { width: 25px; background: var(--blue); border-radius: 2px 2px 0 0; position: relative; }
 
@@ -246,7 +224,6 @@ button, input, select, textarea { font: inherit; }
   font-weight: 600;
   color: var(--muted);
   margin-top: 8px;
-  transform: rotate(0deg);
   white-space: nowrap;
   text-align: center;
 }
@@ -300,7 +277,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
   cursor: pointer;
 }
 
-/* Forms */
+/* Forms & Cards */
 .entry-card {
   background: var(--softb);
   border: 1px solid #c8d2ff;
@@ -413,10 +390,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
   justify-content: center;
   overflow: auto;
 }
-
-@media (max-width: 600px) {
-  .login-btn-group { grid-template-columns: 1fr; }
-}
 </style>
 </head>
 <body>
@@ -430,6 +403,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     </div>
 
     <div class="nav-links">
+      <div class="user-badge" id="currentUserDisplay">👤 User</div>
       <button class="btn-nav" id="navDashboard" onclick="switchPage('page2')">MRANTI Management View</button>
       <button class="btn-nav" id="navApproval" onclick="switchPage('page3Authority')">PDD Approval</button>
       <button class="btn-nav" id="navScorecard" onclick="switchPage('pageScorecard')">Scorecard Portal</button>
@@ -441,58 +415,24 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 
   <div class="rule" id="appRule" style="display: none;"></div>
 
-  <!-- LANDING PAGE WITH 2x2 SQUARE CARD BUTTONS -->
+  <!-- LANDING PAGE WITH SSO LOGIN -->
   <div id="page1" class="app-page active">
     <div class="login-container">
       <img src="MRANTI 30Y Icon.png" class="login-logo" alt="MRANTI Icon" onerror="this.src='https://cdn.prod.website-files.com/6719e3902a71ea8154ba371d/6996a2c470a01e3f32ffa080_M30.png'">
       <div class="eyebrow">MRANTI PDD PORTAL</div>
-      <div class="login-title">PDD Progress Reporting & Dashboard</div>
-      <p style="font-size: 11px; color: var(--muted); margin-bottom: 20px;">Select your authorized portal tile to enter:</p>
+      <div class="login-title">Sign In to PDD Progress Portal</div>
+      <p style="font-size: 11px; color: var(--muted); margin-bottom: 12px; line-height: 1.5;">
+        Single Sign-On required for all authorized users.<br>
+        MRANTI Staff (`@mranti.my`) & Whitelisted Vendors only.
+      </p>
 
-      <div class="login-btn-group">
-        <button type="button" class="btn-login-card" onclick="loginAs('HigherManagement')">
-          <div class="card-top">
-            <div class="card-icon" style="background: #eef2ff; color: var(--blue);">📊</div>
-            <span class="card-badge" style="background: #eef2ff; color: var(--blue);">PORTAL</span>
-          </div>
-          <div class="card-bottom">
-            <div class="card-title">MRANTI Management</div>
-            <div class="card-sub">Executive KPIs & Trajectory</div>
-          </div>
-        </button>
+      <button type="button" class="btn-sso" onclick="loginWithGoogleSSO()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo">
+        <span>Sign in with Google SSO</span>
+      </button>
 
-        <button type="button" class="btn-login-card" onclick="loginAs('PDDAuthority')">
-          <div class="card-top">
-            <div class="card-icon" style="background: #e6f9f0; color: var(--green);">🛡️</div>
-            <span class="card-badge" style="background: #e6f9f0; color: var(--green);">APPROVAL</span>
-          </div>
-          <div class="card-bottom">
-            <div class="card-title">PDD Authority</div>
-            <div class="card-sub">Final Approvals & Ratings</div>
-          </div>
-        </button>
-
-        <button type="button" class="btn-login-card" onclick="loginAs('Consultant')">
-          <div class="card-top">
-            <div class="card-icon" style="background: #fff8e6; color: var(--amber);">🔍</div>
-            <span class="card-badge" style="background: #fff8e6; color: var(--amber);">VERIFY</span>
-          </div>
-          <div class="card-bottom">
-            <div class="card-title">Consultant View</div>
-            <div class="card-sub">Stage 1 Verifications</div>
-          </div>
-        </button>
-
-        <button type="button" class="btn-login-card" onclick="loginAs('Contractor')">
-          <div class="card-top">
-            <div class="card-icon" style="background: #f1f5f9; color: var(--ink);">🏗️</div>
-            <span class="card-badge" style="background: #f1f5f9; color: var(--ink);">SUBMIT</span>
-          </div>
-          <div class="card-bottom">
-            <div class="card-title">Contractor / Developer</div>
-            <div class="card-sub">Progress & Schedule Entry</div>
-          </div>
-        </button>
+      <div id="loginStatusSpinner" style="display: none; margin-top: 16px; font-size: 11px; color: var(--blue);">
+        ⏳ Authenticating & verifying access whitelist...
       </div>
     </div>
   </div>
@@ -535,7 +475,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
       </div>
     </div>
 
-    <!-- OVERALL TABLE WITH BLACK TEXT MILESTONES -->
+    <!-- OVERALL TABLE -->
     <div class="eyebrow" style="margin-top: 24px;">PROJECT DETAILS OVERALL</div>
     <div class="table-wrap">
       <table>
@@ -724,40 +664,12 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     <div class="eyebrow">CONSULTANT PORTAL</div>
     <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Consultant Verification Portal</h2>
 
-    <div id="consultantProjectSelector" class="entry-card">
-      <div class="eyebrow" style="margin-bottom: 6px;">STEP 1: SELECT YOUR ASSIGNED PROJECT</div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
-        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-001', 'Infrastructure P1')"><strong>PRJ-001</strong><br><small>Infrastructure P1</small></button>
-        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-002', 'Infrastructure P2A')"><strong>PRJ-002</strong><br><small>Infrastructure P2A</small></button>
-        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-003', 'Slope Remedial')"><strong>PRJ-003</strong><br><small>Slope Remedial</small></button>
-        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-004', 'Area 57')"><strong>PRJ-004</strong><br><small>Area 57</small></button>
-        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-005', 'AI Customer Support Bot')"><strong>PRJ-005</strong><br><small>AI Bot</small></button>
-        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-006', 'Data Lakehouse & BI Hub')"><strong>PRJ-006</strong><br><small>Data Hub</small></button>
-        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-007', 'Supply Chain Automation')"><strong>PRJ-007</strong><br><small>Supply Chain</small></button>
-        <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantProject('PRJ-008', 'Cyber Security Zero-Trust')"><strong>PRJ-008</strong><br><small>Cyber Security</small></button>
-      </div>
-    </div>
-
-    <div id="consultantPinVerification" class="entry-card" style="display: none; max-width: 400px; margin: 20px 0;">
-      <div class="eyebrow" id="consultantSelectedProjectLabel">AUTHENTICATION REQUIRED</div>
-      <h3 style="margin: 4px 0 12px; font-size: 15px;">Enter Access PIN</h3>
-      <div class="form-group" style="margin-bottom: 12px;">
-        <label for="consultantPinInput">Consultant Access PIN <span class="req-star">*</span></label>
-        <input type="password" id="consultantPinInput" maxlength="4" placeholder="Enter 4-digit PIN" style="letter-spacing: 0.2em; font-size: 16px; font-weight: 700;">
-      </div>
-      <div style="display: flex; gap: 8px;">
-        <button type="button" class="btn-action" onclick="verifyConsultantPin()">Unlock Portal</button>
-        <button type="button" class="btn-nav" onclick="resetConsultantSelection()">Cancel</button>
-      </div>
-    </div>
-
-    <div id="consultantUnlockedArea" style="display: none;">
+    <div id="consultantUnlockedArea">
       <div style="display: flex; justify-content: space-between; align-items: center; background: #eef3ff; padding: 12px 16px; border-radius: 6px; margin-bottom: 20px;">
         <div>
           <span class="badge badge-ahead">AUTHENTICATED CONSULTANT</span>
           <strong id="consultantAuthenticatedProjectTitle" style="margin-left: 8px; font-size: 12px;"></strong>
         </div>
-        <button type="button" class="btn-nav" style="font-size: 10px;" onclick="resetConsultantSelection()">Switch Project 🔒</button>
       </div>
 
       <div class="chart-box" style="margin-bottom: 32px;">
@@ -798,19 +710,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <div class="eyebrow">PENDING PROGRESS VERIFICATIONS</div>
-        <div style="width: 220px;">
-          <select id="consultantPrjFilter" onchange="renderConsultantTable()" style="width: 100%; padding: 6px; font-size: 11px; border-radius: 4px; border: 1px solid var(--line);">
-            <option value="ALL">All Projects</option>
-            <option value="PRJ-001">PRJ-001</option>
-            <option value="PRJ-002">PRJ-002</option>
-            <option value="PRJ-003">PRJ-003</option>
-            <option value="PRJ-004">PRJ-004</option>
-            <option value="PRJ-005">PRJ-005</option>
-            <option value="PRJ-006">PRJ-006</option>
-            <option value="PRJ-007">PRJ-007</option>
-            <option value="PRJ-008">PRJ-008</option>
-          </select>
-        </div>
       </div>
       <div class="table-wrap" style="margin-bottom: 32px;">
         <table>
@@ -1033,40 +932,12 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Contractor/Developer Page</h2>
 
     <section class="entry-card">
-      <div id="contractorProjectSelector">
-        <div class="eyebrow" style="margin-bottom: 6px;">STEP 1: SELECT YOUR ASSIGNED PROJECT</div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 20px;">
-          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-001', 'Infrastructure P1')"><strong>PRJ-001</strong><br><small>Infrastructure P1</small></button>
-          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-002', 'Infrastructure P2A')"><strong>PRJ-002</strong><br><small>Infrastructure P2A</small></button>
-          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-003', 'Slope Remedial')"><strong>PRJ-003</strong><br><small>Slope Remedial</small></button>
-          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-004', 'Area 57')"><strong>PRJ-004</strong><br><small>Area 57</small></button>
-          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-005', 'AI Customer Support Bot')"><strong>PRJ-005</strong><br><small>AI Bot</small></button>
-          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-006', 'Data Lakehouse & BI Hub')"><strong>PRJ-006</strong><br><small>Data Hub</small></button>
-          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-007', 'Supply Chain Automation')"><strong>PRJ-007</strong><br><small>Supply Chain</small></button>
-          <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorProject('PRJ-008', 'Cyber Security Zero-Trust')"><strong>PRJ-008</strong><br><small>Cyber Security</small></button>
-        </div>
-      </div>
-
-      <div id="contractorPinVerification" style="display: none; max-width: 400px; margin: 20px 0;">
-        <div class="eyebrow" id="selectedProjectLabel">AUTHENTICATION REQUIRED</div>
-        <h3 style="margin: 4px 0 12px; font-size: 15px;">Enter Access PIN</h3>
-        <div class="form-group" style="margin-bottom: 12px;">
-          <label for="contractorPinInput">Project Access PIN <span class="req-star">*</span></label>
-          <input type="password" id="contractorPinInput" maxlength="4" placeholder="Enter 4-digit PIN" style="letter-spacing: 0.2em; font-size: 16px; font-weight: 700;">
-        </div>
-        <div style="display: flex; gap: 8px;">
-          <button type="button" class="btn-action" onclick="verifyContractorPin()">Unlock Portal</button>
-          <button type="button" class="btn-nav" onclick="resetContractorSelection()">Cancel</button>
-        </div>
-      </div>
-
-      <div id="contractorUnlockedArea" style="display: none;">
+      <div id="contractorUnlockedArea">
         <div style="display: flex; justify-content: space-between; align-items: center; background: #eef3ff; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px;">
           <div>
-            <span class="badge badge-ahead">AUTHENTICATED</span>
+            <span class="badge badge-ahead">AUTHENTICATED CONTRACTOR</span>
             <strong id="authenticatedProjectTitle" style="margin-left: 8px; font-size: 12px;"></strong>
           </div>
-          <button type="button" class="btn-nav" style="font-size: 10px;" onclick="resetContractorSelection()">Switch Project 🔒</button>
         </div>
 
         <div class="form-group" style="margin-bottom: 12px; max-width: 320px;">
@@ -1253,25 +1124,54 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
   </div>
 </div>
 
+<!-- FIREBASE SDK v10 (MODULE) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+  // PASTE YOUR FIREBASE CONFIG KEYS HERE
+  const firebaseConfig = {
+    apiKey: "AIzaSyBR9jVHIiHM2OyJfdJVX4ygs2ZFGjN_Sl0",
+    authDomain: "mranti-pdd-portal.firebaseapp.com",
+    projectId: "mranti-pdd-portal",
+    storageBucket: "mranti-pdd-portal.firebasestorage.app",
+    messagingSenderId: "1079783264850",
+    appId: "1:1079783264850:web:fb2b77bb27459e10b3c58b"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  // Expose Globally
+  window.firebaseAuth = auth;
+  window.googleProvider = provider;
+  window.signInWithPopup = signInWithPopup;
+  window.signOut = signOut;
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      window.currentUserEmail = user.email.toLowerCase();
+      window.currentUserName = user.displayName || user.email;
+      document.getElementById('currentUserDisplay').innerText = "👤 " + window.currentUserName;
+    } else {
+      window.currentUserEmail = null;
+      window.currentUserName = null;
+      logoutUI();
+    }
+  });
+</script>
+
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby6MQ0JEP4uGf1P0Q9_2FpMEGl73fSDVe0RjHSed0iRQjDCIxfFxTs6WmXQWUm25bSReg/exec";
-
-// CONTRACTOR ACCESS PINS
-const CONTRACTOR_PINS = {
-  "PRJ-001": "5751", "PRJ-002": "3442", "PRJ-003": "7562", "PRJ-004": "8712",
-  "PRJ-005": "3599", "PRJ-006": "1741", "PRJ-007": "3562", "PRJ-008": "7153"
-};
-
-// DISTINCT CONSULTANT ACCESS PINS
-const CONSULTANT_PINS = {
-  "PRJ-001": "6805", "PRJ-002": "4720", "PRJ-003": "8322", "PRJ-004": "1847",
-  "PRJ-005": "9430", "PRJ-006": "6261", "PRJ-007": "9205", "PRJ-008": "2873"
-};
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxE3uPJcxg-i4D2Si09BAesfnPIyslaNRdRI6PXeVbJf4wyETj06MB9pq73sk8Nr-LXMQ/exec";
 
 let activeSelectedProjectCode = "";
 let activeSelectedProjectName = "";
 let activeConsultantProjectCode = "";
 let activeConsultantProjectName = "";
+
+let currentUserRole = "";
+let currentUserAssignedProject = "";
 
 let baselineOverallData = [
   { id: "PRJ-001", name: "Infrastructure P1", cat: "CAPEX", budget: 75000000.00, cost: 68500000.00, paid: 38000000.00, claim: 4200000.00, balance: 6500000.00, milestone: "Bridge Cutover Phase 2", status: "In Progress", health: "Ahead" },
@@ -1333,6 +1233,102 @@ let consultantScorecardFullList = [];
 let contractorScorecardFullList = [];
 let pendingRejectTarget = null;
 
+// FIREBASE SSO LOGIN & WHITELIST CHECK
+async function loginWithGoogleSSO() {
+  const spinner = document.getElementById('loginStatusSpinner');
+  spinner.style.display = 'block';
+
+  try {
+    const result = await window.signInWithPopup(window.firebaseAuth, window.googleProvider);
+    const user = result.user;
+    const userEmail = user.email.toLowerCase();
+
+    // Query Apps Script Whitelist
+    const res = await fetch(`${GOOGLE_SCRIPT_URL}?action=checkWhitelist&email=${encodeURIComponent(userEmail)}`);
+    const data = await res.json();
+
+    spinner.style.display = 'none';
+
+    if (data.status === 'success' && data.authorized) {
+      currentUserRole = data.role;
+      currentUserAssignedProject = data.assignedProject || "PRJ-001";
+      setupRoleNavigation(currentUserRole, currentUserAssignedProject);
+    } else {
+      alert(`Access Denied: Email (${userEmail}) is not registered on the User Access Whitelist or account is DISABLED. Please contact MRANTI PDD.`);
+      await window.signOut(window.firebaseAuth);
+    }
+  } catch (err) {
+    spinner.style.display = 'none';
+    console.error("SSO Error:", err);
+    alert("Authentication failed: " + err.message);
+  }
+}
+
+function setupRoleNavigation(role, assignedProject) {
+  document.getElementById('appHeader').style.display = 'flex';
+  document.getElementById('appRule').style.display = 'block';
+
+  // Hide all navigation links by default
+  document.getElementById('navDashboard').style.display = 'none';
+  document.getElementById('navApproval').style.display = 'none';
+  document.getElementById('navScorecard').style.display = 'none';
+  document.getElementById('navVerification').style.display = 'none';
+  document.getElementById('navInput').style.display = 'none';
+
+  if (role === 'Admin') {
+    document.getElementById('navDashboard').style.display = 'inline-block';
+    document.getElementById('navApproval').style.display = 'inline-block';
+    document.getElementById('navScorecard').style.display = 'inline-block';
+    document.getElementById('navVerification').style.display = 'inline-block';
+    document.getElementById('navInput').style.display = 'inline-block';
+    switchPage('page2');
+  } else if (role === 'HigherManagement' || role === 'MRANTIManagement') {
+    document.getElementById('navDashboard').style.display = 'inline-block';
+    switchPage('page2');
+  } else if (role === 'PDDAuthority') {
+    document.getElementById('navDashboard').style.display = 'inline-block';
+    document.getElementById('navApproval').style.display = 'inline-block';
+    document.getElementById('navScorecard').style.display = 'inline-block';
+    switchPage('page3Authority');
+  } else if (role === 'Consultant') {
+    document.getElementById('navVerification').style.display = 'inline-block';
+    activeConsultantProjectCode = assignedProject;
+    activeConsultantProjectName = assignedProject;
+    document.getElementById('consultantAuthenticatedProjectTitle').innerText = assignedProject;
+    document.getElementById('consultantScurveTitle').innerText = "S-Curve Analysis: " + assignedProject;
+    switchPage('page3Consultant');
+  } else if (role === 'Contractor') {
+    document.getElementById('navInput').style.display = 'inline-block';
+    activeSelectedProjectCode = assignedProject;
+    activeSelectedProjectName = assignedProject;
+    document.getElementById('authenticatedProjectTitle').innerText = assignedProject;
+    document.getElementById('pPrj').value = assignedProject;
+    document.getElementById('sPrj').value = assignedProject;
+    switchPage('page4');
+  }
+}
+
+function logout() {
+  if (window.firebaseAuth) {
+    window.signOut(window.firebaseAuth).then(() => logoutUI());
+  } else {
+    logoutUI();
+  }
+}
+
+function logoutUI() {
+  activeSelectedProjectCode = "";
+  activeSelectedProjectName = "";
+  activeConsultantProjectCode = "";
+  activeConsultantProjectName = "";
+  currentUserRole = "";
+  currentUserAssignedProject = "";
+
+  document.getElementById('appHeader').style.display = 'none';
+  document.getElementById('appRule').style.display = 'none';
+  switchPage('page1');
+}
+
 function showSkeletonRows(tbodyId, columns, rows) {
   const tbody = document.getElementById(tbodyId);
   if (!tbody) return;
@@ -1347,37 +1343,6 @@ function showSkeletonRows(tbodyId, columns, rows) {
     html += '</tr>';
   }
   tbody.innerHTML = html;
-}
-
-function selectConsultantProject(code, name) {
-  activeConsultantProjectCode = code;
-  activeConsultantProjectName = name;
-  document.getElementById('consultantSelectedProjectLabel').innerText = "AUTHENTICATION REQUIRED: " + code;
-  document.getElementById('consultantProjectSelector').style.display = 'none';
-  document.getElementById('consultantPinVerification').style.display = 'block';
-  document.getElementById('consultantPinInput').value = '';
-  document.getElementById('consultantPinInput').focus();
-}
-
-function verifyConsultantPin() {
-  const enteredPin = document.getElementById('consultantPinInput').value.trim();
-  if (enteredPin === CONSULTANT_PINS[activeConsultantProjectCode]) {
-    document.getElementById('consultantPinVerification').style.display = 'none';
-    document.getElementById('consultantUnlockedArea').style.display = 'block';
-    document.getElementById('consultantAuthenticatedProjectTitle').innerText = activeConsultantProjectCode + " - " + activeConsultantProjectName;
-    document.getElementById('consultantScurveTitle').innerText = "S-Curve Analysis: " + activeConsultantProjectCode;
-    loadConsultantPageData();
-  } else {
-    alert("Incorrect Security PIN for " + activeConsultantProjectCode);
-  }
-}
-
-function resetConsultantSelection() {
-  activeConsultantProjectCode = "";
-  activeConsultantProjectName = "";
-  document.getElementById('consultantUnlockedArea').style.display = 'none';
-  document.getElementById('consultantPinVerification').style.display = 'none';
-  document.getElementById('consultantProjectSelector').style.display = 'block';
 }
 
 function renderConsultantScurve() {
@@ -1421,42 +1386,6 @@ function renderConsultantScurve() {
   }).join('');
 }
 
-function selectContractorProject(code, name) {
-  activeSelectedProjectCode = code;
-  activeSelectedProjectName = name;
-  document.getElementById('selectedProjectLabel').innerText = "AUTHENTICATION REQUIRED: " + code;
-  document.getElementById('contractorProjectSelector').style.display = 'none';
-  document.getElementById('contractorPinVerification').style.display = 'block';
-  document.getElementById('contractorPinInput').value = '';
-  document.getElementById('contractorPinInput').focus();
-}
-
-function verifyContractorPin() {
-  const enteredPin = document.getElementById('contractorPinInput').value.trim();
-  if (enteredPin === CONTRACTOR_PINS[activeSelectedProjectCode]) {
-    document.getElementById('contractorPinVerification').style.display = 'none';
-    document.getElementById('contractorUnlockedArea').style.display = 'block';
-    document.getElementById('authenticatedProjectTitle').innerText = activeSelectedProjectCode + " - " + activeSelectedProjectName;
-    document.getElementById('pPrj').value = activeSelectedProjectCode;
-    document.getElementById('sPrj').value = activeSelectedProjectCode;
-    fetchProjectMetadataAndHistory();
-  } else {
-    alert("Incorrect Security PIN for " + activeSelectedProjectCode);
-  }
-}
-
-function resetContractorSelection() {
-  activeSelectedProjectCode = "";
-  activeSelectedProjectName = "";
-  currentMetadataList = [];
-  currentHistoryList = [];
-  document.getElementById('contractorUnlockedArea').style.display = 'none';
-  document.getElementById('contractorPinVerification').style.display = 'none';
-  document.getElementById('contractorProjectSelector').style.display = 'block';
-  document.getElementById('metadataTableBody').innerHTML = '<tr><td colspan="10" style="text-align: center; color: var(--muted);">Select and unlock a project to view metadata.</td></tr>';
-  document.getElementById('historyTableBody').innerHTML = '<tr><td colspan="14" style="text-align: center; color: var(--muted);">Select and unlock a project to view live history records.</td></tr>';
-}
-
 function parsePercentageVal(val) {
   if (val === null || val === undefined || val === '') return 0.0;
   if (typeof val === 'number') return val <= 1.0 && val > 0 ? val * 100.0 : val;
@@ -1469,37 +1398,30 @@ function parsePercentageVal(val) {
 function formatMonthText(val) {
   if (!val || val === '-') return '-';
   var str = String(val).trim();
-
   if (/^[A-Za-z]+\s+\d{4}$/.test(str)) return str;
-
   if (/^\d{4}-\d{2}$/.test(str)) {
     var parts = str.split('-');
     var monthIndex = parseInt(parts[1], 10) - 1;
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     return months[monthIndex] + " " + parts[0];
   }
-
   var d = new Date(str);
   if (!isNaN(d.getTime())) {
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var localDate = new Date(d.getTime() + (8 * 60 * 60 * 1000));
     return months[localDate.getUTCMonth()] + " " + localDate.getUTCFullYear();
   }
-
   return str;
 }
 
 function formatDateShort(val) {
   if (!val || val === '-') return '-';
   var str = String(val).trim();
-
   if (str.indexOf('Week') !== -1 || str.indexOf('By Month') !== -1) return str;
-
   if (/^\d{4}-\d{2}-\d{2}$/.test(str)) {
     var parts = str.split('-');
     return parseInt(parts[2], 10) + "/" + parseInt(parts[1], 10) + "/" + parts[0];
   }
-
   var d = new Date(str);
   if (!isNaN(d.getTime())) {
     var localDate = new Date(d.getTime() + (8 * 60 * 60 * 1000));
@@ -1514,51 +1436,6 @@ function formatExactRM(val) {
   var num = parseFloat(str);
   if (isNaN(num)) return "RM 0.00";
   return "RM " + num.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
-
-function loginAs(role) {
-  resetContractorSelection();
-  resetConsultantSelection();
-  document.getElementById('appHeader').style.display = 'flex';
-  document.getElementById('appRule').style.display = 'block';
-
-  if (role === 'HigherManagement') {
-    document.getElementById('navDashboard').style.display = 'inline-block';
-    document.getElementById('navApproval').style.display = 'none';
-    document.getElementById('navScorecard').style.display = 'none';
-    document.getElementById('navVerification').style.display = 'none';
-    document.getElementById('navInput').style.display = 'none';
-    switchPage('page2');
-  } else if (role === 'PDDAuthority') {
-    document.getElementById('navDashboard').style.display = 'inline-block';
-    document.getElementById('navApproval').style.display = 'inline-block';
-    document.getElementById('navScorecard').style.display = 'inline-block';
-    document.getElementById('navVerification').style.display = 'none';
-    document.getElementById('navInput').style.display = 'none';
-    switchPage('page3Authority');
-  } else if (role === 'Consultant') {
-    document.getElementById('navDashboard').style.display = 'none';
-    document.getElementById('navApproval').style.display = 'none';
-    document.getElementById('navScorecard').style.display = 'none';
-    document.getElementById('navVerification').style.display = 'inline-block';
-    document.getElementById('navInput').style.display = 'none';
-    switchPage('page3Consultant');
-  } else if (role === 'Contractor') {
-    document.getElementById('navDashboard').style.display = 'none';
-    document.getElementById('navApproval').style.display = 'none';
-    document.getElementById('navScorecard').style.display = 'none';
-    document.getElementById('navVerification').style.display = 'none';
-    document.getElementById('navInput').style.display = 'inline-block';
-    switchPage('page4');
-  }
-}
-
-function logout() {
-  resetContractorSelection();
-  resetConsultantSelection();
-  document.getElementById('appHeader').style.display = 'none';
-  document.getElementById('appRule').style.display = 'none';
-  switchPage('page1');
 }
 
 function switchPage(pageId) {
@@ -1581,16 +1458,12 @@ function switchPage(pageId) {
 
 function loadPage2Data() {
   showSkeletonRows('overallTableBody', 10, 4);
-  if (GOOGLE_SCRIPT_URL) {
-    fetch(GOOGLE_SCRIPT_URL + "?action=getOverallDashboard")
-      .then(res => res.json())
-      .then(res => {
-        if (res.status === 'success' && res.data.length > 0) renderOverallTable(res.data);
-        else renderOverallTable(baselineOverallData);
-      }).catch(() => renderOverallTable(baselineOverallData));
-  } else {
-    renderOverallTable(baselineOverallData);
-  }
+  fetch(GOOGLE_SCRIPT_URL + "?action=getOverallDashboard")
+    .then(res => res.json())
+    .then(res => {
+      if (res.status === 'success' && res.data.length > 0) renderOverallTable(res.data);
+      else renderOverallTable(baselineOverallData);
+    }).catch(() => renderOverallTable(baselineOverallData));
 }
 
 function renderOverallTable(data) {
@@ -1692,17 +1565,15 @@ function calcAverageScorecard() {
 
 function loadScorecardPageData() {
   showSkeletonRows('pddAuthorityScorecardTableBody', 10, 3);
-  if (GOOGLE_SCRIPT_URL) {
-    fetch(GOOGLE_SCRIPT_URL + "?action=getScorecardData&type=" + currentScorecardType)
-      .then(res => res.json())
-      .then(res => {
-        if (res.status === 'success') {
-          activeScorecardData = res.data;
-          filterAuthorityScorecardTable();
-          loadExistingProjectScoreData();
-        }
-      });
-  }
+  fetch(GOOGLE_SCRIPT_URL + "?action=getScorecardData&type=" + currentScorecardType)
+    .then(res => res.json())
+    .then(res => {
+      if (res.status === 'success') {
+        activeScorecardData = res.data;
+        filterAuthorityScorecardTable();
+        loadExistingProjectScoreData();
+      }
+    });
 }
 
 function filterAuthorityScorecardTable() {
@@ -1776,37 +1647,35 @@ function loadHigherMgmtScorecards() {
   showSkeletonRows('mgmtConsultantScorecardBody', 10, 3);
   showSkeletonRows('mgmtContractorScorecardBody', 10, 3);
 
-  if (GOOGLE_SCRIPT_URL) {
-    fetch(GOOGLE_SCRIPT_URL + "?action=getScorecardData&type=Consultant")
-      .then(res => res.json())
-      .then(res => { 
-        if (res.status === 'success') {
-          consultantScorecardFullList = res.data;
-          let filtered = res.data;
-          if (filterPrj !== 'ALL') filtered = filtered.filter(d => String(d['Project Name']).trim().toLowerCase() === filterPrj.trim().toLowerCase());
-          if (filterYear !== 'ALL') filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
-          if (filterMonth !== 'ALL') filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
-          
-          renderScorecardTable('mgmtConsultantScorecardBody', filtered);
-          calculateScorecardKPICards();
-        } 
-      });
+  fetch(GOOGLE_SCRIPT_URL + "?action=getScorecardData&type=Consultant")
+    .then(res => res.json())
+    .then(res => { 
+      if (res.status === 'success') {
+        consultantScorecardFullList = res.data;
+        let filtered = res.data;
+        if (filterPrj !== 'ALL') filtered = filtered.filter(d => String(d['Project Name']).trim().toLowerCase() === filterPrj.trim().toLowerCase());
+        if (filterYear !== 'ALL') filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
+        if (filterMonth !== 'ALL') filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
+        
+        renderScorecardTable('mgmtConsultantScorecardBody', filtered);
+        calculateScorecardKPICards();
+      } 
+    });
 
-    fetch(GOOGLE_SCRIPT_URL + "?action=getScorecardData&type=Contractor")
-      .then(res => res.json())
-      .then(res => { 
-        if (res.status === 'success') {
-          contractorScorecardFullList = res.data;
-          let filtered = res.data;
-          if (filterPrj !== 'ALL') filtered = filtered.filter(d => String(d['Project Name']).trim().toLowerCase() === filterPrj.trim().toLowerCase());
-          if (filterYear !== 'ALL') filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
-          if (filterMonth !== 'ALL') filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
+  fetch(GOOGLE_SCRIPT_URL + "?action=getScorecardData&type=Contractor")
+    .then(res => res.json())
+    .then(res => { 
+      if (res.status === 'success') {
+        contractorScorecardFullList = res.data;
+        let filtered = res.data;
+        if (filterPrj !== 'ALL') filtered = filtered.filter(d => String(d['Project Name']).trim().toLowerCase() === filterPrj.trim().toLowerCase());
+        if (filterYear !== 'ALL') filtered = filtered.filter(d => String(d['Month']).indexOf(filterYear) !== -1);
+        if (filterMonth !== 'ALL') filtered = filtered.filter(d => String(d['Month']).toLowerCase().indexOf(filterMonth.toLowerCase()) !== -1);
 
-          renderScorecardTable('mgmtContractorScorecardBody', filtered);
-          calculateScorecardKPICards();
-        } 
-      });
-  }
+        renderScorecardTable('mgmtContractorScorecardBody', filtered);
+        calculateScorecardKPICards();
+      } 
+    });
 }
 
 function calculateScorecardKPICards() {
@@ -1850,7 +1719,8 @@ function handleScorecardSubmit(e) {
     hse: parseFloat(document.getElementById('scoreHSE').value),
     reporting: parseFloat(document.getElementById('scoreReporting').value),
     responsiveness: parseFloat(document.getElementById('scoreResponsiveness').value),
-    recovery: parseFloat(document.getElementById('scoreRecovery').value)
+    recovery: parseFloat(document.getElementById('scoreRecovery').value),
+    userEmail: window.currentUserEmail || "Anonymous"
   };
 
   fetch(GOOGLE_SCRIPT_URL, {
@@ -1870,19 +1740,17 @@ function loadConsultantPageData() {
   showSkeletonRows('consultantScopeTableBody', 8, 2);
   showSkeletonRows('latestBreakdownTableBody', 8, 3);
 
-  if (GOOGLE_SCRIPT_URL) {
-    fetch(GOOGLE_SCRIPT_URL + "?action=getPendingVerifications")
-      .then(res => res.json())
-      .then(res => { if (res.status === 'success') { pendingVerificationsList = res.data; renderConsultantTable(); } });
+  fetch(GOOGLE_SCRIPT_URL + "?action=getPendingVerifications")
+    .then(res => res.json())
+    .then(res => { if (res.status === 'success') { pendingVerificationsList = res.data; renderConsultantTable(); } });
 
-    fetch(GOOGLE_SCRIPT_URL + "?action=getPendingScopeVerifications")
-      .then(res => res.json())
-      .then(res => { if (res.status === 'success') { pendingScopeVerificationsList = res.data; renderConsultantScopeTable(); } });
+  fetch(GOOGLE_SCRIPT_URL + "?action=getPendingScopeVerifications")
+    .then(res => res.json())
+    .then(res => { if (res.status === 'success') { pendingScopeVerificationsList = res.data; renderConsultantScopeTable(); } });
 
-    fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=" + activeConsultantProjectCode)
-      .then(res => res.json())
-      .then(res => { if (res.status === 'success') renderLatestBreakdownTable('latestBreakdownTableBody', res.data); });
-  }
+  fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=" + activeConsultantProjectCode)
+    .then(res => res.json())
+    .then(res => { if (res.status === 'success') renderLatestBreakdownTable('latestBreakdownTableBody', res.data); });
 }
 
 function renderLatestBreakdownTable(targetId, data) {
@@ -1922,11 +1790,9 @@ function renderLatestBreakdownTable(targetId, data) {
 
 function renderConsultantTable() {
   const tbody = document.getElementById('consultantTableBody');
-  const filter = document.getElementById('consultantPrjFilter').value;
 
   let filtered = pendingVerificationsList;
   if (activeConsultantProjectCode) filtered = filtered.filter(h => h.sheetName === activeConsultantProjectCode);
-  if (filter !== 'ALL') filtered = filtered.filter(h => h.sheetName === filter);
 
   if (!filtered || filtered.length === 0) {
     tbody.innerHTML = '<tr><td colspan="12" style="text-align: center; color: var(--muted);">No pending progress reports requiring verification.</td></tr>';
@@ -1999,19 +1865,17 @@ function loadAuthorityPageData() {
   showSkeletonRows('authorityScopeTableBody', 8, 2);
   showSkeletonRows('authorityBreakdownTableBody', 8, 3);
 
-  if (GOOGLE_SCRIPT_URL) {
-    fetch(GOOGLE_SCRIPT_URL + "?action=getPendingApprovals")
-      .then(res => res.json())
-      .then(res => { if (res.status === 'success') { pendingApprovalsList = res.data; renderAuthorityTable(); } });
+  fetch(GOOGLE_SCRIPT_URL + "?action=getPendingApprovals")
+    .then(res => res.json())
+    .then(res => { if (res.status === 'success') { pendingApprovalsList = res.data; renderAuthorityTable(); } });
 
-    fetch(GOOGLE_SCRIPT_URL + "?action=getPendingScopeApprovals")
-      .then(res => res.json())
-      .then(res => { if (res.status === 'success') { pendingScopeApprovalsList = res.data; renderAuthorityScopeTable(); } });
+  fetch(GOOGLE_SCRIPT_URL + "?action=getPendingScopeApprovals")
+    .then(res => res.json())
+    .then(res => { if (res.status === 'success') { pendingScopeApprovalsList = res.data; renderAuthorityScopeTable(); } });
 
-    fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=" + breakdownPrj)
-      .then(res => res.json())
-      .then(res => { if (res.status === 'success') renderLatestBreakdownTable('authorityBreakdownTableBody', res.data); });
-  }
+  fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=" + breakdownPrj)
+    .then(res => res.json())
+    .then(res => { if (res.status === 'success') renderLatestBreakdownTable('authorityBreakdownTableBody', res.data); });
 }
 
 function renderAuthorityTable() {
@@ -2087,7 +1951,12 @@ function verifyRecord(sheetName, rowNumber, actionType) {
     method: 'POST',
     mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: actionType, sheetName: sheetName, rowNumber: rowNumber })
+    body: JSON.stringify({ 
+      action: actionType, 
+      sheetName: sheetName, 
+      rowNumber: rowNumber,
+      userEmail: window.currentUserEmail || "Anonymous"
+    })
   }).then(() => {
     alert('Action processed successfully!');
     if (activeConsultantProjectCode) loadConsultantPageData();
@@ -2119,7 +1988,8 @@ function submitRejection() {
       action: "rejectRecord",
       sheetName: pendingRejectTarget.sheetName,
       rowNumber: pendingRejectTarget.rowNumber,
-      reason: reason
+      reason: reason,
+      userEmail: window.currentUserEmail || "Anonymous"
     })
   }).then(() => {
     alert('Record marked as REJECTED with reason recorded.');
@@ -2176,29 +2046,27 @@ function fetchProjectMetadataAndHistory() {
   showSkeletonRows('metadataTableBody', 10, 3);
   showSkeletonRows('historyTableBody', 14, 4);
 
-  if (GOOGLE_SCRIPT_URL) {
-    fetch(GOOGLE_SCRIPT_URL + "?action=getMetadata&projectId=" + prjId)
-      .then(res => res.json())
-      .then(res => {
-        if (res.status === 'success' && res.data.length > 0) {
-          currentMetadataList = res.data;
-          populateMetadataDropdowns(res.data);
-          renderMetadataTable(res.data);
-        } else {
-          populateDefaultMetadataDropdowns();
-          renderMetadataTable([]);
-        }
-      });
+  fetch(GOOGLE_SCRIPT_URL + "?action=getMetadata&projectId=" + prjId)
+    .then(res => res.json())
+    .then(res => {
+      if (res.status === 'success' && res.data.length > 0) {
+        currentMetadataList = res.data;
+        populateMetadataDropdowns(res.data);
+        renderMetadataTable(res.data);
+      } else {
+        populateDefaultMetadataDropdowns();
+        renderMetadataTable([]);
+      }
+    });
 
-    fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=" + prjId)
-      .then(res => res.json())
-      .then(res => {
-        if (res.status === 'success') {
-          currentHistoryList = res.data;
-          renderHistoryTable(res.data);
-        }
-      });
-  }
+  fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=" + prjId)
+    .then(res => res.json())
+    .then(res => {
+      if (res.status === 'success') {
+        currentHistoryList = res.data;
+        renderHistoryTable(res.data);
+      }
+    });
 }
 
 function populateMetadataDropdowns(data) {
@@ -2354,7 +2222,8 @@ function handleProgressSubmit(e) {
       remarks: document.getElementById('pRemarks').value,
       fileData: fileBase64 || "",
       fileName: fileName || "",
-      fileMime: fileMime || ""
+      fileMime: fileMime || "",
+      userEmail: window.currentUserEmail || "Anonymous"
     };
 
     fetch(GOOGLE_SCRIPT_URL, {
@@ -2395,7 +2264,8 @@ function handleMetadataSubmit(e) {
     trade: document.getElementById('sTrade').value,
     duration: document.getElementById('sDuration').value,
     startDate: document.getElementById('sStartDate').value,
-    finishDate: document.getElementById('sFinishDate').value
+    finishDate: document.getElementById('sFinishDate').value,
+    userEmail: window.currentUserEmail || "Anonymous"
   };
 
   fetch(GOOGLE_SCRIPT_URL, {
@@ -2409,8 +2279,6 @@ function handleMetadataSubmit(e) {
     fetchProjectMetadataAndHistory();
   });
 }
-
-loadPage2Data();
 </script>
 
 </body>
