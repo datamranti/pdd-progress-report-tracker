@@ -664,12 +664,21 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     <div class="eyebrow">CONSULTANT PORTAL</div>
     <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Consultant Verification Portal</h2>
 
-    <div id="consultantUnlockedArea">
+    <!-- MULTI-PROJECT SELECTOR CARD -->
+    <div id="consultantProjectSelector" class="entry-card" style="display: none;">
+      <div class="eyebrow" style="margin-bottom: 6px;">SELECT TARGET PROJECT TO VERIFY</div>
+      <div id="consultantProjectButtonsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+        <!-- Dynamically generated project cards -->
+      </div>
+    </div>
+
+    <div id="consultantUnlockedArea" style="display: none;">
       <div style="display: flex; justify-content: space-between; align-items: center; background: #eef3ff; padding: 12px 16px; border-radius: 6px; margin-bottom: 20px;">
         <div>
           <span class="badge badge-ahead">AUTHENTICATED CONSULTANT</span>
           <strong id="consultantAuthenticatedProjectTitle" style="margin-left: 8px; font-size: 12px;"></strong>
         </div>
+        <button type="button" class="btn-nav" id="btnConsultantSwitchPrj" style="display: none; font-size: 10px;" onclick="showConsultantProjectSelector()">Switch Project 🔄</button>
       </div>
 
       <div class="chart-box" style="margin-bottom: 32px;">
@@ -931,146 +940,153 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     <div class="eyebrow">CONTRACTOR / DEVELOPER PORTAL</div>
     <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Contractor/Developer Page</h2>
 
-    <section class="entry-card">
-      <div id="contractorUnlockedArea">
-        <div style="display: flex; justify-content: space-between; align-items: center; background: #eef3ff; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px;">
-          <div>
-            <span class="badge badge-ahead">AUTHENTICATED CONTRACTOR</span>
-            <strong id="authenticatedProjectTitle" style="margin-left: 8px; font-size: 12px;"></strong>
-          </div>
-        </div>
-
-        <div class="form-group" style="margin-bottom: 12px; max-width: 320px;">
-          <label for="formTypeSelect">Select Entry Mode <span class="req-star">*</span></label>
-          <select id="formTypeSelect" onchange="toggleEntryMode()">
-            <option value="PROGRESS">Project Progress Update</option>
-            <option value="DETAILS">Project Details & Schedule Setup</option>
-          </select>
-        </div>
-
-        <form id="formProgressUpdate" onsubmit="handleProgressSubmit(event)">
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="pPrj">Project Name <span class="req-star">*</span></label>
-              <select id="pPrj" required disabled style="background: #f1f3f8;">
-                <option value="PRJ-001">PRJ-001</option><option value="PRJ-002">PRJ-002</option>
-                <option value="PRJ-003">PRJ-003</option><option value="PRJ-004">PRJ-004</option>
-                <option value="PRJ-005">PRJ-005</option><option value="PRJ-006">PRJ-006</option>
-                <option value="PRJ-007">PRJ-007</option><option value="PRJ-008">PRJ-008</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="pCadence">Reporting Cadence <span class="req-star">*</span></label>
-              <select id="pCadence" onchange="handleCadenceChangeProgress()">
-                <option value="Daily">Daily Update</option>
-                <option value="Biweekly" selected>Biweekly Report</option>
-                <option value="Monthly Summary">Monthly Summary</option>
-              </select>
-            </div>
-
-            <div class="form-group p-scope-field">
-              <label for="pScopeCode">Main Scope</label>
-              <select id="pScopeCode" onchange="onScopeCodeSelectChange()"><option value="">Loading...</option></select>
-            </div>
-
-            <div class="form-group p-scope-field">
-              <label for="pScopeCat">Subscope</label>
-              <select id="pScopeCat" onchange="filterHistoryByFormSelection()"><option value="">Loading...</option></select>
-            </div>
-
-            <div class="form-group p-scope-field">
-              <label for="pTrade">Trade (Verified & Approved Only) <span class="req-star">*</span></label>
-              <select id="pTrade" onchange="filterHistoryByFormSelection()"><option value="">Loading trades...</option></select>
-            </div>
-
-            <div class="form-group">
-              <label for="pMonth">Reporting Month <span class="req-star">*</span></label>
-              <select id="pMonth" required>
-                <option value="2026-10" selected>October 2026</option>
-                <option value="2026-11">November 2026</option>
-              </select>
-            </div>
-
-            <div class="form-group" id="segmentContainer">
-              <label for="pSegment">Segment Period <span class="req-star">*</span></label>
-              <select id="pSegment" required>
-                <option value="Week 2 (1st - 14th)" selected>Week 2 (1st - 14th)</option>
-                <option value="Week 4 (15th - End)">Week 4 (15th - End)</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="pPlanned">Planned Progress (%) <span class="req-star">*</span></label>
-              <input type="number" id="pPlanned" step="0.01" min="0" max="100" placeholder="e.g. 58.62" required>
-            </div>
-
-            <div class="form-group">
-              <label for="pActual">Actual Progress (%) <span class="req-star">*</span></label>
-              <input type="number" id="pActual" step="0.01" min="0" max="100" placeholder="e.g. 59.73" required>
-            </div>
-
-            <div class="form-group">
-              <label for="pOverallStatus">Overall Project Status <span class="req-star">*</span></label>
-              <select id="pOverallStatus" required>
-                <option value="Ahead">Ahead</option>
-                <option value="On Track" selected>On Track</option>
-                <option value="Delayed">Delayed</option>
-                <option value="Planned">Planned</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="pDocFile">Supporting Document (PDF / Photo)</label>
-              <input type="file" id="pDocFile" accept="image/*,.pdf">
-            </div>
-
-            <div class="form-group" style="grid-column: 1 / -1;">
-              <label for="pRemarks">Progress Remarks <span class="req-star">*</span></label>
-              <textarea id="pRemarks" rows="2" placeholder="Record achievements or issues..." required></textarea>
-            </div>
-          </div>
-
-          <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
-            <button type="submit" class="btn-action">Submit Progress Report</button>
-          </div>
-        </form>
-
-        <form id="formScheduleSetup" onsubmit="handleMetadataSubmit(event)" style="display: none;">
-          <div class="form-grid">
-            <div class="form-group" style="grid-column: 1 / -1; max-width: 320px;">
-              <label for="sSetupAction">Scope Setup Mode <span class="req-star">*</span></label>
-              <select id="sSetupAction" onchange="toggleScopeSetupAction()">
-                <option value="ADD" selected>Add New Trade / Scope</option>
-                <option value="EDIT">Edit Existing Trade / Scope</option>
-              </select>
-            </div>
-
-            <div class="form-group" id="sTradeSelectContainer" style="display: none; grid-column: 1 / -1; max-width: 320px;">
-              <label for="sExistingTradeSelect">Select Target Trade to Edit <span class="req-star">*</span></label>
-              <select id="sExistingTradeSelect" onchange="populateScopeFormForEdit()"><option value="">Select Existing Trade...</option></select>
-            </div>
-
-            <div class="form-group">
-              <label for="sPrj">Project Name <span class="req-star">*</span></label>
-              <select id="sPrj" required disabled style="background: #f1f3f8;">
-                <option value="PRJ-001">PRJ-001</option><option value="PRJ-002">PRJ-002</option>
-              </select>
-            </div>
-
-            <div class="form-group"><label for="sScopeCode">Main Scope (Optional)</label><input type="text" id="sScopeCode" placeholder="e.g. Earthworks or N/A"></div>
-            <div class="form-group"><label for="sScopeCat">Subscope (Optional)</label><input type="text" id="sScopeCat" placeholder="e.g. Site Clearance or N/A"></div>
-            <div class="form-group"><label for="sTrade">Trade <span class="req-star">*</span></label><input type="text" id="sTrade" required></div>
-            <div class="form-group"><label for="sDuration">Duration <span class="req-star">*</span></label><input type="text" id="sDuration" required></div>
-            <div class="form-group"><label for="sStartDate">Start Date <span class="req-star">*</span></label><input type="date" id="sStartDate" required></div>
-            <div class="form-group"><label for="sFinishDate">Finish Date <span class="req-star">*</span></label><input type="date" id="sFinishDate" required></div>
-          </div>
-
-          <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
-            <button type="submit" class="btn-action">Submit Schedule Changes for Approval</button>
-          </div>
-        </form>
+    <!-- MULTI-PROJECT SELECTOR CARD -->
+    <div id="contractorProjectSelector" class="entry-card" style="display: none;">
+      <div class="eyebrow" style="margin-bottom: 6px;">SELECT TARGET PROJECT FOR PROGRESS ENTRY</div>
+      <div id="contractorProjectButtonsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+        <!-- Dynamically generated project cards -->
       </div>
+    </div>
+
+    <section class="entry-card" id="contractorUnlockedArea" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; background: #eef3ff; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px;">
+        <div>
+          <span class="badge badge-ahead">AUTHENTICATED CONTRACTOR</span>
+          <strong id="authenticatedProjectTitle" style="margin-left: 8px; font-size: 12px;"></strong>
+        </div>
+        <button type="button" class="btn-nav" id="btnContractorSwitchPrj" style="display: none; font-size: 10px;" onclick="showContractorProjectSelector()">Switch Project 🔄</button>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 12px; max-width: 320px;">
+        <label for="formTypeSelect">Select Entry Mode <span class="req-star">*</span></label>
+        <select id="formTypeSelect" onchange="toggleEntryMode()">
+          <option value="PROGRESS">Project Progress Update</option>
+          <option value="DETAILS">Project Details & Schedule Setup</option>
+        </select>
+      </div>
+
+      <form id="formProgressUpdate" onsubmit="handleProgressSubmit(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="pPrj">Project Name <span class="req-star">*</span></label>
+            <select id="pPrj" required disabled style="background: #f1f3f8;">
+              <option value="PRJ-001">PRJ-001</option><option value="PRJ-002">PRJ-002</option>
+              <option value="PRJ-003">PRJ-003</option><option value="PRJ-004">PRJ-004</option>
+              <option value="PRJ-005">PRJ-005</option><option value="PRJ-006">PRJ-006</option>
+              <option value="PRJ-007">PRJ-007</option><option value="PRJ-008">PRJ-008</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="pCadence">Reporting Cadence <span class="req-star">*</span></label>
+            <select id="pCadence" onchange="handleCadenceChangeProgress()">
+              <option value="Daily">Daily Update</option>
+              <option value="Biweekly" selected>Biweekly Report</option>
+              <option value="Monthly Summary">Monthly Summary</option>
+            </select>
+          </div>
+
+          <div class="form-group p-scope-field">
+            <label for="pScopeCode">Main Scope</label>
+            <select id="pScopeCode" onchange="onScopeCodeSelectChange()"><option value="">Loading...</option></select>
+          </div>
+
+          <div class="form-group p-scope-field">
+            <label for="pScopeCat">Subscope</label>
+            <select id="pScopeCat" onchange="filterHistoryByFormSelection()"><option value="">Loading...</option></select>
+          </div>
+
+          <div class="form-group p-scope-field">
+            <label for="pTrade">Trade (Verified & Approved Only) <span class="req-star">*</span></label>
+            <select id="pTrade" onchange="filterHistoryByFormSelection()"><option value="">Loading trades...</option></select>
+          </div>
+
+          <div class="form-group">
+            <label for="pMonth">Reporting Month <span class="req-star">*</span></label>
+            <select id="pMonth" required>
+              <option value="2026-10" selected>October 2026</option>
+              <option value="2026-11">November 2026</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="segmentContainer">
+            <label for="pSegment">Segment Period <span class="req-star">*</span></label>
+            <select id="pSegment" required>
+              <option value="Week 2 (1st - 14th)" selected>Week 2 (1st - 14th)</option>
+              <option value="Week 4 (15th - End)">Week 4 (15th - End)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="pPlanned">Planned Progress (%) <span class="req-star">*</span></label>
+            <input type="number" id="pPlanned" step="0.01" min="0" max="100" placeholder="e.g. 58.62" required>
+          </div>
+
+          <div class="form-group">
+            <label for="pActual">Actual Progress (%) <span class="req-star">*</span></label>
+            <input type="number" id="pActual" step="0.01" min="0" max="100" placeholder="e.g. 59.73" required>
+          </div>
+
+          <div class="form-group">
+            <label for="pOverallStatus">Overall Project Status <span class="req-star">*</span></label>
+            <select id="pOverallStatus" required>
+              <option value="Ahead">Ahead</option>
+              <option value="On Track" selected>On Track</option>
+              <option value="Delayed">Delayed</option>
+              <option value="Planned">Planned</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="pDocFile">Supporting Document (PDF / Photo)</label>
+            <input type="file" id="pDocFile" accept="image/*,.pdf">
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label for="pRemarks">Progress Remarks <span class="req-star">*</span></label>
+            <textarea id="pRemarks" rows="2" placeholder="Record achievements or issues..." required></textarea>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
+          <button type="submit" class="btn-action">Submit Progress Report</button>
+        </div>
+      </form>
+
+      <form id="formScheduleSetup" onsubmit="handleMetadataSubmit(event)" style="display: none;">
+        <div class="form-grid">
+          <div class="form-group" style="grid-column: 1 / -1; max-width: 320px;">
+            <label for="sSetupAction">Scope Setup Mode <span class="req-star">*</span></label>
+            <select id="sSetupAction" onchange="toggleScopeSetupAction()">
+              <option value="ADD" selected>Add New Trade / Scope</option>
+              <option value="EDIT">Edit Existing Trade / Scope</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="sTradeSelectContainer" style="display: none; grid-column: 1 / -1; max-width: 320px;">
+            <label for="sExistingTradeSelect">Select Target Trade to Edit <span class="req-star">*</span></label>
+            <select id="sExistingTradeSelect" onchange="populateScopeFormForEdit()"><option value="">Select Existing Trade...</option></select>
+          </div>
+
+          <div class="form-group">
+            <label for="sPrj">Project Name <span class="req-star">*</span></label>
+            <select id="sPrj" required disabled style="background: #f1f3f8;">
+              <option value="PRJ-001">PRJ-001</option><option value="PRJ-002">PRJ-002</option>
+            </select>
+          </div>
+
+          <div class="form-group"><label for="sScopeCode">Main Scope (Optional)</label><input type="text" id="sScopeCode" placeholder="e.g. Earthworks or N/A"></div>
+          <div class="form-group"><label for="sScopeCat">Subscope (Optional)</label><input type="text" id="sScopeCat" placeholder="e.g. Site Clearance or N/A"></div>
+          <div class="form-group"><label for="sTrade">Trade <span class="req-star">*</span></label><input type="text" id="sTrade" required></div>
+          <div class="form-group"><label for="sDuration">Duration <span class="req-star">*</span></label><input type="text" id="sDuration" required></div>
+          <div class="form-group"><label for="sStartDate">Start Date <span class="req-star">*</span></label><input type="date" id="sStartDate" required></div>
+          <div class="form-group"><label for="sFinishDate">Finish Date <span class="req-star">*</span></label><input type="date" id="sFinishDate" required></div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
+          <button type="submit" class="btn-action">Submit Schedule Changes for Approval</button>
+        </div>
+      </form>
     </section>
 
     <div class="eyebrow" style="margin-top: 24px;">SCHEDULE SETUP METADATA REFERENCE</div>
@@ -1163,7 +1179,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 </script>
 
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxE3uPJcxg-i4D2Si09BAesfnPIyslaNRdRI6PXeVbJf4wyETj06MB9pq73sk8Nr-LXMQ/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwDQoWW9CaB0tq8cvlVez9ISruN40JzOsF0I4mD8UL25_PqPeLlX5AdZX7ntCUnDWOqbA/exec";
 
 let activeSelectedProjectCode = "";
 let activeSelectedProjectName = "";
@@ -1171,7 +1187,7 @@ let activeConsultantProjectCode = "";
 let activeConsultantProjectName = "";
 
 let currentUserRole = "";
-let currentUserAssignedProject = "";
+let userAuthorizedProjectsList = [];
 
 let baselineOverallData = [
   { id: "PRJ-001", name: "Infrastructure P1", cat: "CAPEX", budget: 75000000.00, cost: 68500000.00, paid: 38000000.00, claim: 4200000.00, balance: 6500000.00, milestone: "Bridge Cutover Phase 2", status: "In Progress", health: "Ahead" },
@@ -1233,6 +1249,18 @@ let consultantScorecardFullList = [];
 let contractorScorecardFullList = [];
 let pendingRejectTarget = null;
 
+function parseAssignedProjects(assignedStr) {
+  if (!assignedStr || assignedStr.trim().toUpperCase() === "ALL") {
+    return ["PRJ-001", "PRJ-002", "PRJ-003", "PRJ-004", "PRJ-005", "PRJ-006", "PRJ-007", "PRJ-008"];
+  }
+  return assignedStr.split(",").map(p => p.trim().toUpperCase()).filter(Boolean);
+}
+
+function getProjectNameById(prjId) {
+  const match = baselineOverallData.find(p => p.id === prjId);
+  return match ? match.name : prjId;
+}
+
 // FIREBASE SSO LOGIN & WHITELIST CHECK
 async function loginWithGoogleSSO() {
   const spinner = document.getElementById('loginStatusSpinner');
@@ -1251,8 +1279,7 @@ async function loginWithGoogleSSO() {
 
     if (data.status === 'success' && data.authorized) {
       currentUserRole = data.role;
-      currentUserAssignedProject = data.assignedProject || "PRJ-001";
-      setupRoleNavigation(currentUserRole, currentUserAssignedProject);
+      setupRoleNavigation(currentUserRole, data.assignedProject);
     } else {
       alert(`Access Denied: Email (${userEmail}) is not registered on the User Access Whitelist or account is DISABLED. Please contact MRANTI PDD.`);
       await window.signOut(window.firebaseAuth);
@@ -1275,6 +1302,8 @@ function setupRoleNavigation(role, assignedProject) {
   document.getElementById('navVerification').style.display = 'none';
   document.getElementById('navInput').style.display = 'none';
 
+  userAuthorizedProjectsList = parseAssignedProjects(assignedProject);
+
   if (role === 'Admin') {
     document.getElementById('navDashboard').style.display = 'inline-block';
     document.getElementById('navApproval').style.display = 'inline-block';
@@ -1292,20 +1321,103 @@ function setupRoleNavigation(role, assignedProject) {
     switchPage('page3Authority');
   } else if (role === 'Consultant') {
     document.getElementById('navVerification').style.display = 'inline-block';
-    activeConsultantProjectCode = assignedProject;
-    activeConsultantProjectName = assignedProject;
-    document.getElementById('consultantAuthenticatedProjectTitle').innerText = assignedProject;
-    document.getElementById('consultantScurveTitle').innerText = "S-Curve Analysis: " + assignedProject;
     switchPage('page3Consultant');
+    initConsultantProjectView();
   } else if (role === 'Contractor') {
     document.getElementById('navInput').style.display = 'inline-block';
-    activeSelectedProjectCode = assignedProject;
-    activeSelectedProjectName = assignedProject;
-    document.getElementById('authenticatedProjectTitle').innerText = assignedProject;
-    document.getElementById('pPrj').value = assignedProject;
-    document.getElementById('sPrj').value = assignedProject;
     switchPage('page4');
+    initContractorProjectView();
   }
+}
+
+// CONSULTANT PROJECT SELECTION LOGIC
+function initConsultantProjectView() {
+  if (userAuthorizedProjectsList.length === 1) {
+    selectConsultantActiveProject(userAuthorizedProjectsList[0]);
+  } else {
+    showConsultantProjectSelector();
+  }
+}
+
+function showConsultantProjectSelector() {
+  document.getElementById('consultantUnlockedArea').style.display = 'none';
+  const selector = document.getElementById('consultantProjectSelector');
+  const grid = document.getElementById('consultantProjectButtonsGrid');
+  
+  grid.innerHTML = userAuthorizedProjectsList.map(prjId => {
+    const prjName = getProjectNameById(prjId);
+    return `
+      <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectConsultantActiveProject('${prjId}')">
+        <strong>${prjId}</strong><br><small>${prjName}</small>
+      </button>
+    `;
+  }).join('');
+  
+  selector.style.display = 'block';
+}
+
+function selectConsultantActiveProject(prjId) {
+  activeConsultantProjectCode = prjId;
+  activeConsultantProjectName = getProjectNameById(prjId);
+
+  document.getElementById('consultantProjectSelector').style.display = 'none';
+  document.getElementById('consultantUnlockedArea').style.display = 'block';
+  document.getElementById('consultantAuthenticatedProjectTitle').innerText = activeConsultantProjectCode + " - " + activeConsultantProjectName;
+  document.getElementById('consultantScurveTitle').innerText = "S-Curve Analysis: " + activeConsultantProjectCode;
+
+  if (userAuthorizedProjectsList.length > 1) {
+    document.getElementById('btnConsultantSwitchPrj').style.display = 'inline-block';
+  } else {
+    document.getElementById('btnConsultantSwitchPrj').style.display = 'none';
+  }
+
+  loadConsultantPageData();
+}
+
+// CONTRACTOR PROJECT SELECTION LOGIC
+function initContractorProjectView() {
+  if (userAuthorizedProjectsList.length === 1) {
+    selectContractorActiveProject(userAuthorizedProjectsList[0]);
+  } else {
+    showContractorProjectSelector();
+  }
+}
+
+function showContractorProjectSelector() {
+  document.getElementById('contractorUnlockedArea').style.display = 'none';
+  const selector = document.getElementById('contractorProjectSelector');
+  const grid = document.getElementById('contractorProjectButtonsGrid');
+
+  grid.innerHTML = userAuthorizedProjectsList.map(prjId => {
+    const prjName = getProjectNameById(prjId);
+    return `
+      <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorActiveProject('${prjId}')">
+        <strong>${prjId}</strong><br><small>${prjName}</small>
+      </button>
+    `;
+  }).join('');
+
+  selector.style.display = 'block';
+}
+
+function selectContractorActiveProject(prjId) {
+  activeSelectedProjectCode = prjId;
+  activeSelectedProjectName = getProjectNameById(prjId);
+
+  document.getElementById('contractorProjectSelector').style.display = 'none';
+  document.getElementById('contractorUnlockedArea').style.display = 'block';
+  document.getElementById('authenticatedProjectTitle').innerText = activeSelectedProjectCode + " - " + activeSelectedProjectName;
+
+  document.getElementById('pPrj').value = activeSelectedProjectCode;
+  document.getElementById('sPrj').value = activeSelectedProjectCode;
+
+  if (userAuthorizedProjectsList.length > 1) {
+    document.getElementById('btnContractorSwitchPrj').style.display = 'inline-block';
+  } else {
+    document.getElementById('btnContractorSwitchPrj').style.display = 'none';
+  }
+
+  fetchProjectMetadataAndHistory();
 }
 
 function logout() {
@@ -1322,7 +1434,7 @@ function logoutUI() {
   activeConsultantProjectCode = "";
   activeConsultantProjectName = "";
   currentUserRole = "";
-  currentUserAssignedProject = "";
+  userAuthorizedProjectsList = [];
 
   document.getElementById('appHeader').style.display = 'none';
   document.getElementById('appRule').style.display = 'none';
@@ -1450,10 +1562,10 @@ function switchPage(pageId) {
   if (pageId === 'page4') document.getElementById('navInput').classList.add('active');
 
   if (pageId === 'page2') { loadPage2Data(); loadMonthlyTrackingGraph(); loadHigherMgmtScorecards(); }
-  if (pageId === 'page3Consultant') { if (activeConsultantProjectCode) loadConsultantPageData(); }
+  if (pageId === 'page3Consultant') { if (activeConsultantProjectCode) loadConsultantPageData(); else initConsultantProjectView(); }
   if (pageId === 'pageScorecard') loadScorecardPageData();
   if (pageId === 'page3Authority') loadAuthorityPageData();
-  if (pageId === 'page4') { if (activeSelectedProjectCode) fetchProjectMetadataAndHistory(); }
+  if (pageId === 'page4') { if (activeSelectedProjectCode) fetchProjectMetadataAndHistory(); else initContractorProjectView(); }
 }
 
 function loadPage2Data() {
