@@ -396,6 +396,62 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
   justify-content: center;
   overflow: auto;
 }
+/* MOBILE RESPONSIVE NAVIGATION STYLES */
+@media (max-width: 768px) {
+  .page {
+    padding: 16px 18px 48px;
+  }
+
+  .masthead {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .brand {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .brand-meta {
+    font-size: 8.5px;
+    padding-left: 10px;
+  }
+
+  /* Separate navigation buttons into structured mobile layout */
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+
+  /* User badge at the top of the mobile nav */
+  .user-badge {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 12px;
+    font-size: 11px;
+    margin-bottom: 4px;
+    background: #eef3ff;
+  }
+
+  /* Portal buttons expand full width and look uniform */
+  .btn-nav {
+    width: 100%;
+    text-align: center;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+
+  /* Log Out sits cleanly on its own row at the bottom */
+  .btn-logout {
+    margin-top: 4px;
+    width: 100%;
+    background: var(--red);
+    color: white;
+  }
+}
 </style>
 </head>
 <body>
