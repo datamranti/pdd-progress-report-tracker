@@ -59,10 +59,9 @@ button, input, select, textarea { font: inherit; }
   justify-content: space-between;
   gap: 20px;
   padding: 8px 0 16px;
-  flex-wrap: wrap;
 }
 
-.brand { display: flex; align-items: center; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 16px; flex-shrink: 0;}
 .brand img { height: 44px; width: auto; object-fit: contain; }
 .brand-meta {
   border-left: 1px solid var(--line);
@@ -74,16 +73,18 @@ button, input, select, textarea { font: inherit; }
   letter-spacing: .08em;
 }
 
-.nav-links { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; flex: 1; /* Allows nav block to fill available space */}
+.nav-links { display: flex; gap: 6px; align-items: center; flex-wrap: nowrap; /* Forces all navigation buttons onto a single line */
+  overflow-x: auto;  /* Prevents breaking on intermediate screen sizes */ /* Allows nav block to fill available space */}
 .btn-nav {
   background: var(--soft);
   border: 1px solid var(--line);
   color: var(--ink);
-  padding: 8px 14px;
-  font-size: 11px;
+  padding: 7px 10px;
+  font-size: 10.5px;
   font-weight: 600;
   border-radius: 4px;
   cursor: pointer;
+ white-space: nowrap; /* Prevents button text from wrapping internally */
   transition: all 0.2s;
 }
 .btn-nav:hover, .btn-nav.active { background: var(--blue); color: white; border-color: var(--blue); }
@@ -94,13 +95,14 @@ button, input, select, textarea { font: inherit; }
   font-weight: 600;
   background: var(--softb);
   border: 1px solid #c8d2ff;
-  padding: 6px 12px;
+  padding: 6px 10px;
   border-radius: 4px;
   color: var(--blue);
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-right: auto; /* Pushes the badge to the left next to logo */
+  white-space: nowrap;
+  margin-right: 12px; /* Space between user badge and the portal buttons */
 }
 
 .eyebrow {
@@ -398,7 +400,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
   overflow: auto;
 }
 /* MOBILE RESPONSIVE NAVIGATION STYLES */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .page {
     padding: 16px 18px 48px;
   }
@@ -424,9 +426,10 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     flex-direction: column;
     width: 100%;
     gap: 8px;
+    flex-wrap: wrap;
+    overflow-x: visible;
   }
 
-  /* Reset margin on mobile so it stays neatly stacked at the top */
   .user-badge {
     width: 100%;
     justify-content: center;
