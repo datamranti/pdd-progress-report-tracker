@@ -109,7 +109,7 @@ button, input, select, textarea { font: inherit; }
   align-items: center;
   gap: 6px;
   white-space: nowrap;
-  margin-right: 12px; /* Space between user badge and the portal buttons */
+  margin-right: 12px; /* Space between user badge and the portal buttons on desktop */
 }
 
 .eyebrow {
@@ -406,6 +406,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
   justify-content: center;
   overflow: auto;
 }
+
 /* MOBILE RESPONSIVE NAVIGATION STYLES */
 @media (max-width: 992px) {
   .page {
@@ -437,13 +438,14 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     margin-left: 0;
   }
 
-  /* User badge at the top of the mobile nav */
+  /* User badge perfectly aligned full width with distinct bottom spacing */
   .user-badge {
     width: 100%;
     justify-content: center;
-    padding: 8px 12px;
+    padding: 10px 12px;
     font-size: 11px;
-    margin-bottom: 4px;
+    margin-right: 0; /* Clear desktop margin-right */
+    margin-bottom: 12px; /* Distinct visual gap between profile & navigation */
     background: #eef3ff;
   }
 
