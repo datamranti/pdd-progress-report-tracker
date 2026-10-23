@@ -74,7 +74,7 @@ button, input, select, textarea { font: inherit; }
   letter-spacing: .08em;
 }
 
-.nav-links { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.nav-links { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-left: auto; /* Pushes the entire navigation block to the right */ justify-content: flex-end;}
 .btn-nav {
   background: var(--soft);
   border: 1px solid var(--line);
@@ -397,7 +397,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
   overflow: auto;
 }
 /* MOBILE RESPONSIVE NAVIGATION STYLES */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .page {
     padding: 16px 18px 48px;
   }
@@ -424,6 +424,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     flex-direction: column;
     width: 100%;
     gap: 8px;
+    margin-left: 0;
   }
 
   /* User badge at the top of the mobile nav */
