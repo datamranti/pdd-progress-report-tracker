@@ -110,10 +110,10 @@ button, input, select, textarea { font: inherit; }
   font-weight: 700;
 }
 
-/* Landing Page SSO & Magic Link UI */
+/* Landing Page SSO UI */
 .login-container {
-  max-width: 520px;
-  margin: 40px auto;
+  max-width: 480px;
+  margin: 50px auto;
   background: #f8fafe;
   border: 1px solid #e0e7ff;
   border-radius: 16px;
@@ -124,27 +124,11 @@ button, input, select, textarea { font: inherit; }
 .login-logo { width: 140px; margin-bottom: 16px; }
 .login-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--ink); }
 
-.login-section {
-  background: white;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 20px;
-  margin-top: 16px;
-  text-align: left;
-}
-.login-section-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.login-section-sub {
-  font-size: 10px;
-  color: var(--muted);
-  margin-bottom: 14px;
-  line-height: 1.4;
+.sso-button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
 }
 
 .btn-sso {
@@ -152,48 +136,24 @@ button, input, select, textarea { font: inherit; }
   border: 1px solid #cbd5e1;
   color: var(--ink);
   width: 100%;
-  padding: 11px 18px;
-  border-radius: 6px;
-  font-size: 12px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
 .btn-sso:hover {
   border-color: var(--blue);
-  box-shadow: 0 4px 10px rgba(0,0,255,0.08);
+  box-shadow: 0 4px 12px rgba(0,0,255,0.08);
   transform: translateY(-1px);
 }
-.btn-sso img { width: 18px; height: 18px; }
-
-.magic-link-input-group {
-  display: flex;
-  gap: 8px;
-}
-.magic-link-input-group input {
-  flex: 1;
-  border: 1px solid var(--line);
-  padding: 10px 12px;
-  font-size: 12px;
-  border-radius: 6px;
-  outline: none;
-}
-.magic-link-input-group button {
-  background: var(--blue);
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  font-size: 11px;
-  font-weight: 600;
-  border-radius: 6px;
-  cursor: pointer;
-  white-space: nowrap;
-}
+.btn-sso img { width: 20px; height: 20px; }
 
 /* Dynamic Monthly S-Curve Chart */
 .chart-box {
@@ -461,35 +421,25 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 
   <div class="rule" id="appRule" style="display: none;"></div>
 
-  <!-- LANDING PAGE WITH SSO & MAGIC LINK -->
+  <!-- LANDING PAGE WITH GOOGLE SSO ONLY -->
   <div id="page1" class="app-page active">
     <div class="login-container">
       <img src="MRANTI 30Y Icon.png" class="login-logo" alt="MRANTI Icon" onerror="this.src='https://cdn.prod.website-files.com/6719e3902a71ea8154ba371d/6996a2c470a01e3f32ffa080_M30.png'">
       <div class="eyebrow">MRANTI PDD PORTAL</div>
-      <div class="login-title">Sign In to PDD Progress Portal</div>
+      <div class="login-title">Portal Login</div>
+      <p style="font-size: 11px; color: var(--muted); margin-bottom: 12px; line-height: 1.5;">
+        Single Sign-On required for all users. Please sign in with your account to proceed:
+      </p>
 
-      <!-- SECTION 1: MRANTI STAFF -->
-      <div class="login-section">
-        <div class="login-section-title">MRANTI Employees</div>
-        <div class="login-section-sub">Please sign in using your official corporate Google account (`@mranti.my`).</div>
+      <div class="sso-button-group">
         <button type="button" class="btn-sso" onclick="loginWithGoogleSSO()">
           <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo">
-          <span>Sign in with Google SSO</span>
+          <span>Sign in with Google</span>
         </button>
       </div>
 
-      <!-- SECTION 2: EXTERNAL VENDORS -->
-      <div class="login-section">
-        <div class="login-section-title">Contractors & Consultants</div>
-        <div class="login-section-sub">Enter your registered email address to receive a secure, passwordless sign-in link in your inbox.</div>
-        <div class="magic-link-input-group">
-          <input type="email" id="vendorEmailInput" placeholder="name@company.com">
-          <button type="button" onclick="sendVendorMagicLink()">Send Login Link</button>
-        </div>
-      </div>
-
       <div id="loginStatusSpinner" style="display: none; margin-top: 16px; font-size: 11px; color: var(--blue);">
-        ⏳ Authenticating & verifying access whitelist...
+        ⏳ Authenticating & verifying user authorization...
       </div>
     </div>
   </div>
@@ -1204,9 +1154,6 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
     getAuth, 
     GoogleAuthProvider, 
     signInWithPopup, 
-    sendSignInLinkToEmail, 
-    isSignInWithEmailLink, 
-    signInWithEmailLink, 
     signOut, 
     onAuthStateChanged 
   } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -1223,43 +1170,24 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
+  const googleProvider = new GoogleAuthProvider();
 
   // Expose Globally
   window.firebaseAuth = auth;
-  window.googleProvider = provider;
+  window.googleProvider = googleProvider;
   window.signInWithPopup = signInWithPopup;
-  window.sendSignInLinkToEmail = sendSignInLinkToEmail;
-  window.isSignInWithEmailLink = isSignInWithEmailLink;
-  window.signInWithEmailLink = signInWithEmailLink;
   window.signOut = signOut;
-
-  // HANDLE MAGIC LINK INCOMING REDIRECT
-  if (isSignInWithEmailLink(auth, window.location.href)) {
-    let email = window.localStorage.getItem('emailForSignIn');
-    if (!email) {
-      email = window.prompt('Please enter your email for confirmation:');
-    }
-    if (email) {
-      document.getElementById('loginStatusSpinner').style.display = 'block';
-      signInWithEmailLink(auth, email, window.location.href)
-        .then(() => {
-          window.localStorage.removeItem('emailForSignIn');
-        })
-        .catch((err) => {
-          alert("Sign-in link expired or invalid: " + err.message);
-        });
-    }
-  }
 
   onAuthStateChanged(auth, async (user) => {
     if (user) {
-      window.currentUserEmail = user.email.toLowerCase();
+      window.currentUserEmail = user.email ? user.email.toLowerCase() : "";
       window.currentUserName = user.displayName || user.email;
       document.getElementById('currentUserDisplay').innerText = "👤 " + window.currentUserName;
       
       // Auto-validate Whitelist on auth completion
-      await processUserAuthorization(window.currentUserEmail);
+      if (window.currentUserEmail) {
+        await processUserAuthorization(window.currentUserEmail);
+      }
     } else {
       window.currentUserEmail = null;
       window.currentUserName = null;
@@ -1269,7 +1197,7 @@ td { font-size: 11px; padding: 12px 14px; border-bottom: 1px solid #eef0f4; colo
 </script>
 
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzAs2inWcsvLo0zs07jajMnuSXXY4iE4IG62TYpHO4Q_RR_zjfi5oja3WRAyRxFb_q2Bg/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpprjUP1P1hTJPC27eCi0AJ-Ef6BBsjCW7DCUyhV0U9_fxT0CFT1pL0WRT1OsRvuABRg/exec";
 
 let activeSelectedProjectCode = "";
 let activeSelectedProjectName = "";
@@ -1362,40 +1290,12 @@ async function loginWithGoogleSSO() {
     await processUserAuthorization(user.email.toLowerCase());
   } catch (err) {
     spinner.style.display = 'none';
-    console.error("SSO Error:", err);
+    console.error("Google SSO Error:", err);
     alert("Authentication failed: " + err.message);
   }
 }
 
-// 2. VENDOR MAGIC LINK (PASSWORDLESS) LOGIN
-async function sendVendorMagicLink() {
-  const emailInput = document.getElementById('vendorEmailInput').value.trim().toLowerCase();
-  if (!emailInput) {
-    alert("Please enter a valid vendor email address.");
-    return;
-  }
-
-  const spinner = document.getElementById('loginStatusSpinner');
-  spinner.style.display = 'block';
-
-  const actionCodeSettings = {
-    url: window.location.href,
-    handleCodeInApp: true
-  };
-
-  try {
-    await window.sendSignInLinkToEmail(window.firebaseAuth, emailInput, actionCodeSettings);
-    window.localStorage.setItem('emailForSignIn', emailInput);
-    spinner.style.display = 'none';
-    alert(`A login link has been sent to ${emailInput}. Please check your inbox to sign in.`);
-  } catch (err) {
-    spinner.style.display = 'none';
-    console.error("Magic Link Error:", err);
-    alert("Failed to send login link: " + err.message);
-  }
-}
-
-// 3. COMMON AUTHORIZATION & WHITELIST CHECK WITH CUSTOM ERROR ALERT
+// 2. COMMON AUTHORIZATION & WHITELIST CHECK
 async function processUserAuthorization(email) {
   const spinner = document.getElementById('loginStatusSpinner');
   spinner.style.display = 'block';
@@ -1410,7 +1310,6 @@ async function processUserAuthorization(email) {
       currentUserRole = data.role;
       setupRoleNavigation(currentUserRole, data.assignedProject);
     } else {
-      // CUSTOM ACCESS DENIED ALERT NOTIFICATION
       alert(`Access Denied: Your email (${email}) is not registered in the system. Please contact PDD Authority for assistance.`);
       await window.signOut(window.firebaseAuth);
     }
