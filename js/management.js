@@ -3,7 +3,7 @@
 // ==========================================================================
 
 function loadPage2Data() {
-  showSkeletonRows('overallTableBody', 10, 4);
+  showSkeletonRows('overallTableBody', 11, 4);
   fetch(GOOGLE_SCRIPT_URL + "?action=getOverallDashboard")
     .then(res => res.json())
     .then(res => {
@@ -21,10 +21,13 @@ function renderOverallTable(data) {
     else if (health === 'On Track') badgeClass = 'badge-ontrack';
     else if (health === 'Delayed') badgeClass = 'badge-delayed';
 
+    let grantType = r['Grant Type'] || r['grantType'] || '-';
+
     return `
       <tr>
         <td style="font-weight: 600;">${r['Project Name'] || r.name}</td>
         <td>${r['Funding Source'] || r.cat}</td>
+        <td style="color: var(--muted);">${grantType}</td>
         <td>${formatExactRM(r['Approved Budget'] || r.budget)}</td>
         <td>${formatExactRM(r['Project Cost'] || r.cost)}</td>
         <td>${formatExactRM(r['Paid to Date'] || r.paid)}</td>
