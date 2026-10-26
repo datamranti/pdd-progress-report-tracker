@@ -1,0 +1,311 @@
+// ==========================================================================
+// Contractor & Developer Progress Reporting Logic
+// ==========================================================================
+
+function initContractorProjectView() {
+  if (userAuthorizedProjectsList.length === 1) {
+    selectContractorActiveProject(userAuthorizedProjectsList[0]);
+  } else {
+    showContractorProjectSelector();
+  }
+}
+
+function showContractorProjectSelector() {
+  document.getElementById('contractorUnlockedArea').style.display = 'none';
+  const selector = document.getElementById('contractorProjectSelector');
+  const grid = document.getElementById('contractorProjectButtonsGrid');
+
+  grid.innerHTML = userAuthorizedProjectsList.map(prjId => {
+    const prjName = getProjectNameById(prjId);
+    return `
+      <button type="button" class="btn-nav" style="padding: 14px; text-align: left; height: auto;" onclick="selectContractorActiveProject('${prjId}')">
+        <strong>${prjId}</strong><br><small>${prjName}</small>
+      </button>
+    `;
+  }).join('');
+
+  selector.style.display = 'block';
+}
+
+function selectContractorActiveProject(prjId) {
+  activeSelectedProjectCode = prjId;
+  activeSelectedProjectName = getProjectNameById(prjId);
+
+  document.getElementById('contractorProjectSelector').style.display = 'none';
+  document.getElementById('contractorUnlockedArea').style.display = 'block';
+  document.getElementById('authenticatedProjectTitle').innerText = activeSelectedProjectCode + " - " + activeSelectedProjectName;
+
+  document.getElementById('pPrj').value = activeSelectedProjectCode;
+  document.getElementById('sPrj').value = activeSelectedProjectCode;
+
+  if (userAuthorizedProjectsList.length > 1) {
+    document.getElementById('btnContractorSwitchPrj').style.display = 'inline-block';
+  } else {
+    document.getElementById('btnContractorSwitchPrj').style.display = 'none';
+  }
+
+  fetchProjectMetadataAndHistory();
+}
+
+function toggleEntryMode() {
+  const mode = document.getElementById('formTypeSelect').value;
+  document.getElementById('formProgressUpdate').style.display = mode === 'PROGRESS' ? 'block' : 'none';
+  document.getElementById('formScheduleSetup').style.display = mode === 'PROGRESS' ? 'none' : 'block';
+}
+
+function handleCadenceChangeProgress() {
+  const cadence = document.getElementById('pCadence').value;
+  const container = document.getElementById('segmentContainer');
+  const scopeFields = document.querySelectorAll('.p-scope-field');
+
+  if (cadence === 'Monthly Summary') {
+    scopeFields.forEach(el => el.style.display = 'none');
+    container.innerHTML = `<label for="pSegment">Segment Period <span class="req-star">*</span></label><input type="text" id="pSegment" value="By Month" readonly style="background: #f1f3f8;">`;
+  } else {
+    scopeFields.forEach(el => el.style.display = 'flex');
+    if (cadence === 'Daily') {
+      container.innerHTML = `<label for="pSegment">Select Exact Date <span class="req-star">*</span></label><input type="date" id="pSegment" required>`;
+    } else {
+      container.innerHTML = `<label for="pSegment">Segment Period <span class="req-star">*</span></label><select id="pSegment" required><option value="Week 2 (1st - 14th)" selected>Week 2 (1st - 14th)</option><option value="Week 4 (15th - End)">Week 4 (15th - End)</option></select>`;
+    }
+  }
+}
+
+function toggleScopeSetupAction() {
+  document.getElementById('sTradeSelectContainer').style.display = document.getElementById('sSetupAction').value === 'EDIT' ? 'block' : 'none';
+}
+
+function populateScopeFormForEdit() {
+  const tradeVal = document.getElementById('sExistingTradeSelect').value;
+  const match = currentMetadataList.find(d => d['Trade'] === tradeVal);
+  if (match) {
+    document.getElementById('sScopeCode').value = match['Main Scope'] || match['Scope Code'] || '';
+    document.getElementById('sScopeCat').value = match['Subscope'] || match['Scope Category'] || '';
+    document.getElementById('sTrade').value = match['Trade'] || '';
+    document.getElementById('sDuration').value = match['Duration'] || '';
+    document.getElementById('sStartDate').value = match['Start Date'] ? match['Start Date'].split('T')[0] : '';
+    document.getElementById('sFinishDate').value = match['Finish Date'] ? match['Finish Date'].split('T')[0] : '';
+  }
+}
+
+function fetchProjectMetadataAndHistory() {
+  const prjId = document.getElementById('pPrj').value || activeSelectedProjectCode;
+
+  showSkeletonRows('metadataTableBody', 10, 3);
+  showSkeletonRows('historyTableBody', 14, 4);
+
+  fetch(GOOGLE_SCRIPT_URL + "?action=getMetadata&projectId=" + prjId)
+    .then(res => res.json())
+    .then(res => {
+      if (res.status === 'success' && res.data.length > 0) {
+        currentMetadataList = res.data;
+        populateMetadataDropdowns(res.data);
+        renderMetadataTable(res.data);
+      } else {
+        populateDefaultMetadataDropdowns();
+        renderMetadataTable([]);
+      }
+    });
+
+  fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=" + prjId)
+    .then(res => res.json())
+    .then(res => {
+      if (res.status === 'success') {
+        currentHistoryList = res.data;
+        renderHistoryTable(res.data);
+      }
+    });
+}
+
+function populateMetadataDropdowns(data) {
+  const codeSel = document.getElementById('pScopeCode');
+  const catSel = document.getElementById('pScopeCat');
+  const tradeSel = document.getElementById('pTrade');
+  const tradeEditSel = document.getElementById('sExistingTradeSelect');
+
+  const verifiedApprovedData = data.filter(d => 
+    String(d['Verification']).toUpperCase() === 'YES' && 
+    String(d['Approval']).toUpperCase() === 'YES'
+  );
+
+  const codes = [...new Set(verifiedApprovedData.map(d => d['Main Scope'] || d['Scope Code']).filter(Boolean))];
+  const cats = [...new Set(verifiedApprovedData.map(d => d['Subscope'] || d['Scope Category']).filter(Boolean))];
+  const approvedTrades = [...new Set(verifiedApprovedData.map(d => d['Trade']).filter(Boolean))];
+  const allTrades = [...new Set(data.map(d => d['Trade']).filter(Boolean))];
+
+  codeSel.innerHTML = '<option value="N/A">N/A</option>' + codes.map(c => `<option value="${c}">${c}</option>`).join('');
+  catSel.innerHTML = '<option value="N/A">N/A</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join('');
+  
+  if (approvedTrades.length > 0) {
+    tradeSel.innerHTML = approvedTrades.map(t => `<option value="${t}">${t}</option>`).join('');
+  } else {
+    tradeSel.innerHTML = '<option value="">No Verified/Approved Trades Available</option>';
+  }
+
+  tradeEditSel.innerHTML = '<option value="">Select Existing Trade...</option>' + allTrades.map(t => `<option value="${t}">${t}</option>`).join('');
+}
+
+function populateDefaultMetadataDropdowns() {
+  document.getElementById('pScopeCode').innerHTML = `<option value="N/A">N/A</option>`;
+  document.getElementById('pScopeCat').innerHTML = `<option value="N/A">N/A</option>`;
+  document.getElementById('pTrade').innerHTML = `<option value="">No Verified/Approved Trades Available</option>`;
+}
+
+function onScopeCodeSelectChange() {
+  const selCode = document.getElementById('pScopeCode').value;
+  const match = currentMetadataList.find(d => (d['Main Scope'] || d['Scope Code']) === selCode);
+  if (match) {
+    if (match['Subscope'] || match['Scope Category']) document.getElementById('pScopeCat').value = match['Subscope'] || match['Scope Category'];
+    if (match['Trade']) document.getElementById('pTrade').value = match['Trade'];
+  }
+  filterHistoryByFormSelection();
+}
+
+function filterHistoryByFormSelection() {
+  const selCat = document.getElementById('pScopeCat').value;
+  const selTrade = document.getElementById('pTrade').value;
+
+  let filtered = currentHistoryList;
+  if (selCat && selCat !== 'N/A') filtered = filtered.filter(d => (d['Subscope'] || d['Scope Category']) === selCat);
+  if (selTrade) filtered = filtered.filter(d => d['Trade'] === selTrade);
+
+  renderHistoryTable(filtered);
+}
+
+function renderMetadataTable(data) {
+  const tbody = document.getElementById('metadataTableBody');
+  if (!data || data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: var(--muted);">No metadata schedule entries found.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = data.map(m => `
+    <tr>
+      <td style="font-weight: 600; color: var(--blue);">${m['Entry ID']}</td>
+      <td style="font-weight: 600;">${m['Project Name']}</td>
+      <td>${m['Main Scope'] || m['Scope Code'] || 'N/A'}</td>
+      <td>${m['Subscope'] || m['Scope Category'] || 'N/A'}</td>
+      <td>${m['Trade']}</td>
+      <td>${m['Duration']}</td>
+      <td>${formatDateShort(m['Start Date'])}</td>
+      <td>${formatDateShort(m['Finish Date'])}</td>
+      <td><span class="badge ${(m['Verification'] === 'YES') ? 'badge-ahead' : 'badge-delayed'}">${m['Verification'] || 'NO'}</span></td>
+      <td><span class="badge ${(m['Approval'] === 'YES') ? 'badge-ahead' : 'badge-delayed'}">${m['Approval'] || 'NO'}</span></td>
+    </tr>
+  `).join('');
+}
+
+function renderHistoryTable(data) {
+  const tbody = document.getElementById('historyTableBody');
+  if (!data || data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="14" style="text-align: center; color: var(--muted);">No history records found.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = data.map(h => {
+    var planNum = parsePercentageVal(h['Planned']);
+    var actNum = parsePercentageVal(h['Actual']);
+    var varNum = (actNum - planNum).toFixed(2);
+    var docCell = (h['Supporting Document'] && h['Supporting Document'] !== '-') ? `<button class="btn-doc" onclick="openDocumentModal('${h['Supporting Document']}')">📎 View File</button>` : '-';
+
+    return `
+      <tr>
+        <td style="font-weight: 600; color: var(--blue);">${h['Entry ID']}</td>
+        <td style="font-weight: 600;">${h['Project Name']}</td>
+        <td>${h['Main Scope'] || h['Scope Code'] || 'N/A'}<br><small style="color: var(--muted);">${h['Subscope'] || h['Scope Category'] || 'N/A'}</small></td>
+        <td>${h['Trade'] || 'N/A'}</td>
+        <td>${h['Reporting Cadence'] || 'Biweekly'}</td>
+        <td>${formatMonthText(h['Reporting Month'])}</td>
+        <td>${formatDateShort(h['Exact Date'] || h['Reporting Segment Period'])}</td>
+        <td>${planNum.toFixed(2)}%</td>
+        <td><strong>${actNum.toFixed(2)}%</strong></td>
+        <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${(varNum >= 0 ? '+' : '') + varNum}%</td>
+        <td style="max-width: 180px;">${h['Remarks'] || '-'}</td>
+        <td>${docCell}</td>
+        <td><span class="badge ${h['Verification'] === 'YES' ? 'badge-ahead' : 'badge-delayed'}">${h['Verification'] || 'NO'}</span></td>
+        <td><span class="badge ${h['Approval'] === 'YES' ? 'badge-ahead' : 'badge-delayed'}">${h['Approval'] || 'NO'}</span></td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function handleProgressSubmit(e) {
+  e.preventDefault();
+  const prjId = document.getElementById('pPrj').value || activeSelectedProjectCode;
+  const prjObj = baselineOverallData.find(o => o.id === prjId);
+  const cadence = document.getElementById('pCadence').value;
+
+  const processAndSend = function(fileBase64, fileName, fileMime) {
+    const payload = {
+      action: "submitProgress",
+      projectId: prjId,
+      projectName: prjObj ? prjObj.name : prjId,
+      scopeCode: cadence === 'Monthly Summary' ? 'N/A' : (document.getElementById('pScopeCode').value || 'N/A'),
+      scopeCategory: cadence === 'Monthly Summary' ? 'N/A' : (document.getElementById('pScopeCat').value || 'N/A'),
+      trade: cadence === 'Monthly Summary' ? 'N/A' : (document.getElementById('pTrade').value || 'N/A'),
+      reportingPeriod: cadence,
+      reportingMonth: document.getElementById('pMonth').value,
+      reportingSegmentPeriod: document.getElementById('pSegment').value || 'By Month',
+      planned: parseFloat(document.getElementById('pPlanned').value),
+      actual: parseFloat(document.getElementById('pActual').value),
+      overallStatus: document.getElementById('pOverallStatus').value,
+      remarks: document.getElementById('pRemarks').value,
+      fileData: fileBase64 || "",
+      fileName: fileName || "",
+      fileMime: fileMime || "",
+      userEmail: window.currentUserEmail || "Anonymous"
+    };
+
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(() => {
+      alert('Progress report recorded! Sent to Consultant for verification.');
+      document.getElementById('formProgressUpdate').reset();
+      fetchProjectMetadataAndHistory();
+    });
+  };
+
+  const fileInput = document.getElementById('pDocFile');
+  if (fileInput.files && fileInput.files[0]) {
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    reader.onload = function(evt) { processAndSend(evt.target.result, file.name, file.type); };
+    reader.readAsDataURL(file);
+  } else {
+    processAndSend("", "", "");
+  }
+}
+
+function handleMetadataSubmit(e) {
+  e.preventDefault();
+  const prjId = document.getElementById('sPrj').value || activeSelectedProjectCode;
+  const prjObj = baselineOverallData.find(o => o.id === prjId);
+
+  const payload = {
+    action: "submitMetadata",
+    mode: document.getElementById('sSetupAction').value,
+    projectId: prjId,
+    projectName: prjObj ? prjObj.name : prjId,
+    scopeCode: document.getElementById('sScopeCode').value || "N/A",
+    scopeCategory: document.getElementById('sScopeCat').value || "N/A",
+    trade: document.getElementById('sTrade').value,
+    duration: document.getElementById('sDuration').value,
+    startDate: document.getElementById('sStartDate').value,
+    finishDate: document.getElementById('sFinishDate').value,
+    userEmail: window.currentUserEmail || "Anonymous"
+  };
+
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(() => {
+    alert('Schedule setup changes submitted! Pending Consultant verification and PDD approval.');
+    document.getElementById('formScheduleSetup').reset();
+    fetchProjectMetadataAndHistory();
+  });
+}
