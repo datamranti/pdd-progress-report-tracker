@@ -3,14 +3,14 @@
 // ==========================================================================
 
 let baselineOverallData = [
-  { id: "PRJ-001", name: "Infrastructure P1", cat: "CAPEX", budget: 75000000.00, cost: 68500000.00, paid: 38000000.00, claim: 4200000.00, balance: 6500000.00, milestone: "Bridge Cutover Phase 2", status: "In Progress", health: "Ahead" },
-  { id: "PRJ-002", name: "Infrastructure P2A", cat: "CAPEX", budget: 76000000.00, cost: 47377700.00, paid: 0.00, claim: 0.00, balance: 28622300.00, milestone: "Site Clearing 80%", status: "In Progress", health: "On Track" },
-  { id: "PRJ-003", name: "Slope Remedial", cat: "Government Grant", budget: 6000000.00, cost: 2936510.00, paid: 2009510.00, claim: 0.00, balance: 3063490.00, milestone: "Retaining Wall Built", status: "Completed", health: "Ahead" },
-  { id: "PRJ-004", name: "Area 57", cat: "Government Grant", budget: 18000000.00, cost: 17100000.00, paid: 0.00, claim: 0.00, balance: 900000.00, milestone: "Tender Awarded", status: "On Hold", health: "Ahead" },
-  { id: "PRJ-005", name: "AI Customer Support Bot", cat: "CAPEX", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, milestone: "Vendor Evaluation", status: "Planning", health: "Planned" },
-  { id: "PRJ-006", name: "Data Lakehouse & BI Hub", cat: "Government Grant", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, milestone: "Architecture Review", status: "Planning", health: "Planned" },
-  { id: "PRJ-007", name: "Supply Chain Automation", cat: "CAPEX", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, milestone: "FRD Approval", status: "Planning", health: "Planned" },
-  { id: "PRJ-008", name: "Cyber Security Zero-Trust", cat: "Government Grant", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, milestone: "Policy Framework", status: "Planning", health: "Planned" }
+  { id: "PRJ-001", name: "Infrastructure P1", cat: "CAPEX", grantType: "-", budget: 75000000.00, cost: 68500000.00, paid: 38000000.00, claim: 4200000.00, balance: 6500000.00, milestone: "Bridge Cutover Phase 2", status: "In Progress", health: "Ahead" },
+  { id: "PRJ-002", name: "Infrastructure P2A", cat: "CAPEX", grantType: "-", budget: 76000000.00, cost: 47377700.00, paid: 0.00, claim: 0.00, balance: 28622300.00, milestone: "Site Clearing 80%", status: "In Progress", health: "On Track" },
+  { id: "PRJ-003", name: "Slope Remedial", cat: "Government Grant", grantType: "Development Grant", budget: 6000000.00, cost: 2936510.00, paid: 2009510.00, claim: 0.00, balance: 3063490.00, milestone: "Retaining Wall Built", status: "Completed", health: "Ahead" },
+  { id: "PRJ-004", name: "Area 57", cat: "Government Grant", grantType: "Special Development Project", budget: 18000000.00, cost: 17100000.00, paid: 0.00, claim: 0.00, balance: 900000.00, milestone: "Tender Awarded", status: "On Hold", health: "Ahead" },
+  { id: "PRJ-005", name: "AI Customer Support Bot", cat: "CAPEX", grantType: "-", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, milestone: "Vendor Evaluation", status: "Planning", health: "Planned" },
+  { id: "PRJ-006", name: "Data Lakehouse & BI Hub", cat: "Government Grant", grantType: "-", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, milestone: "Architecture Review", status: "Planning", health: "Planned" },
+  { id: "PRJ-007", name: "Supply Chain Automation", cat: "CAPEX", grantType: "-", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, milestone: "FRD Approval", status: "Planning", health: "Planned" },
+  { id: "PRJ-008", name: "Cyber Security Zero-Trust", cat: "Government Grant", grantType: "-", budget: 0.00, cost: 0.00, paid: 0.00, claim: 0.00, balance: 0.00, milestone: "Policy Framework", status: "Planning", health: "Planned" }
 ];
 
 const fullMonthlyTrackingMap = {
