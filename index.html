@@ -641,9 +641,29 @@
             </select>
           </div>
 
-          <div class="form-group" id="sTradeSelectContainer" style="display: none; grid-column: 1 / -1; max-width: 320px;">
-            <label for="sExistingTradeSelect">Select Target Trade to Edit <span class="req-star">*</span></label>
-            <select id="sExistingTradeSelect" onchange="populateScopeFormForEdit()"><option value="">Select Existing Trade...</option></select>
+          <!-- EDIT SELECTOR CONTAINER: Cascading Scope Filters -->
+          <div id="sEditTargetContainer" style="display: none; grid-column: 1 / -1; background: #eef3ff; padding: 14px; border-radius: 6px; border: 1px solid #c8d2ff; margin-bottom: 12px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--blue); margin-bottom: 8px;">SELECT TARGET SCOPE & TRADE TO EDIT</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+              <div class="form-group">
+                <label for="sTargetScopeCode">Target Main Scope <span class="req-star">*</span></label>
+                <select id="sTargetScopeCode" onchange="onTargetScopeCodeChange()">
+                  <option value="">Select Main Scope...</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="sTargetScopeCat">Target Subscope <span class="req-star">*</span></label>
+                <select id="sTargetScopeCat" onchange="onTargetScopeCatChange()">
+                  <option value="">Select Subscope...</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="sExistingTradeSelect">Target Trade <span class="req-star">*</span></label>
+                <select id="sExistingTradeSelect" onchange="populateScopeFormForEdit()">
+                  <option value="">Select Trade...</option>
+                </select>
+              </div>
+            </div>
           </div>
 
           <div class="form-group">
