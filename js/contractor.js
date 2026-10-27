@@ -71,16 +71,128 @@ function handleCadenceChangeProgress() {
   }
 }
 
+// Toggle Scope Setup Action (Add vs Edit)
 function toggleScopeSetupAction() {
-  document.getElementById('sTradeSelectContainer').style.display = document.getElementById('sSetupAction').value === 'EDIT' ? 'block' : 'none';
+  const isEdit = document.getElementById('sSetupAction').value === 'EDIT';
+  const editContainer = document.getElementById('sEditTargetContainer');
+  if (editContainer) {
+    editContainer.style.display = isEdit ? 'block' : 'none';
+  }
+
+  if (isEdit) {
+    populateEditTargetScopeDropdowns();
+  } else {
+    // Clear form inputs when returning to ADD mode
+    document.getElementById('sScopeCode').value = '';
+    document.getElementById('sScopeCat').value = '';
+    document.getElementById('sTrade').value = '';
+    document.getElementById('sDuration').value = '';
+    document.getElementById('sStartDate').value = '';
+    document.getElementById('sFinishDate').value = '';
+  }
 }
 
+// 1. Populate Target Main Scope Dropdown from currentMetadataList
+function populateEditTargetScopeDropdowns() {
+  const mainSel = document.getElementById('sTargetScopeCode');
+  const subSel = document.getElementById('sTargetScopeCat');
+  const tradeSel = document.getElementById('sExistingTradeSelect');
+
+  if (!mainSel || !subSel || !tradeSel) return;
+
+  const uniqueMainScopes = [...new Set(currentMetadataList.map(d => {
+    const val = (d['Main Scope'] || d['Scope Code'] || '').trim();
+    return val ? val : 'N/A';
+  }))];
+
+  mainSel.innerHTML = '<option value="">Select Main Scope...</option>' + 
+    uniqueMainScopes.map(m => `<option value="${m}">${m}</option>`).join('');
+
+  subSel.innerHTML = '<option value="">Select Subscope...</option>';
+  tradeSel.innerHTML = '<option value="">Select Trade...</option>';
+}
+
+// 2. When Main Scope is selected, populate matching Subscopes
+function onTargetScopeCodeChange() {
+  const selMain = document.getElementById('sTargetScopeCode').value;
+  const subSel = document.getElementById('sTargetScopeCat');
+  const tradeSel = document.getElementById('sExistingTradeSelect');
+
+  if (!subSel || !tradeSel) return;
+
+  subSel.innerHTML = '<option value="">Select Subscope...</option>';
+  tradeSel.innerHTML = '<option value="">Select Trade...</option>';
+
+  if (!selMain) return;
+
+  const matchedSubscopes = [...new Set(currentMetadataList
+    .filter(d => {
+      const mainVal = (d['Main Scope'] || d['Scope Code'] || 'N/A').trim() || 'N/A';
+      return mainVal.toLowerCase() === selMain.toLowerCase();
+    })
+    .map(d => {
+      const subVal = (d['Subscope'] || d['Scope Category'] || '').trim();
+      return subVal ? subVal : 'N/A';
+    })
+  )];
+
+  subSel.innerHTML = '<option value="">Select Subscope...</option>' + 
+    matchedSubscopes.map(s => `<option value="${s}">${s}</option>`).join('');
+}
+
+// 3. When Subscope is selected, populate matching Trades
+function onTargetScopeCatChange() {
+  const selMain = document.getElementById('sTargetScopeCode').value;
+  const selSub = document.getElementById('sTargetScopeCat').value;
+  const tradeSel = document.getElementById('sExistingTradeSelect');
+
+  if (!tradeSel) return;
+
+  tradeSel.innerHTML = '<option value="">Select Trade...</option>';
+
+  if (!selMain || !selSub) return;
+
+  const matchedTrades = currentMetadataList.filter(d => {
+    const mainVal = (d['Main Scope'] || d['Scope Code'] || 'N/A').trim() || 'N/A';
+    const subVal = (d['Subscope'] || d['Scope Category'] || 'N/A').trim() || 'N/A';
+    return mainVal.toLowerCase() === selMain.toLowerCase() && 
+           subVal.toLowerCase() === selSub.toLowerCase();
+  });
+
+  tradeSel.innerHTML = '<option value="">Select Trade...</option>' + 
+    matchedTrades.map(d => {
+      const entryId = d['Entry ID'] || '';
+      const tradeName = d['Trade'] || '';
+      return `<option value="${tradeName}" data-entry-id="${entryId}">${tradeName} (ID: ${entryId})</option>`;
+    }).join('');
+}
+
+// 4. Populate Form inputs for Edit using precise (Main Scope + Subscope + Trade) matching
 function populateScopeFormForEdit() {
-  const tradeVal = document.getElementById('sExistingTradeSelect').value;
-  const match = currentMetadataList.find(d => d['Trade'] === tradeVal);
+  const selMain = document.getElementById('sTargetScopeCode').value;
+  const selSub = document.getElementById('sTargetScopeCat').value;
+  const selTrade = document.getElementById('sExistingTradeSelect').value;
+
+  const tradeSelectEl = document.getElementById('sExistingTradeSelect');
+  const selectedOption = tradeSelectEl ? tradeSelectEl.options[tradeSelectEl.selectedIndex] : null;
+  const targetEntryId = selectedOption ? selectedOption.getAttribute('data-entry-id') : null;
+
+  const match = currentMetadataList.find(d => {
+    if (targetEntryId && d['Entry ID'] && String(d['Entry ID']) === String(targetEntryId)) {
+      return true;
+    }
+    const mainVal = (d['Main Scope'] || d['Scope Code'] || 'N/A').trim() || 'N/A';
+    const subVal = (d['Subscope'] || d['Scope Category'] || 'N/A').trim() || 'N/A';
+    const tradeVal = (d['Trade'] || '').trim();
+
+    return mainVal.toLowerCase() === selMain.toLowerCase() &&
+           subVal.toLowerCase() === selSub.toLowerCase() &&
+           tradeVal.toLowerCase() === selTrade.toLowerCase();
+  });
+
   if (match) {
-    document.getElementById('sScopeCode').value = match['Main Scope'] || match['Scope Code'] || '';
-    document.getElementById('sScopeCat').value = match['Subscope'] || match['Scope Category'] || '';
+    document.getElementById('sScopeCode').value = match['Main Scope'] || match['Scope Code'] || 'N/A';
+    document.getElementById('sScopeCat').value = match['Subscope'] || match['Scope Category'] || 'N/A';
     document.getElementById('sTrade').value = match['Trade'] || '';
     document.getElementById('sDuration').value = match['Duration'] || '';
     document.getElementById('sStartDate').value = match['Start Date'] ? match['Start Date'].split('T')[0] : '';
@@ -121,7 +233,6 @@ function populateMetadataDropdowns(data) {
   const codeSel = document.getElementById('pScopeCode');
   const catSel = document.getElementById('pScopeCat');
   const tradeSel = document.getElementById('pTrade');
-  const tradeEditSel = document.getElementById('sExistingTradeSelect');
 
   const verifiedApprovedData = data.filter(d => 
     String(d['Verification']).toUpperCase() === 'YES' && 
@@ -131,7 +242,6 @@ function populateMetadataDropdowns(data) {
   const codes = [...new Set(verifiedApprovedData.map(d => d['Main Scope'] || d['Scope Code']).filter(Boolean))];
   const cats = [...new Set(verifiedApprovedData.map(d => d['Subscope'] || d['Scope Category']).filter(Boolean))];
   const approvedTrades = [...new Set(verifiedApprovedData.map(d => d['Trade']).filter(Boolean))];
-  const allTrades = [...new Set(data.map(d => d['Trade']).filter(Boolean))];
 
   codeSel.innerHTML = '<option value="N/A">N/A</option>' + codes.map(c => `<option value="${c}">${c}</option>`).join('');
   catSel.innerHTML = '<option value="N/A">N/A</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join('');
@@ -142,7 +252,10 @@ function populateMetadataDropdowns(data) {
     tradeSel.innerHTML = '<option value="">No Verified/Approved Trades Available</option>';
   }
 
-  tradeEditSel.innerHTML = '<option value="">Select Existing Trade...</option>' + allTrades.map(t => `<option value="${t}">${t}</option>`).join('');
+  // If currently in EDIT mode, refresh the cascading target dropdowns
+  if (document.getElementById('sSetupAction') && document.getElementById('sSetupAction').value === 'EDIT') {
+    populateEditTargetScopeDropdowns();
+  }
 }
 
 function populateDefaultMetadataDropdowns() {
@@ -283,12 +396,21 @@ function handleMetadataSubmit(e) {
   e.preventDefault();
   const prjId = document.getElementById('sPrj').value || activeSelectedProjectCode;
   const prjObj = baselineOverallData.find(o => o.id === prjId);
+  const mode = document.getElementById('sSetupAction').value;
+
+  const tradeSelectEl = document.getElementById('sExistingTradeSelect');
+  const selectedOption = tradeSelectEl ? tradeSelectEl.options[tradeSelectEl.selectedIndex] : null;
+  const targetEntryId = (mode === 'EDIT' && selectedOption) ? selectedOption.getAttribute('data-entry-id') : null;
 
   const payload = {
     action: "submitMetadata",
-    mode: document.getElementById('sSetupAction').value,
+    mode: mode,
     projectId: prjId,
     projectName: prjObj ? prjObj.name : prjId,
+    targetEntryId: targetEntryId,
+    targetMainScope: mode === 'EDIT' ? (document.getElementById('sTargetScopeCode').value || 'N/A') : '',
+    targetSubscope: mode === 'EDIT' ? (document.getElementById('sTargetScopeCat').value || 'N/A') : '',
+    targetTrade: mode === 'EDIT' ? document.getElementById('sExistingTradeSelect').value : '',
     scopeCode: document.getElementById('sScopeCode').value || "N/A",
     scopeCategory: document.getElementById('sScopeCat').value || "N/A",
     trade: document.getElementById('sTrade').value,
@@ -304,8 +426,12 @@ function handleMetadataSubmit(e) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   }).then(() => {
-    alert('Schedule setup changes submitted! Pending Consultant verification and PDD approval.');
+    alert(mode === 'EDIT' 
+      ? 'Schedule setup changes submitted! Pending Consultant verification and PDD approval.' 
+      : 'New trade setup submitted! Pending Consultant verification and PDD approval.');
     document.getElementById('formScheduleSetup').reset();
+    document.getElementById('sSetupAction').value = 'ADD';
+    toggleScopeSetupAction();
     fetchProjectMetadataAndHistory();
   });
 }
