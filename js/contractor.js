@@ -35,8 +35,29 @@ function selectContractorActiveProject(prjId) {
   document.getElementById('contractorUnlockedArea').style.display = 'block';
   document.getElementById('authenticatedProjectTitle').innerText = activeSelectedProjectCode + " - " + activeSelectedProjectName;
 
-  document.getElementById('pPrj').value = activeSelectedProjectCode;
-  document.getElementById('sPrj').value = activeSelectedProjectCode;
+  // Ensure option exists in pPrj (Progress Form)
+  const pPrjEl = document.getElementById('pPrj');
+  if (pPrjEl) {
+    if (!pPrjEl.querySelector(`option[value="${activeSelectedProjectCode}"]`)) {
+      const opt = document.createElement('option');
+      opt.value = activeSelectedProjectCode;
+      opt.textContent = activeSelectedProjectCode;
+      pPrjEl.appendChild(opt);
+    }
+    pPrjEl.value = activeSelectedProjectCode;
+  }
+
+  // Ensure option exists in sPrj (Schedule Setup Form)
+  const sPrjEl = document.getElementById('sPrj');
+  if (sPrjEl) {
+    if (!sPrjEl.querySelector(`option[value="${activeSelectedProjectCode}"]`)) {
+      const opt = document.createElement('option');
+      opt.value = activeSelectedProjectCode;
+      opt.textContent = activeSelectedProjectCode;
+      sPrjEl.appendChild(opt);
+    }
+    sPrjEl.value = activeSelectedProjectCode;
+  }
 
   if (userAuthorizedProjectsList.length > 1) {
     document.getElementById('btnContractorSwitchPrj').style.display = 'inline-block';
