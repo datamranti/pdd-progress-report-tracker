@@ -2,12 +2,11 @@
 // PDD Authority Portal Approval & Rejection Logic
 // ==========================================================================
 
-function loadAuthorityPageData() {
-  const breakdownPrj = document.getElementById('authorityBreakdownPrjFilter').value;
+let authorityLatestBreakdownList = [];
 
+function loadAuthorityPageData() {
   showSkeletonRows('authorityTableBody', 12, 3);
   showSkeletonRows('authorityScopeTableBody', 8, 2);
-  showSkeletonRows('authorityBreakdownTableBody', 8, 3);
 
   fetch(GOOGLE_SCRIPT_URL + "?action=getPendingApprovals")
     .then(res => res.json())
@@ -17,9 +16,40 @@ function loadAuthorityPageData() {
     .then(res => res.json())
     .then(res => { if (res.status === 'success') { pendingScopeApprovalsList = res.data; renderAuthorityScopeTable(); } });
 
+  loadAuthorityBreakdownData();
+}
+
+function loadAuthorityBreakdownData() {
+  const breakdownPrj = document.getElementById('authorityBreakdownPrjFilter').value;
+  showSkeletonRows('authorityBreakdownTableBody', 8, 3);
+
   fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=" + breakdownPrj)
     .then(res => res.json())
-    .then(res => { if (res.status === 'success') renderLatestBreakdownTable('authorityBreakdownTableBody', res.data); });
+    .then(res => { 
+      if (res.status === 'success') {
+        authorityLatestBreakdownList = res.data;
+        populateAuthorityBreakdownTradeFilter(res.data);
+        renderLatestBreakdownTable('authorityBreakdownTableBody', res.data);
+      }
+    });
+}
+
+function populateAuthorityBreakdownTradeFilter(data) {
+  const sel = document.getElementById('authorityBreakdownTradeFilter');
+  if (!sel) return;
+  const uniqueTrades = [...new Set(data.map(d => (d['Trade'] || '').trim()).filter(Boolean))];
+  sel.innerHTML = '<option value="ALL">All Trades</option>' + 
+    uniqueTrades.map(t => `<option value="${t}">${t}</option>`).join('');
+}
+
+function filterAuthorityBreakdownTable() {
+  const selTrade = document.getElementById('authorityBreakdownTradeFilter').value;
+  if (selTrade === 'ALL') {
+    renderLatestBreakdownTable('authorityBreakdownTableBody', authorityLatestBreakdownList);
+  } else {
+    const filtered = authorityLatestBreakdownList.filter(d => (d['Trade'] || '').trim().toLowerCase() === selTrade.trim().toLowerCase());
+    renderLatestBreakdownTable('authorityBreakdownTableBody', filtered);
+  }
 }
 
 function renderAuthorityTable() {
@@ -90,42 +120,6 @@ function renderAuthorityScopeTable() {
   `).join('');
 }
 
-function renderLatestBreakdownTable(targetId, data) {
-  const tbody = document.getElementById(targetId);
-  if (!data || data.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--muted);">No progress records available.</td></tr>';
-    return;
-  }
-
-  const latestMap = {};
-  data.forEach(item => {
-    const key = (item['Main Scope'] || item['Scope Code'] || '') + '_' + (item['Trade'] || '');
-    latestMap[key] = item;
-  });
-
-  tbody.innerHTML = Object.values(latestMap).map(h => {
-    var planNum = parsePercentageVal(h['Planned']);
-    var actNum = parsePercentageVal(h['Actual']);
-    var varNum = (actNum - planNum).toFixed(2);
-    var status = h['Status'] || h['Overall Project Status'] || 'On Track';
-    var badgeClass = status === 'Ahead' ? 'badge-ahead' : (status === 'Delayed' ? 'badge-delayed' : 'badge-ontrack');
-
-    return `
-      <tr>
-        <td style="font-weight: 600; color: var(--blue);">${h['Main Scope'] || h['Scope Code'] || 'N/A'}</td>
-        <td>${h['Subscope'] || h['Scope Category'] || 'N/A'}</td>
-        <td style="font-weight: 600;">${h['Trade'] || 'N/A'}</td>
-        <td>${formatMonthText(h['Reporting Month'])}</td>
-        <td>${planNum.toFixed(2)}%</td>
-        <td><strong>${actNum.toFixed(2)}%</strong></td>
-        <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${(varNum >= 0 ? '+' : '') + varNum}%</td>
-        <td><span class="badge ${badgeClass}">${status}</span></td>
-      </tr>
-    `;
-  }).join('');
-}
-
-// Verification & Approval Actions
 function verifyRecord(sheetName, rowNumber, actionType) {
   fetch(GOOGLE_SCRIPT_URL, {
     method: 'POST',
