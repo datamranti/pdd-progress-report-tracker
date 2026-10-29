@@ -101,3 +101,39 @@ function closeDocumentModal(e) {
   document.getElementById('docModalBackdrop').style.display = 'none';
   document.getElementById('docModalBody').innerHTML = '';
 }
+
+function renderLatestBreakdownTable(targetId, data) {
+  const tbody = document.getElementById(targetId);
+  if (!tbody) return;
+  if (!data || data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--muted);">No progress records available.</td></tr>';
+    return;
+  }
+
+  const latestMap = {};
+  data.forEach(item => {
+    const key = (item['Main Scope'] || item['Scope Code'] || '') + '_' + (item['Trade'] || '');
+    latestMap[key] = item;
+  });
+
+  tbody.innerHTML = Object.values(latestMap).map(h => {
+    var planNum = parsePercentageVal(h['Planned']);
+    var actNum = parsePercentageVal(h['Actual']);
+    var varNum = (actNum - planNum).toFixed(2);
+    var status = h['Status'] || h['Overall Project Status'] || 'On Track';
+    var badgeClass = status === 'Ahead' ? 'badge-ahead' : (status === 'Delayed' ? 'badge-delayed' : 'badge-ontrack');
+
+    return `
+      <tr>
+        <td style="font-weight: 600; color: var(--blue);">${h['Main Scope'] || h['Scope Code'] || 'N/A'}</td>
+        <td>${h['Subscope'] || h['Scope Category'] || 'N/A'}</td>
+        <td style="font-weight: 600;">${h['Trade'] || 'N/A'}</td>
+        <td>${formatMonthText(h['Reporting Month'])}</td>
+        <td>${planNum.toFixed(2)}%</td>
+        <td><strong>${actNum.toFixed(2)}%</strong></td>
+        <td style="color: ${varNum >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${(varNum >= 0 ? '+' : '') + varNum}%</td>
+        <td><span class="badge ${badgeClass}">${status}</span></td>
+      </tr>
+    `;
+  }).join('');
+}
