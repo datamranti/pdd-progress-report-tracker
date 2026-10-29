@@ -2,6 +2,8 @@
 // Consultant Portal Workflow & Verification
 // ==========================================================================
 
+let consultantLatestBreakdownList = [];
+
 function initConsultantProjectView() {
   if (userAuthorizedProjectsList.length === 1) {
     selectConsultantActiveProject(userAuthorizedProjectsList[0]);
@@ -61,7 +63,31 @@ function loadConsultantPageData() {
 
   fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=" + activeConsultantProjectCode)
     .then(res => res.json())
-    .then(res => { if (res.status === 'success') renderLatestBreakdownTable('latestBreakdownTableBody', res.data); });
+    .then(res => { 
+      if (res.status === 'success') {
+        consultantLatestBreakdownList = res.data;
+        populateConsultantBreakdownTradeFilter(res.data);
+        renderLatestBreakdownTable('latestBreakdownTableBody', res.data);
+      }
+    });
+}
+
+function populateConsultantBreakdownTradeFilter(data) {
+  const sel = document.getElementById('consultantBreakdownTradeFilter');
+  if (!sel) return;
+  const uniqueTrades = [...new Set(data.map(d => (d['Trade'] || '').trim()).filter(Boolean))];
+  sel.innerHTML = '<option value="ALL">All Trades</option>' + 
+    uniqueTrades.map(t => `<option value="${t}">${t}</option>`).join('');
+}
+
+function filterConsultantBreakdownTable() {
+  const selTrade = document.getElementById('consultantBreakdownTradeFilter').value;
+  if (selTrade === 'ALL') {
+    renderLatestBreakdownTable('latestBreakdownTableBody', consultantLatestBreakdownList);
+  } else {
+    const filtered = consultantLatestBreakdownList.filter(d => (d['Trade'] || '').trim().toLowerCase() === selTrade.trim().toLowerCase());
+    renderLatestBreakdownTable('latestBreakdownTableBody', filtered);
+  }
 }
 
 function renderConsultantTable() {
