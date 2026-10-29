@@ -2,6 +2,8 @@
 // Contractor & Developer Progress Reporting Logic
 // ==========================================================================
 
+let contractorLatestBreakdownList = [];
+
 function initContractorProjectView() {
   if (userAuthorizedProjectsList.length === 1) {
     selectContractorActiveProject(userAuthorizedProjectsList[0]);
@@ -35,29 +37,8 @@ function selectContractorActiveProject(prjId) {
   document.getElementById('contractorUnlockedArea').style.display = 'block';
   document.getElementById('authenticatedProjectTitle').innerText = activeSelectedProjectCode + " - " + activeSelectedProjectName;
 
-  // Ensure option exists in pPrj (Progress Form)
-  const pPrjEl = document.getElementById('pPrj');
-  if (pPrjEl) {
-    if (!pPrjEl.querySelector(`option[value="${activeSelectedProjectCode}"]`)) {
-      const opt = document.createElement('option');
-      opt.value = activeSelectedProjectCode;
-      opt.textContent = activeSelectedProjectCode;
-      pPrjEl.appendChild(opt);
-    }
-    pPrjEl.value = activeSelectedProjectCode;
-  }
-
-  // Ensure option exists in sPrj (Schedule Setup Form)
-  const sPrjEl = document.getElementById('sPrj');
-  if (sPrjEl) {
-    if (!sPrjEl.querySelector(`option[value="${activeSelectedProjectCode}"]`)) {
-      const opt = document.createElement('option');
-      opt.value = activeSelectedProjectCode;
-      opt.textContent = activeSelectedProjectCode;
-      sPrjEl.appendChild(opt);
-    }
-    sPrjEl.value = activeSelectedProjectCode;
-  }
+  document.getElementById('pPrj').value = activeSelectedProjectCode;
+  document.getElementById('sPrj').value = activeSelectedProjectCode;
 
   if (userAuthorizedProjectsList.length > 1) {
     document.getElementById('btnContractorSwitchPrj').style.display = 'inline-block';
@@ -103,7 +84,6 @@ function toggleScopeSetupAction() {
   if (isEdit) {
     populateEditTargetScopeDropdowns();
   } else {
-    // Clear form inputs when returning to ADD mode
     document.getElementById('sScopeCode').value = '';
     document.getElementById('sScopeCat').value = '';
     document.getElementById('sTrade').value = '';
@@ -113,7 +93,6 @@ function toggleScopeSetupAction() {
   }
 }
 
-// 1. Populate Target Main Scope Dropdown from currentMetadataList
 function populateEditTargetScopeDropdowns() {
   const mainSel = document.getElementById('sTargetScopeCode');
   const subSel = document.getElementById('sTargetScopeCat');
@@ -133,7 +112,6 @@ function populateEditTargetScopeDropdowns() {
   tradeSel.innerHTML = '<option value="">Select Trade...</option>';
 }
 
-// 2. When Main Scope is selected, populate matching Subscopes
 function onTargetScopeCodeChange() {
   const selMain = document.getElementById('sTargetScopeCode').value;
   const subSel = document.getElementById('sTargetScopeCat');
@@ -161,7 +139,6 @@ function onTargetScopeCodeChange() {
     matchedSubscopes.map(s => `<option value="${s}">${s}</option>`).join('');
 }
 
-// 3. When Subscope is selected, populate matching Trades
 function onTargetScopeCatChange() {
   const selMain = document.getElementById('sTargetScopeCode').value;
   const selSub = document.getElementById('sTargetScopeCat').value;
@@ -188,7 +165,6 @@ function onTargetScopeCatChange() {
     }).join('');
 }
 
-// 4. Populate Form inputs for Edit using precise (Main Scope + Subscope + Trade) matching
 function populateScopeFormForEdit() {
   const selMain = document.getElementById('sTargetScopeCode').value;
   const selSub = document.getElementById('sTargetScopeCat').value;
@@ -225,14 +201,17 @@ function fetchProjectMetadataAndHistory() {
   const prjId = document.getElementById('pPrj').value || activeSelectedProjectCode;
 
   showSkeletonRows('metadataTableBody', 10, 3);
+  showSkeletonRows('contractorBreakdownTableBody', 8, 3);
   showSkeletonRows('historyTableBody', 14, 4);
 
+  // 1. Fetch Metadata Schedule Setup
   fetch(GOOGLE_SCRIPT_URL + "?action=getMetadata&projectId=" + prjId)
     .then(res => res.json())
     .then(res => {
       if (res.status === 'success' && res.data.length > 0) {
         currentMetadataList = res.data;
         populateMetadataDropdowns(res.data);
+        populateMetadataTradeFilterDropdown(res.data);
         renderMetadataTable(res.data);
       } else {
         populateDefaultMetadataDropdowns();
@@ -240,11 +219,15 @@ function fetchProjectMetadataAndHistory() {
       }
     });
 
+  // 2. Fetch Project History for Breakdown & Live Records
   fetch(GOOGLE_SCRIPT_URL + "?action=getProjectHistory&projectId=" + prjId)
     .then(res => res.json())
     .then(res => {
       if (res.status === 'success') {
         currentHistoryList = res.data;
+        contractorLatestBreakdownList = res.data;
+        populateContractorBreakdownTradeFilter(res.data);
+        renderLatestBreakdownTable('contractorBreakdownTableBody', res.data);
         renderHistoryTable(res.data);
       }
     });
@@ -273,7 +256,6 @@ function populateMetadataDropdowns(data) {
     tradeSel.innerHTML = '<option value="">No Verified/Approved Trades Available</option>';
   }
 
-  // If currently in EDIT mode, refresh the cascading target dropdowns
   if (document.getElementById('sSetupAction') && document.getElementById('sSetupAction').value === 'EDIT') {
     populateEditTargetScopeDropdowns();
   }
@@ -283,6 +265,44 @@ function populateDefaultMetadataDropdowns() {
   document.getElementById('pScopeCode').innerHTML = `<option value="N/A">N/A</option>`;
   document.getElementById('pScopeCat').innerHTML = `<option value="N/A">N/A</option>`;
   document.getElementById('pTrade').innerHTML = `<option value="">No Verified/Approved Trades Available</option>`;
+}
+
+// Populate Trade Filter on Schedule Setup Metadata Reference
+function populateMetadataTradeFilterDropdown(data) {
+  const sel = document.getElementById('contractorMetadataTradeFilter');
+  if (!sel) return;
+  const uniqueTrades = [...new Set(data.map(d => (d['Trade'] || '').trim()).filter(Boolean))];
+  sel.innerHTML = '<option value="ALL">All Trades</option>' + 
+    uniqueTrades.map(t => `<option value="${t}">${t}</option>`).join('');
+}
+
+function filterContractorMetadataTable() {
+  const selTrade = document.getElementById('contractorMetadataTradeFilter').value;
+  if (selTrade === 'ALL') {
+    renderMetadataTable(currentMetadataList);
+  } else {
+    const filtered = currentMetadataList.filter(d => (d['Trade'] || '').trim().toLowerCase() === selTrade.trim().toLowerCase());
+    renderMetadataTable(filtered);
+  }
+}
+
+// Populate Trade Filter on Latest Breakdown Table in Contractor Portal
+function populateContractorBreakdownTradeFilter(data) {
+  const sel = document.getElementById('contractorBreakdownTradeFilter');
+  if (!sel) return;
+  const uniqueTrades = [...new Set(data.map(d => (d['Trade'] || '').trim()).filter(Boolean))];
+  sel.innerHTML = '<option value="ALL">All Trades</option>' + 
+    uniqueTrades.map(t => `<option value="${t}">${t}</option>`).join('');
+}
+
+function filterContractorBreakdownTable() {
+  const selTrade = document.getElementById('contractorBreakdownTradeFilter').value;
+  if (selTrade === 'ALL') {
+    renderLatestBreakdownTable('contractorBreakdownTableBody', contractorLatestBreakdownList);
+  } else {
+    const filtered = contractorLatestBreakdownList.filter(d => (d['Trade'] || '').trim().toLowerCase() === selTrade.trim().toLowerCase());
+    renderLatestBreakdownTable('contractorBreakdownTableBody', filtered);
+  }
 }
 
 function onScopeCodeSelectChange() {
@@ -365,7 +385,6 @@ function renderHistoryTable(data) {
 
 function handleProgressSubmit(e) {
   e.preventDefault();
-  // Prioritize the active authenticated project code
   const prjId = activeSelectedProjectCode || document.getElementById('pPrj').value;
   const prjObj = baselineOverallData.find(o => o.id === prjId);
   const cadence = document.getElementById('pCadence').value;
@@ -399,12 +418,9 @@ function handleProgressSubmit(e) {
     }).then(() => {
       alert('Progress report recorded! Sent to Consultant for verification.');
       document.getElementById('formProgressUpdate').reset();
-      
-      // RESTORE ACTIVE PROJECT CODE AFTER FORM RESET
       if (activeSelectedProjectCode) {
         document.getElementById('pPrj').value = activeSelectedProjectCode;
       }
-      
       fetchProjectMetadataAndHistory();
     });
   };
@@ -422,7 +438,6 @@ function handleProgressSubmit(e) {
 
 function handleMetadataSubmit(e) {
   e.preventDefault();
-  // Prioritize the active authenticated project code
   const prjId = activeSelectedProjectCode || document.getElementById('sPrj').value;
   const prjObj = baselineOverallData.find(o => o.id === prjId);
   const mode = document.getElementById('sSetupAction').value;
@@ -458,10 +473,7 @@ function handleMetadataSubmit(e) {
     alert(mode === 'EDIT' 
       ? 'Schedule setup changes submitted! Pending Consultant verification and PDD approval.' 
       : 'New trade setup submitted! Pending Consultant verification and PDD approval.');
-    
     document.getElementById('formScheduleSetup').reset();
-    
-    // RESTORE ACTIVE PROJECT CODE & ACTION MODE AFTER FORM RESET
     if (activeSelectedProjectCode) {
       document.getElementById('sPrj').value = activeSelectedProjectCode;
     }
