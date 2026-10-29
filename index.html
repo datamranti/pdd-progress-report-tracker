@@ -61,7 +61,7 @@
     </div>
   </div>
 
-  <!-- MRANTI MANAGEMENT VIEW -->
+  <!-- MRANTI MANAGEMENT VIEW (No Refresh button per requirement) -->
   <div id="page2" class="app-page">
     <div class="eyebrow">MRANTI MANAGEMENT PORTAL</div>
     <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">MRANTI Management View</h2>
@@ -268,8 +268,13 @@
 
   <!-- CONSULTANT VERIFICATION PAGE -->
   <div id="page3Consultant" class="app-page">
-    <div class="eyebrow">CONSULTANT PORTAL</div>
-    <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Consultant Verification Portal</h2>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <div class="eyebrow">CONSULTANT PORTAL</div>
+        <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Consultant Verification Portal</h2>
+      </div>
+      <button type="button" class="btn-nav" style="border: 1px solid var(--line); font-size: 11px; padding: 8px 14px;" onclick="loadConsultantPageData()">🔄 Refresh Data</button>
+    </div>
 
     <!-- MULTI-PROJECT SELECTOR CARD -->
     <div id="consultantProjectSelector" class="entry-card" style="display: none;">
@@ -303,7 +308,14 @@
         <div class="chart-bar-container" id="consultantScurveContainer"></div>
       </div>
 
-      <div class="eyebrow">LATEST PROGRESS BREAKDOWN (BY TRADE)</div>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 10px;">
+        <div class="eyebrow">LATEST PROGRESS BREAKDOWN (BY TRADE)</div>
+        <div style="width: 220px;">
+          <select id="consultantBreakdownTradeFilter" onchange="filterConsultantBreakdownTable()" style="width: 100%; padding: 6px; font-size: 11px; border-radius: 4px; border: 1px solid var(--line);">
+            <option value="ALL">All Trades</option>
+          </select>
+        </div>
+      </div>
       <div class="table-wrap" style="margin-bottom: 32px;">
         <table>
           <thead>
@@ -345,8 +357,13 @@
 
   <!-- SCORECARD PORTAL -->
   <div id="pageScorecard" class="app-page">
-    <div class="eyebrow">PDD AUTHORITY PORTAL</div>
-    <h2 style="margin: 6px 0 8px; font-size: 22px; font-weight: 600;">Consultant & Contractor Scorecard</h2>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <div class="eyebrow">PDD AUTHORITY PORTAL</div>
+        <h2 style="margin: 6px 0 8px; font-size: 22px; font-weight: 600;">Consultant & Contractor Scorecard</h2>
+      </div>
+      <button type="button" class="btn-nav" style="border: 1px solid var(--line); font-size: 11px; padding: 8px 14px;" onclick="loadScorecardPageData()">🔄 Refresh Data</button>
+    </div>
 
     <div class="tab-switcher">
       <button class="btn-tab active" id="btnScorecardConsultant" onclick="setScorecardType('Consultant')">Consultant Scorecard</button>
@@ -446,22 +463,34 @@
 
   <!-- PDD AUTHORITY APPROVAL PORTAL -->
   <div id="page3Authority" class="app-page">
-    <div class="eyebrow">PDD AUTHORITY PORTAL</div>
-    <h2 style="margin: 6px 0 8px; font-size: 22px; font-weight: 600;">PDD Authority Progress Approval Portal</h2>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <div class="eyebrow">PDD AUTHORITY PORTAL</div>
+        <h2 style="margin: 6px 0 8px; font-size: 22px; font-weight: 600;">PDD Authority Progress Approval Portal</h2>
+      </div>
+      <button type="button" class="btn-nav" style="border: 1px solid var(--line); font-size: 11px; padding: 8px 14px;" onclick="loadAuthorityPageData()">🔄 Refresh Data</button>
+    </div>
 
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; flex-wrap: wrap; gap: 10px;">
       <div class="eyebrow">LATEST PROGRESS BREAKDOWN (BY TRADE)</div>
-      <div style="width: 220px;">
-        <select id="authorityBreakdownPrjFilter" onchange="loadAuthorityPageData()" style="width: 100%; padding: 6px; font-size: 11px; border-radius: 4px; border: 1px solid var(--line);">
-          <option value="PRJ-001">PRJ-001</option>
-          <option value="PRJ-002">PRJ-002</option>
-          <option value="PRJ-003">PRJ-003</option>
-          <option value="PRJ-004">PRJ-004</option>
-          <option value="PRJ-005">PRJ-005</option>
-          <option value="PRJ-006">PRJ-006</option>
-          <option value="PRJ-007">PRJ-007</option>
-          <option value="PRJ-008">PRJ-008</option>
-        </select>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <div style="width: 160px;">
+          <select id="authorityBreakdownPrjFilter" onchange="loadAuthorityBreakdownData()" style="width: 100%; padding: 6px; font-size: 11px; border-radius: 4px; border: 1px solid var(--line);">
+            <option value="PRJ-001">PRJ-001</option>
+            <option value="PRJ-002">PRJ-002</option>
+            <option value="PRJ-003">PRJ-003</option>
+            <option value="PRJ-004">PRJ-004</option>
+            <option value="PRJ-005">PRJ-005</option>
+            <option value="PRJ-006">PRJ-006</option>
+            <option value="PRJ-007">PRJ-007</option>
+            <option value="PRJ-008">PRJ-008</option>
+          </select>
+        </div>
+        <div style="width: 180px;">
+          <select id="authorityBreakdownTradeFilter" onchange="filterAuthorityBreakdownTable()" style="width: 100%; padding: 6px; font-size: 11px; border-radius: 4px; border: 1px solid var(--line);">
+            <option value="ALL">All Trades</option>
+          </select>
+        </div>
       </div>
     </div>
     <div class="table-wrap" style="margin-bottom: 28px;">
@@ -517,8 +546,13 @@
 
   <!-- CONTRACTOR PORTAL -->
   <div id="page4" class="app-page">
-    <div class="eyebrow">CONTRACTOR / DEVELOPER PORTAL</div>
-    <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Contractor/Developer Page</h2>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <div class="eyebrow">CONTRACTOR / DEVELOPER PORTAL</div>
+        <h2 style="margin: 6px 0 16px; font-size: 22px; font-weight: 600;">Contractor/Developer Page</h2>
+      </div>
+      <button type="button" class="btn-nav" style="border: 1px solid var(--line); font-size: 11px; padding: 8px 14px;" onclick="fetchProjectMetadataAndHistory()">🔄 Refresh Data</button>
+    </div>
 
     <!-- MULTI-PROJECT SELECTOR CARD -->
     <div id="contractorProjectSelector" class="entry-card" style="display: none;">
@@ -643,7 +677,7 @@
 
           <!-- EDIT SELECTOR CONTAINER: Cascading Scope Filters -->
           <div id="sEditTargetContainer" style="display: none; grid-column: 1 / -1; background: #eef3ff; padding: 14px; border-radius: 6px; border: 1px solid #c8d2ff; margin-bottom: 12px;">
-            <div style="font-size: 11px; font-weight: 700; color: var(--blue); margin-bottom: 8px;">SELECT TARGET SCOPE & TRADE TO EDIT</div>
+            <div style="font-size: 11px; font-weight: 700; color: var(--blue); margin-bottom: 8px;">SELECT TARGET SCOPE &amp; TRADE TO EDIT</div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
               <div class="form-group">
                 <label for="sTargetScopeCode">Target Main Scope <span class="req-star">*</span></label>
@@ -669,14 +703,10 @@
           <div class="form-group">
             <label for="sPrj">Project Name <span class="req-star">*</span></label>
             <select id="sPrj" required disabled style="background: #f1f3f8;">
-              <option value="PRJ-001">PRJ-001</option>
-              <option value="PRJ-002">PRJ-002</option>
-              <option value="PRJ-003">PRJ-003</option>
-              <option value="PRJ-004">PRJ-004</option>
-              <option value="PRJ-005">PRJ-005</option>
-              <option value="PRJ-006">PRJ-006</option>
-              <option value="PRJ-007">PRJ-007</option>
-              <option value="PRJ-008">PRJ-008</option>
+              <option value="PRJ-001">PRJ-001</option><option value="PRJ-002">PRJ-002</option>
+              <option value="PRJ-003">PRJ-003</option><option value="PRJ-004">PRJ-004</option>
+              <option value="PRJ-005">PRJ-005</option><option value="PRJ-006">PRJ-006</option>
+              <option value="PRJ-007">PRJ-007</option><option value="PRJ-008">PRJ-008</option>
             </select>
           </div>
 
@@ -694,7 +724,15 @@
       </form>
     </section>
 
-    <div class="eyebrow" style="margin-top: 24px;">SCHEDULE SETUP METADATA REFERENCE</div>
+    <!-- SCHEDULE SETUP METADATA REFERENCE (With Trade Filter) -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; flex-wrap: wrap; gap: 10px;">
+      <div class="eyebrow">SCHEDULE SETUP METADATA REFERENCE</div>
+      <div style="width: 200px;">
+        <select id="contractorMetadataTradeFilter" onchange="filterContractorMetadataTable()" style="width: 100%; padding: 6px; font-size: 11px; border-radius: 4px; border: 1px solid var(--line);">
+          <option value="ALL">All Trades</option>
+        </select>
+      </div>
+    </div>
     <div class="table-wrap" style="margin-bottom: 32px;">
       <table>
         <thead>
@@ -706,6 +744,27 @@
       </table>
     </div>
 
+    <!-- LATEST PROGRESS BREAKDOWN (BY TRADE) IN CONTRACTOR PORTAL (With Trade Filter) -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; flex-wrap: wrap; gap: 10px;">
+      <div class="eyebrow">LATEST PROGRESS BREAKDOWN (BY TRADE)</div>
+      <div style="width: 200px;">
+        <select id="contractorBreakdownTradeFilter" onchange="filterContractorBreakdownTable()" style="width: 100%; padding: 6px; font-size: 11px; border-radius: 4px; border: 1px solid var(--line);">
+          <option value="ALL">All Trades</option>
+        </select>
+      </div>
+    </div>
+    <div class="table-wrap" style="margin-bottom: 32px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Main Scope</th><th>Subscope</th><th>Trade</th><th>Latest Month</th><th>Latest Planned %</th><th>Latest Actual %</th><th>Variation</th><th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="contractorBreakdownTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- LIVE SHEET HISTORY RECORDS -->
     <div class="eyebrow">LIVE SHEET HISTORY RECORDS (REAL-TIME FILTERED)</div>
     <div class="table-wrap">
       <table>
