@@ -365,7 +365,8 @@ function renderHistoryTable(data) {
 
 function handleProgressSubmit(e) {
   e.preventDefault();
-  const prjId = document.getElementById('pPrj').value || activeSelectedProjectCode;
+  // Prioritize the active authenticated project code
+  const prjId = activeSelectedProjectCode || document.getElementById('pPrj').value;
   const prjObj = baselineOverallData.find(o => o.id === prjId);
   const cadence = document.getElementById('pCadence').value;
 
@@ -398,6 +399,12 @@ function handleProgressSubmit(e) {
     }).then(() => {
       alert('Progress report recorded! Sent to Consultant for verification.');
       document.getElementById('formProgressUpdate').reset();
+      
+      // RESTORE ACTIVE PROJECT CODE AFTER FORM RESET
+      if (activeSelectedProjectCode) {
+        document.getElementById('pPrj').value = activeSelectedProjectCode;
+      }
+      
       fetchProjectMetadataAndHistory();
     });
   };
@@ -415,7 +422,8 @@ function handleProgressSubmit(e) {
 
 function handleMetadataSubmit(e) {
   e.preventDefault();
-  const prjId = document.getElementById('sPrj').value || activeSelectedProjectCode;
+  // Prioritize the active authenticated project code
+  const prjId = activeSelectedProjectCode || document.getElementById('sPrj').value;
   const prjObj = baselineOverallData.find(o => o.id === prjId);
   const mode = document.getElementById('sSetupAction').value;
 
@@ -450,7 +458,13 @@ function handleMetadataSubmit(e) {
     alert(mode === 'EDIT' 
       ? 'Schedule setup changes submitted! Pending Consultant verification and PDD approval.' 
       : 'New trade setup submitted! Pending Consultant verification and PDD approval.');
+    
     document.getElementById('formScheduleSetup').reset();
+    
+    // RESTORE ACTIVE PROJECT CODE & ACTION MODE AFTER FORM RESET
+    if (activeSelectedProjectCode) {
+      document.getElementById('sPrj').value = activeSelectedProjectCode;
+    }
     document.getElementById('sSetupAction').value = 'ADD';
     toggleScopeSetupAction();
     fetchProjectMetadataAndHistory();
