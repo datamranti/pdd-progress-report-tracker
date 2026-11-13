@@ -32,6 +32,7 @@ function showContractorProjectSelector() {
 function selectContractorActiveProject(prjId) {
   activeSelectedProjectCode = prjId;
   activeSelectedProjectName = getProjectNameById(prjId);
+  pddSetReportingMonths(prjId);
 
   document.getElementById('contractorProjectSelector').style.display = 'none';
   document.getElementById('contractorUnlockedArea').style.display = 'block';
@@ -417,7 +418,9 @@ function handleProgressSubmit(e) {
       body: JSON.stringify(payload)
     }).then(() => {
       alert('Progress report recorded! Sent to Consultant for verification.');
+      const reportedMonth = document.getElementById('pMonth').value;
       document.getElementById('formProgressUpdate').reset();
+      document.getElementById('pMonth').value = reportedMonth;
       if (activeSelectedProjectCode) {
         document.getElementById('pPrj').value = activeSelectedProjectCode;
       }
@@ -482,3 +485,4 @@ function handleMetadataSubmit(e) {
     fetchProjectMetadataAndHistory();
   });
 }
+

@@ -32,6 +32,7 @@ function showConsultantProjectSelector() {
 function selectConsultantActiveProject(prjId) {
   activeConsultantProjectCode = prjId;
   activeConsultantProjectName = getProjectNameById(prjId);
+  pddSetConsultantYears(prjId);
 
   document.getElementById('consultantProjectSelector').style.display = 'none';
   document.getElementById('consultantUnlockedArea').style.display = 'block';
@@ -159,3 +160,4 @@ function renderConsultantScopeTable() {
     </tr>
   `).join('');
 }
+
