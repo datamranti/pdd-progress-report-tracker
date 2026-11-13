@@ -34,7 +34,7 @@ function pddSetSummaryUnavailable() {
     if (element) element.textContent = '—';
   });
   const note = document.getElementById('kpiProjectCount');
-  if (note) note.textContent = 'Projects in portfolio';
+  if (note) note.textContent = 'All 8 Approved Projects';
 }
 
 function pddSummaryNumber(value, percent) {
@@ -73,7 +73,7 @@ function pddUpdatePortfolioSummary(rows) {
     ? (progress.reduce((a,b)=>a+b,0)/projects.length).toFixed(2) + '%' : '—';
   if (!valid) complete = false;
   const note = document.getElementById('kpiProjectCount');
-  if (note) note.textContent = 'All ' + projects.length + ' Projects';
+  if (note) note.textContent = 'All ' + projects.length + ' Approved Projects';
   return complete;
 }
 
