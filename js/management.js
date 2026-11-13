@@ -1,16 +1,82 @@
-// ==========================================================================
-// MRANTI Higher Management Portfolio & Scorecard Views
-// ==========================================================================
+// Project details and portfolio summary share the same live response.
+let pddOverallRequest = 0;
 
-function loadPage2Data() {
+async function loadPage2Data() {
+  const request = ++pddOverallRequest;
   showSkeletonRows('overallTableBody', 11, 4);
-  fetch(GOOGLE_SCRIPT_URL + "?action=getOverallDashboard")
-    .then(res => res.json())
-    .then(res => {
-      if (res.status === 'success' && res.data.length > 0) renderOverallTable(res.data);
-      else renderOverallTable(baselineOverallData);
-    }).catch(() => renderOverallTable(baselineOverallData));
+  pddSetSummaryUnavailable();
+  const status = document.getElementById('overallDataStatus');
+  if (status) status.textContent = 'Loading project details…';
+  try {
+    const response = await fetch(GOOGLE_SCRIPT_URL + '?action=getOverallDashboard', {cache:'no-store'});
+    if (!response.ok) throw new Error('Project request failed');
+    const result = await response.json();
+    if (request !== pddOverallRequest) return;
+    if (result.status !== 'success' || !Array.isArray(result.data) || !result.data.length) {
+      throw new Error('Project data unavailable');
+    }
+    renderOverallTable(result.data);
+    const complete = pddUpdatePortfolioSummary(result.data);
+    if (status) status.textContent = complete ? '' : 'Some summary figures are unavailable. Please review the project data.';
+  } catch (error) {
+    if (request !== pddOverallRequest) return;
+    pddSetSummaryUnavailable();
+    document.getElementById('overallTableBody').innerHTML =
+      '<tr><td colspan="11" style="text-align:center;">Unable to load project details. Refresh this view to try again.</td></tr>';
+    if (status) status.textContent = 'Project data could not be loaded.';
+    console.error('Project details:', error);
+  }
 }
+
+function pddSetSummaryUnavailable() {
+  ['kpiBudget','kpiCost','kpiPaid','kpiPending','kpiBalance','kpiProgress'].forEach(id => {
+    const element = document.getElementById(id);
+    if (element) element.textContent = '—';
+  });
+  const note = document.getElementById('kpiProjectCount');
+  if (note) note.textContent = 'All 8 Approved Projects';
+}
+
+function pddSummaryNumber(value, percent) {
+  if (value === null || value === undefined || String(value).trim() === '') return null;
+  if (typeof value === 'number') {
+    if (!Number.isFinite(value)) return null;
+    return percent ? value * 100 : value;
+  }
+  let text = String(value).trim();
+  const hasPercent = /%$/.test(text);
+  text = text.replace(/^RM\s*/i, '').replace(/,/g, '').replace(/%$/, '').trim();
+  if (!/^-?(?:\d+(?:\.\d*)?|\.\d+)$/.test(text)) return null;
+  const number = Number(text);
+  return percent && !hasPercent ? number * 100 : number;
+}
+
+function pddUpdatePortfolioSummary(rows) {
+  const projects = rows.filter(row => String(row['Project ID'] || '').trim());
+  if (!projects.length) throw new Error('No project IDs');
+  let complete = true;
+  const fields = {kpiBudget:'Approved Budget',kpiCost:'Project Cost',kpiPaid:'Paid to Date',
+    kpiPending:'Pending Claim',kpiBalance:'Budget Balance'};
+  Object.entries(fields).forEach(([id, field]) => {
+    const values = projects.map(row => pddSummaryNumber(row[field], false));
+    const element = document.getElementById(id);
+    if (values.some(value => value === null)) {complete = false; if (element) element.textContent = '—'; return;}
+    const sum = values.reduce((a,b) => a+b,0);
+    if (element) element.textContent = Math.abs(sum) >= 1000000
+      ? 'RM ' + (sum/1000000).toLocaleString('en-MY',{maximumFractionDigits:3}) + 'M'
+      : 'RM ' + sum.toLocaleString('en-MY',{minimumFractionDigits:2,maximumFractionDigits:2});
+  });
+  const progress = projects.map(row => pddSummaryNumber(row['Overall Actual Progress'], true));
+  const valid = progress.every(value => value !== null && value >= 0 && value <= 100);
+  const element = document.getElementById('kpiProgress');
+  if (element) element.textContent = valid
+    ? (progress.reduce((a,b)=>a+b,0)/projects.length).toFixed(2) + '%' : '—';
+  if (!valid) complete = false;
+  const note = document.getElementById('kpiProjectCount');
+  if (note) note.textContent = 'All ' + projects.length + ' Approved Projects';
+  return complete;
+}
+
 
 function renderOverallTable(data) {
   const tbody = document.getElementById('overallTableBody');
@@ -117,3 +183,4 @@ function calculateScorecardKPICards() {
   document.getElementById('kpiContractorAvg').innerText = (kValidCount > 0 ? (kSumAvg / kValidCount).toFixed(2) : '0.00') + " / 10";
   document.getElementById('kpiContractorNote').innerText = targetPrj.split(':')[0] + " Active Avg";
 }
+
