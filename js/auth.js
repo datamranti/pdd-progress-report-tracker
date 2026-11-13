@@ -67,6 +67,7 @@ async function processUserAuthorization(email) {
     spinner.style.display = 'none';
 
     if (data.status === 'success' && data.authorized) {
+      await loadPddPortalOptions();
       currentUserRole = data.role;
       setupRoleNavigation(currentUserRole, data.assignedProject);
     } else {
@@ -158,3 +159,4 @@ function logoutUI() {
   document.getElementById('appRule').style.display = 'none';
   switchPage('page1');
 }
+

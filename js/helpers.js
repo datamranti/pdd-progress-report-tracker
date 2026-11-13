@@ -3,10 +3,9 @@
 // ==========================================================================
 
 function parseAssignedProjects(assignedStr) {
-  if (!assignedStr || assignedStr.trim().toUpperCase() === "ALL") {
-    return ["PRJ-001", "PRJ-002", "PRJ-003", "PRJ-004", "PRJ-005", "PRJ-006", "PRJ-007", "PRJ-008"];
-  }
-  return assignedStr.split(",").map(p => p.trim().toUpperCase()).filter(Boolean);
+  const known = new Set(baselineOverallData.map(p => p.id));
+  if (String(assignedStr || '').trim().toUpperCase() === 'ALL') return [...known];
+  return [...new Set(String(assignedStr || '').split(',').map(p => p.trim().toUpperCase()).filter(p => known.has(p)))];
 }
 
 function getProjectNameById(prjId) {
@@ -137,3 +136,4 @@ function renderLatestBreakdownTable(targetId, data) {
     `;
   }).join('');
 }
+
