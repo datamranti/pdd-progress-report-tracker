@@ -35,8 +35,8 @@ async function loadPddLiveChart(containerId, statusId, projectId, year) {
     }
     const months = pddChartMonths(result.data, projectId, Number(year));
     container.innerHTML = pddChartMarkup(months, Number(year));
-    if (status) status.textContent = result.warnings && result.warnings.length
-      ? 'Some monthly records could not be read. Please ask PDD to review the source data.' : '';
+    if (status) status.textContent = '';
+    if (result.warnings && result.warnings.length) console.warn('Monthly source records skipped:', result.warnings);
   } catch (error) {
     if (pddChartRequests[containerId] !== request) return;
     container.innerHTML = '';
@@ -73,11 +73,13 @@ function pddChartMarkup(months, year) {
       const value = row[key];
       if (value === null) return '';
       const previous = i ? months[i-1][key] : 0;
+      const color = key === 'actual' ? 'var(--blue)' : 'var(--ink)';
+      const incrementColor = key === 'actual' ? 'var(--blue)' : 'var(--muted)';
       const increment = previous === null ? '' :
-        '<span style="display:block;font-size:7px;color:var(--muted);">(' +
-        (value-previous >= 0 ? '+' : '') + number(value-previous) + '%)</span>';
+        '<span style="display:block;font-size:7px;color:' + incrementColor + ';">(' +
+        (value-previous >= 0 ? '+' : '') + (value-previous).toFixed(1) + '%)</span>';
       return '<div class="scurve-' + (key === 'planned' ? 'plan' : 'act') + '" style="height:' + value + '%;">' +
-        '<div class="pct-tag">' + increment + number(value) + '%</div></div>';
+        '<div class="pct-tag" style="color:' + color + ';">' + increment + number(value) + '%</div></div>';
     }).join('');
     const plan = row.planned === null ? 'N/A' : number(row.planned) + '%';
     const actual = row.actual === null ? 'N/A' : number(row.actual) + '%';
